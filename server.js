@@ -39,7 +39,7 @@ app.use(cors());
 
 // Routes
 const authRoutes = require('./src/routes/authRoutes');
-app.use('/api/auth', authRoutes); // ต้องมีบรรทัดนี้!
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
     res.send('API is running...');
