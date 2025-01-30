@@ -58,28 +58,36 @@ const loginUser = async (req, res) => {
 
 const registerUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-
-        // เช็คว่า email นี้มีในระบบแล้วหรือยัง
-        let user = await User.findOne({ email });
-        if (user) {
-            return res.status(400).json({ message: "User already exists" });
-        }
-
-        // **เข้ารหัสรหัสผ่านก่อนบันทึก**
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        // บันทึก user
-        user = new User({ name, email, password: hashedPassword });
-        await user.save();
-
-        res.status(201).json({ message: "User registered successfully" });
-
+      const { name, email, password, role } = req.body;
+      
+      // Check if email already exists
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: 'User already exists' });
+      }
+  
+      // Create a new user
+      const newUser = new User({
+        name,
+        email,
+        password,
+        role: role || 'customer', // ถ้าไม่มี role ให้เป็น 'customer' โดยปริยาย
+      });
+  
+      // Save user to database
+      await newUser.save();
+  
+      // Generate JWT token
+      const token = jwt.sign({ userId: newUser._id, role: newUser.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  
+      res.status(201).json({
+        message: 'User registered successfully',
+        token
+      });
     } catch (error) {
-        res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: 'Server error', error });
     }
-};
+  };
 
 // const registerUser = async (req, res) => {
 //     const { name, email, password } = req.body;
