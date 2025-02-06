@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     default: 'customer',
-  }
+  },
+  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }]
 });
 
 userSchema.pre('save', async function(next) {
