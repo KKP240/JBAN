@@ -53,6 +53,14 @@ app.use('/api/orders', orderRoutes);
 const userRoutes = require('./src/routes/userRoutes');
 app.use('/api/user', userRoutes);
 
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, 'src/views'))); // กำหนด static folder
+
+// เสิร์ฟไฟล์ HTML เป็นหน้าแรก
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/views', 'index.html'));
+});
 
 app.get('/', (req, res) => {
     res.send('API is running...');
