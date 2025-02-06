@@ -47,6 +47,9 @@ app.use('/api/products', productRoutes);
 const cartRoutes = require('./src/routes/cartRoutes');
 app.use('/api/cart', cartRoutes);
 
+const orderRoutes = require('./src/routes/orderRoutes');
+app.use('/api/orders', orderRoutes);
+
 
 app.get('/', (req, res) => {
     res.send('API is running...');

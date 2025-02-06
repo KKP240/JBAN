@@ -5,12 +5,12 @@ const authMiddleware = require('../middlewares/authMiddleware'); // ป้อง
 const router = express.Router();
 
 // ✅ API สำหรับ Admin (ต้องใช้ Token)
-router.post('/products', authMiddleware, createProduct);
-router.put('/products/:id', authMiddleware, updateProduct);
-router.delete('/products/:id', authMiddleware, deleteProduct);
+router.post('/', authMiddleware, createProduct);
+router.put('/:id', authMiddleware, updateProduct);
+router.delete('/:id', authMiddleware, deleteProduct);
 
 // ✅ API สำหรับ User (ไม่ต้องใช้ Token)
-router.get('/products', getProducts);
-router.get('/products/:id', getProductById);
+router.get('/', getProducts);
+router.get('/:id', getProductById);
 
 module.exports = router;
