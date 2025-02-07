@@ -55,16 +55,18 @@ app.use('/api/user', userRoutes);
 
 const path = require('path');
 
-app.use(express.static(path.join(__dirname, 'src/views'))); // กำหนด static folder
+app.use(express.static(path.join(__dirname, 'src/views')));
 
-// เสิร์ฟไฟล์ HTML เป็นหน้าแรก
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src/views', 'index.html'));
-});
-
-app.get('/', (req, res) => {
+// API Route
+app.get('/api', (req, res) => {
     res.send('API is running...');
 });
+
+// ให้ `/` เสิร์ฟ login-page.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/views', 'login-page.html'));
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

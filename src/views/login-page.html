@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Log in</title>
     <link rel="stylesheet" href="login-page.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,11 +40,35 @@
                     </div>
                     <div>
                         <span class="textgray">Don't have an account?</span>
-                        <a href="" class="textblue">Register now</a>
+                        <a href="/register.html" class="textblue">Register now</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.querySelector("form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            
+            const response = await fetch("http://localhost:5000/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+    
+            const data = await response.json();
+            
+            if (response.ok) {
+                alert("เข้าสู่ระบบ!");
+                localStorage.setItem("token", data.token); // เก็บ token ใน localStorage
+                window.location.href = "/dashboard.html"; // เปลี่ยนหน้า
+            } else {
+                alert("Error: " + data.message);
+            }
+        });
+    </script>
 </body>
 </html>
