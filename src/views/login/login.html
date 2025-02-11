@@ -3,28 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Log in</title>
+
     <link rel="stylesheet" href="style.css" />
     <script defer src="script.js"></script>
+    <title>Login</title>
   </head>
   <body>
-    <div class="container">
-      <div class="left">
+    <div class="login">
+      <div class="login__left">
         <img src="../images/login-leftside.png" alt="img-left" />
       </div>
-      <div class="right">
+      <div class="login__right">
         <div class="form">
-          <div class="form-top">
-            <div>Welcome to <span class="textblue">JPBAN</span></div>
+          <div class="form__top">
+            <div>Welcome to <span class="text-blue">JPBAN</span></div>
           </div>
           <form action="">
-            <div class="form-center">
+            <div class="form__body">
               <div class="input-group">
-                <img src="../icon/user-circle.svg" alt="icon-user" />
+                <img
+                  src="../icon/user-circle.svg"
+                  alt="icon-user"
+                  class="icon"
+                />
                 <input type="email" id="email" placeholder="Email" required />
               </div>
               <div class="input-group">
-                <img src="../icon/lock.svg" alt="icon-password" />
+                <img src="../icon/lock.svg" alt="icon-password" class="icon" />
                 <input
                   type="password"
                   id="password"
@@ -32,25 +37,22 @@
                   required
                 />
               </div>
-              <div class="form-center-btn">
+              <div class="form__body-btn">
                 <button type="submit">Login</button>
               </div>
             </div>
           </form>
-          <div class="form-bottom">
+          <div class="form__footer">
             <div class="or-line">
               <span class="or">or</span>
             </div>
             <div>
-              <span class="textgray">Don't have an account?</span>
-              <a href="../register/register.html" class="textblue"
-                >Register now</a
-              >
+              <span class="text-gray">Don't have an account?</span>
+              <a href="../register/register.html" class="link">Register now</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <script></script>
   </body>
 </html>
