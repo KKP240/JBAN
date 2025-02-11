@@ -6,7 +6,6 @@
 // const connectDB = require('./src/config/db');
 // dotenv.config();
 
-
 // const app = express();
 // app.use(express.json());
 // app.use(cors());
@@ -20,15 +19,13 @@
 //     res.send('Welcome to Clothing Store API');
 // });
 
-
-
 // const PORT = process.env.PORT || 5000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./src/config/db');
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./src/config/db");
 
 const app = express();
 connectDB();
@@ -38,35 +35,35 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-const authRoutes = require('./src/routes/authRoutes');
-app.use('/api/auth', authRoutes);
+const authRoutes = require("./src/routes/authRoutes");
+app.use("/api/auth", authRoutes);
 
-const productRoutes = require('./src/routes/productRoutes');
-app.use('/api/products', productRoutes);
+const productRoutes = require("./src/routes/productRoutes");
+app.use("/api/products", productRoutes);
 
-const cartRoutes = require('./src/routes/cartRoutes');
-app.use('/api/cart', cartRoutes);
+const cartRoutes = require("./src/routes/cartRoutes");
+app.use("/api/cart", cartRoutes);
 
-const orderRoutes = require('./src/routes/orderRoutes');
-app.use('/api/orders', orderRoutes);
+const orderRoutes = require("./src/routes/orderRoutes");
+app.use("/api/orders", orderRoutes);
 
-const userRoutes = require('./src/routes/userRoutes');
-app.use('/api/user', userRoutes);
+const userRoutes = require("./src/routes/userRoutes");
+app.use("/api/user", userRoutes);
 
-const path = require('path');
+const path = require("path");
 
-app.use(express.static(path.join(__dirname, 'src/views')));
+app.use(express.static(path.join(__dirname, "src/views")));
+app.use(express.static(path.join(__dirname, "src/views/login")));
 
 // API Route
-app.get('/api', (req, res) => {
-    res.send('API is running...');
+app.get("/api", (req, res) => {
+  res.send("API is running...");
 });
 
 // ให้ `/` เสิร์ฟ login-page.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src/views', 'login-page.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "src/views", "login/login.html"));
 });
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
