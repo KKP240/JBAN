@@ -20,22 +20,39 @@
           </div>
           <form action="">
             <div class="form__body">
-              <div class="input-group">
-                <img
-                  src="../icon/user-circle.svg"
-                  alt="icon-user"
-                  class="icon"
-                />
-                <input type="email" id="email" placeholder="Email" required />
+              <div class="group-form-el">
+                <div class="input-group">
+                  <img
+                    src="../icon/user-circle.svg"
+                    alt="icon-user"
+                    class="icon"
+                  />
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    class="input-email"
+                    required
+                  />
+                </div>
+                <div class="eror">&nbsp;</div>
               </div>
-              <div class="input-group">
-                <img src="../icon/lock.svg" alt="icon-password" class="icon" />
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Password"
-                  required
-                />
+              <div class="group-form-el">
+                <div class="input-group">
+                  <img
+                    src="../icon/lock.svg"
+                    alt="icon-password"
+                    class="icon"
+                  />
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    class="input-password"
+                    required
+                  />
+                </div>
+                <div class="eror">&nbsp;</div>
               </div>
               <div class="form__body-btn">
                 <button type="submit">Login</button>

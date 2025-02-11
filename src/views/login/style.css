@@ -47,6 +47,13 @@ body {
   text-decoration: underline;
 }
 
+.eror {
+  color: #ff0000;
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
 .login {
   display: flex;
   align-items: center;
@@ -92,12 +99,18 @@ body {
 .form__body {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
   width: 100%;
+}
+
+.group-form-el {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .input-group {
   display: flex;
+  flex-direction: column;
   position: relative;
   width: 100%;
 }
@@ -105,7 +118,7 @@ body {
 .input-group input {
   border: none;
   border-bottom: 1px solid #cecece;
-  padding: 1.6rem 0 1.6rem 4rem;
+  padding: 1.4rem 0 1.4rem 4rem;
   width: 100%;
   font-size: 1.6rem;
   transition: all 0.3s;
@@ -132,7 +145,7 @@ body {
 .form__body-btn {
   display: flex;
   justify-content: center;
-  margin: 1.6rem;
+  margin: 3rem 0;
 }
 
 .form__body button {
