@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const authMiddleware = require("../middlewares/authMiddleware");
+const { getAllUsers } = require('../controllers/userController');
 
 // 📌 API เพิ่มสินค้าลง Favourite
 router.post("/favorites/:productId", authMiddleware, async (req, res) => {
@@ -30,5 +31,8 @@ router.get("/favorites", authMiddleware, async (req, res) => {
     res.status(500).json({ message: "Server error", error });
   }
 });
+
+// Route สำหรับดึงข้อมูลผู้ใช้ทั้งหมด
+router.get('/', getAllUsers);
 
 module.exports = router;
