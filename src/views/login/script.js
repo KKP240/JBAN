@@ -32,12 +32,12 @@ const processForm = async function (e) {
     if (data.message === "This email is not registered") {
       const curEl =
         document.querySelector(".input-email").parentNode.nextElementSibling;
-      curEl.textContent = data.message;
+      curEl.textContent = "อีเมลนี้ยังไม่ได้ลงทะเบียน";
     }
     if (data.message === "Invalid email or password") {
       const curEl =
         document.querySelector(".input-password").parentNode.nextElementSibling;
-      curEl.textContent = data.message;
+      curEl.textContent = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
     }
   }
 };

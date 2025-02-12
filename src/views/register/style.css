@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
   font-size: 62.5%;
 }
@@ -9,15 +15,14 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  backdrop-filter: blur(5px);
+  height: 100vh;
+  font-family: "Inter", serif;
+  font-size: 1.6rem;
+  font-weight: 300;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  user-select: none;
-  pointer-events: none;
-  backdrop-filter: blur(5px);
 }
 
 .box {
@@ -25,19 +30,19 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 15px;
-  width: 350px;
+  gap: 1.5rem;
+  width: 45rem;
   background: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 4rem;
+  border-radius: 5px;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
   border-left: 5px solid #00aaff;
-  pointer-events: auto;
 }
 
 h1 {
-  font-weight: normal;
-  margin: 0 0 20px 0;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  text-align: center;
 }
 
 .input-group {
@@ -48,71 +53,79 @@ h1 {
   display: flex;
   align-items: center;
   width: 100%;
-  border-bottom: 1px solid #cfcfcf;
-  position: relative;
+  border-bottom: 1px solid transparent;
   padding-bottom: 5px;
+  position: relative;
 }
 
 .input-container img {
   position: absolute;
-  left: 10px;
-  width: 24px;
-  height: 24px;
-  pointer-events: none;
+  top: 50%;
+  left: 0;
+  transform: translateY(-55%);
+  width: 3.2rem;
+  height: 100%;
 }
 
 .ac {
   width: 100%;
-  padding: 12px 0 13px 45px;
-  font-size: 16px;
+  padding: 1.4rem 0 1.4rem 4.5rem;
+  font-size: 1.6rem;
   border: none;
+  border-bottom: 1px solid #cfcfcf;
   background: transparent;
-  outline: none;
+  transition: all 0.3s;
 }
 
 .ac::placeholder {
-  color: #cfcfcf;
+  color: #cecece;
+  font-weight: 300;
+}
+
+.ac:focus {
+  border-bottom: 1px solid #00aaff;
+  outline: none;
 }
 
 .error-message {
-  color: #ff3333;
-  font-size: 12px;
+  color: #f70000;
+  font-size: 1.2rem;
   margin-top: 5px;
-  min-height: 15px;
+  min-height: 1.5rem;
 }
 
 button {
-  padding: 10px;
-  font-size: 13px;
-  width: 100px;
+  padding: 1.2rem;
+  font-size: 1.8rem;
+  width: 12rem;
   background: #000000;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
-  margin-top: 30px;
-  letter-spacing: 1px;
+  margin-top: 3rem;
 }
 
 button:hover {
-  background: #0056b3;
+  background: #00aaff;
 }
 
 .extra-text {
-  font-size: 14px;
-  color: #555;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #919191;
   text-align: center;
-  border-top: 1px solid #eee;
-  padding-top: 15px;
-  margin-top: 15px;
+  border-top: 1px solid #cecece;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
   width: 100%;
 }
 
 .extra-text a {
   color: #00aaff;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .extra-text a:hover {
@@ -128,6 +141,7 @@ button:hover {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
   align-items: center;
   justify-content: center;
   pointer-events: auto;
@@ -136,31 +150,52 @@ button:hover {
 
 .modal-content {
   background-color: white;
-  padding: 30px;
-  border-radius: 10px;
+  padding: 3rem;
+  border-radius: 5px;
   text-align: center;
   position: relative;
-  width: 300px;
+  width: 30rem;
   border-left: 5px solid #2acc09;
 }
 
 .success-message {
   color: #2acc09;
-  font-size: 25px;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .modal-button {
   background: #2acc09;
   color: white;
-  padding: 10px 20px;
+  padding: 1rem 2rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1.4rem;
   transition: 0.3s;
 }
 
 .modal-button:hover {
   background: #229b07;
+}
+
+@media screen and (max-width: 75em) {
+  html {
+    font-size: 58%;
+  }
+}
+
+@media screen and (max-width: 56.25em) {
+  html {
+    font-size: 54%;
+  }
+}
+
+@media screen and (max-width: 37.5em) {
+  html {
+    font-size: 50%;
+  }
+  .box {
+    margin: 0 2rem;
+  }
 }
