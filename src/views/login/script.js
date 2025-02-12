@@ -2,6 +2,9 @@
 
 // Selecting Elements
 const formEl = document.querySelector("form");
+const modalEl = document.querySelector(".modal");
+const modalBtn = document.querySelector(".modal-button");
+const modalContent = document.querySelector(".modal-content");
 
 ///////////////////////////////////////////////////////
 
@@ -21,9 +24,9 @@ const processForm = async function (e) {
   const data = await response.json();
 
   if (response.ok) {
-    alert("เข้าสู่ระบบ!");
+    modalEl.classList.add("open-modal");
+    modalContent.classList.add("open-content-modal");
     localStorage.setItem("token", data.token); // เก็บ token ใน localStorage
-    window.location.href = "/index.html"; // เปลี่ยนหน้า
   }
 
   if (!response.ok) {
@@ -44,7 +47,20 @@ const processForm = async function (e) {
 
 ///////////////////////////////////////////////////////
 
+// Change page to home
+const goToHome = function () {
+  // hidden modal
+  modalContent.classList.remove("open-content-modal");
+  modalEl.classList.remove("open-modal");
+
+  // เปลี่ยนหน้าไป Home
+  window.location.href = "/home.html";
+};
+
+///////////////////////////////////////////////////////
+
 // Add event listener
 formEl.addEventListener("submit", processForm);
+modalBtn.addEventListener("click", goToHome);
 
 ///////////////////////////////////////////////////////
