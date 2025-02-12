@@ -6,38 +6,28 @@ async function validateForm() {
 
   clearErrors();
 
-  let isValid = true;
-
   if (!account.value) {
     showError("account-error", "กรุณากรอกชื่อผู้ใช้");
-    isValid = false;
   } else if (account.value.length > 20) {
     showError("account-error", "ชื่อผู้ใช้ต้องไม่เกิน 20 ตัวอักษร");
-    isValid = false;
   }
 
   if (!email.value) {
     showError("email-error", "กรุณากรอกอีเมล");
-    isValid = false;
   } else if (!isValidEmail(email.value)) {
     showError("email-error", "กรุณากรอกอีเมลให้ถูกต้อง");
-    isValid = false;
   }
 
   if (!password.value) {
     showError("password-error", "กรุณากรอกรหัสผ่าน");
-    isValid = false;
   } else if (password.value.length < 8) {
     showError("password-error", "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
-    isValid = false;
   }
 
   if (!rePassword.value) {
     showError("repassword-error", "กรุณายืนยันรหัสผ่าน");
-    isValid = false;
   } else if (password.value !== rePassword.value) {
     showError("repassword-error", "รหัสผ่านไม่ตรงกัน");
-    isValid = false;
   }
 
   try {
@@ -55,10 +45,19 @@ async function validateForm() {
     if (response.ok) {
       document.getElementById("successModal").style.display = "flex";
     } else {
-      alert("สมัครสมาชิกไม่สำเร็จ: " + data.message);
+      const el = document.querySelector("#email");
+      const curEl = el.parentNode.nextElementSibling;
+
+      if (data.message !== "Server error") {
+        if (curEl.textContent === "") {
+          showError("email-error", "อีเมลนี้มีอยู่แล้ว");
+        }
+      } else {
+        console.error(data.message);
+      }
     }
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error:", error.message);
     alert("เกิดข้อผิดพลาดในการเชื่อมต่อ API");
   }
 }
@@ -82,11 +81,15 @@ function showModal() {
   document.getElementById("successModal").style.display = "flex";
 }
 
-function closeModal() {
-  document.getElementById("successModal").style.display = "none";
-  // Optional: Clear form after successful submission
+function clearInput() {
   document.getElementById("account").value = "";
   document.getElementById("email").value = "";
   document.getElementById("password").value = "";
   document.getElementById("re-password").value = "";
+}
+
+function closeModal() {
+  document.getElementById("successModal").style.display = "none";
+  // Optional: Clear form after successful submission
+  clearInput();
 }

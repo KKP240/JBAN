@@ -1,14 +1,48 @@
 ///////////////////////////////////////////////////////
 
 // Selecting Elements
-const formEl = document.querySelector("form");
 const modalEl = document.querySelector(".modal");
-const modalBtn = document.querySelector(".modal-button");
 const modalContent = document.querySelector(".modal-content");
 
 ///////////////////////////////////////////////////////
 
-// Check form data
+// Show modal
+const showModal = function () {
+  modalEl.classList.add("open-modal");
+  modalContent.classList.add("open-content-modal");
+};
+
+///////////////////////////////////////////////////////
+
+// Hidden modal
+const hiddenModal = function () {
+  modalContent.classList.remove("open-content-modal");
+  modalEl.classList.remove("open-modal");
+};
+
+///////////////////////////////////////////////////////
+
+// Show eror
+const showEror = function (data) {
+  document.querySelectorAll(".eror").forEach((e) => (e.innerHTML = "&nbsp;"));
+
+  const erorEmail =
+    document.querySelector(".input-email").parentNode.nextElementSibling;
+  const erorPassword =
+    document.querySelector(".input-password").parentNode.nextElementSibling;
+
+  if (data.message === "This email is not registered") {
+    erorEmail.textContent = "อีเมลนี้ยังไม่ได้ลงทะเบียน";
+  }
+
+  if (data.message === "Invalid email or password") {
+    erorPassword.textContent = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+  }
+};
+
+///////////////////////////////////////////////////////
+
+// Process login
 const processForm = async function (e) {
   e.preventDefault();
 
@@ -24,24 +58,12 @@ const processForm = async function (e) {
   const data = await response.json();
 
   if (response.ok) {
-    modalEl.classList.add("open-modal");
-    modalContent.classList.add("open-content-modal");
+    showModal();
     localStorage.setItem("token", data.token); // เก็บ token ใน localStorage
   }
 
   if (!response.ok) {
-    document.querySelectorAll(".eror").forEach((e) => (e.innerHTML = "&nbsp;"));
-
-    if (data.message === "This email is not registered") {
-      const curEl =
-        document.querySelector(".input-email").parentNode.nextElementSibling;
-      curEl.textContent = "อีเมลนี้ยังไม่ได้ลงทะเบียน";
-    }
-    if (data.message === "Invalid email or password") {
-      const curEl =
-        document.querySelector(".input-password").parentNode.nextElementSibling;
-      curEl.textContent = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
-    }
+    showEror(data);
   }
 };
 
@@ -49,9 +71,7 @@ const processForm = async function (e) {
 
 // Change page to home
 const goToHome = function () {
-  // hidden modal
-  modalContent.classList.remove("open-content-modal");
-  modalEl.classList.remove("open-modal");
+  hiddenModal();
 
   // เปลี่ยนหน้าไป Home
   window.location.href = "/home.html";
@@ -60,7 +80,7 @@ const goToHome = function () {
 ///////////////////////////////////////////////////////
 
 // Add event listener
-formEl.addEventListener("submit", processForm);
-modalBtn.addEventListener("click", goToHome);
+document.querySelector("form").addEventListener("submit", processForm);
+document.querySelector(".modal-button").addEventListener("click", goToHome);
 
 ///////////////////////////////////////////////////////
