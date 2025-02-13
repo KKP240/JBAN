@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    font-family: "Inter", serif;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+    border-bottom: 1px solid rgb(185, 185, 185);
+    overflow: hidden;
+    margin: 0;
+    padding-left: 35px;
+    padding-right: 35px;
+    top: 0;
+    position: sticky;
+    background-color: white;
+
+}
+
+li {
+    display: flex;
+    align-items: center;
+}
+
+li a {
+    display: flex;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    font-size: 22px;
+    padding: 25px 5px;
+}
+
+li a.search {
+    all: initial;
+    cursor: pointer;
+}
+
+li a.logo {
+    font-size: 24px;
+    margin-left: 10px;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="text"]:focus {
+    width: 300px;
+    height: 10px;
+    border: hidden;
+    outline: none;
+    text-indent: 10px;
+}
+
+input::placeholder {
+    font-size: 12px;
+}
+
+li label {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(185, 185, 185);
+    border-radius: 5px;
+    padding: 1px;
+}
+
+li svg {
+    float: right;
+    padding: 10px;
+}
+
+div.navpart1,
+div.navpart2,
+div.navpart3 {
+    display: flex;
+}
+
+div.navpart1 {
+    gap: 30px;
+}
+
+div.navpart2 {
+    gap: 60px;
+    margin-left: 10%;
+    font-weight: 400;
+}
