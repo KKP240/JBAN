@@ -45,17 +45,21 @@ li a.logo {
     font-weight: bold;
 }
 
-input[type="text"],
-input[type="text"]:focus {
+input[type="text"] {
     width: 300px;
-    height: 10px;
+    height: 30px;
     border: hidden;
     outline: none;
     text-indent: 10px;
+    font-size: 14px;
+}
+
+input[type="text"]:focus {
+    border: none;
 }
 
 input::placeholder {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 li label {
@@ -64,6 +68,10 @@ li label {
     border: 1px solid rgb(185, 185, 185);
     border-radius: 5px;
     padding: 1px;
+}
+
+li label:focus-within {
+    outline: 2px solid #000000;
 }
 
 li svg {
