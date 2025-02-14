@@ -52,8 +52,17 @@ app.use("/api/user", userRoutes);
 
 const path = require("path");
 
-app.use(express.static(path.join(__dirname, "src/views")));
-app.use(express.static(path.join(__dirname, "src/views/login")));
+app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public/css")));
+// app.use(express.static(path.join(__dirname, "public/icon")));
+// app.use(express.static(path.join(__dirname, "public/images")));
+// app.use(express.static(path.join(__dirname, "public/js")));
+
+
+
+// Views and ejs
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src/views"));
 
 // API Route
 app.get("/api", (req, res) => {
@@ -66,16 +75,15 @@ app.get("/api", (req, res) => {
 // });
 
 app.get("/", (req, res) => {
-  // เมื่อเข้า http://localhost:5000/ ให้ส่ง login.html
-  res.sendFile(path.join(__dirname, "src/views/login", "login.html"));
+  res.render("login");
 });
 
 app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "src/views/login", "login.html"));
+  res.render("login");
 });
 
 app.get("/register", (req, res) => {
-  res.sendFile(path.join(__dirname, "src/views/register", "register.html"));
+  res.render("register");
 });
 
 const PORT = process.env.PORT || 5000;
