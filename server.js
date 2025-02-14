@@ -62,8 +62,21 @@ app.get("/api", (req, res) => {
 });
 
 // ให้ `/` เสิร์ฟ login-page.html
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "src/views", "login/login.html"));
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "src/views", "login/login.html"));
+// });
+
+app.get('/', (req, res) => {
+  // เมื่อเข้า http://localhost:5000/ ให้ส่ง login.html
+  res.sendFile(path.join(__dirname, 'src/views/login', 'login.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src/views/login', 'login.html'));
+});
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src/views/register', 'register.html'));
 });
 
 const PORT = process.env.PORT || 5000;
