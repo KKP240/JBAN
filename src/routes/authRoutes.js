@@ -20,5 +20,6 @@ router.get('/profile', authMiddleware, (req, res) => {
 });
 router.post('/register', registerUser);
 router.post('/login', loginUser);
+router.get("/me", authMiddleware, me);
 
 module.exports = router;

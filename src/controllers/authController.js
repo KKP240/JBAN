@@ -89,6 +89,16 @@ const registerUser = async (req, res) => {
     }
   };
 
+  const me = async (req, res) => {
+    try {
+      // req.user ถูกผูกไว้จาก authMiddleware
+      const user = await User.findById(req.user.userId).select("name email");
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: "Server error" });
+    }
+  };
+
 // const registerUser = async (req, res) => {
 //     const { name, email, password } = req.body;
 //     const userExists = await User.findOne({ email });
