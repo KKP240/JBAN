@@ -111,5 +111,5 @@ const registerUser = async (req, res) => {
 //     res.status(201).json({ message: 'User registered successfully' });
 // };
 
-module.exports = { registerUser, loginUser };
+module.exports = { registerUser, loginUser, me };
 
