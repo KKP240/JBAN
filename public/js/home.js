@@ -25,14 +25,23 @@ const fetchUserProfile = async function () {
                                 </ul>
                             </div>
                         </div>`;
+    document.querySelector(".username").addEventListener("click", openDropdown);
+    window.addEventListener("click", closeDropdownWindow);
   }
 
   if (!response.ok) {
     userEl.innerHTML = `<a href="/login" class="btn-login">เข้าสู่ระบบ</a>`;
   }
+};
 
-  document.querySelector(".username").addEventListener("click", openDropdown);
-  window.addEventListener("click", closeDropdownWindow);
+const fetchProduct = async function () {
+  try {
+    const res = await fetch("http://localhost:5000/api/products");
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 ///////////////////////////////////////////////////////
@@ -58,5 +67,5 @@ const closeDropdownWindow = function (e) {
 // Window load
 window.addEventListener("DOMContentLoaded", () => {
   fetchUserProfile();
-  document.body.style = "block";
+  fetchProduct();
 });

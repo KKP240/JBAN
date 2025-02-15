@@ -11,6 +11,7 @@
   position: sticky;
   background-color: white;
   padding: 2rem 3rem;
+  z-index: 1000;
 }
 
 .nav__item {
@@ -89,6 +90,7 @@ div.navpart1,
 div.navpart2,
 div.navpart3 {
   display: flex;
+  align-items: center;
 }
 
 div.navpart1 {
@@ -110,6 +112,10 @@ div.navpart2 {
 
 .navpart3 .nav__item a:hover > svg {
   fill: #00aaff;
+}
+
+.user {
+  width: 100%;
 }
 
 .user svg {
@@ -148,15 +154,11 @@ div.navpart2 {
   padding: 1rem 2.5rem;
   border-radius: 5px;
   transition: all 0.3s;
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
 }
 
 .btn-login:hover {
-  transform: scale(1.025);
-}
-
-.btn-login:active {
-  transform: scale(0.975);
+  background-color: #00aaff;
+  color: #fff;
 }
 
 .drop-menu {
