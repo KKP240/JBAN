@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ประวัติการสั่งซื้อ</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/history.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <%- include("navbar"); %>
+
+    <div class="container">
+        <div class="return">
+            <a href="">
+                <svg width="21" height="26" viewBox="0 0 21 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 13L20.25 0.00961876V25.9904L0 13Z" fill="#00AAFF"/>
+                </svg>
+                <span>กลับไปยังหน้าแรก</span>
+            </a>
+        </div>
+            
+        <div class="main-content">
+            <div class="topic">ประวัติการสั่งซื้อ</div>
+
+            <!-- repeat แต่ละ order ใน order-card -->
+            <div class="order-card">
+
+                <div class="order-details">
+                    <div>
+                        <span>เลขคำสั่งซื้อ</span><br>
+                        <span class="opacity-color">abc-defg-hij-klmn-opqrs-tuv-wxyz</span>
+                    </div>
+                    <div>
+                        <span>วันที่สั่งซื้อ</span><br>
+                        <span class="opacity-color">00-00-0000</span>
+                    </div>
+                </div>
+
+                <!-- repeat สินค้าที่ซื้อ ใน product-card -->
+                <div class="product-card">
+                    <div class="left">
+                        <div class="product-images">
+                            <img src="images/login-leftside.png" alt="">
+                        </div>
+                        <div>
+                            <div class="product-name">เสื้อยืด - แขนยาว</div>
+                            <div class="opacity-color">สี เขียว</div>
+                            <div class="opacity-color">ไซส์ M</div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="product-price">60 บาท</div>
+                        <div class="opacity-color">1 ชิ้น</div>
+                    </div>
+                </div>
+
+                <!-- repeat สินค้าที่ซื้อ ใน product-card -->
+                <div class="product-card">
+                    <div class="left">
+                        <div class="product-images">
+                            <img src="images/background.jpg" alt="">
+                        </div>
+                        <div>
+                            <div class="product-name">เสื้อยืด - แขนยาว</div>
+                            <div class="opacity-color">สี เขียว</div>
+                            <div class="opacity-color">ไซส์ M</div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="product-price">60 บาท</div>
+                        <div class="opacity-color">1 ชิ้น</div>
+                    </div>
+                </div>
+
+                <div class="total">
+                    <span class="opacity-color">ราคารวมทั้งหมด :</span>
+                    <span class="total-price">60 บาท</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <%- include("footer"); %>
+</body>
+</html>
