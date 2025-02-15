@@ -74,7 +74,7 @@ const goToHome = function () {
   hiddenModal();
 
   // เปลี่ยนหน้าไป Home
-  window.location.href = "/home.html";
+  window.location.href = "/home";
 };
 
 ///////////////////////////////////////////////////////
