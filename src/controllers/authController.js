@@ -92,7 +92,7 @@ const registerUser = async (req, res) => {
   const me = async (req, res) => {
     try {
       // req.user ถูกผูกไว้จาก authMiddleware
-      const user = await User.findById(req.user.userId).select("name email");
+      const user = await User.findById(req.user.userId);
       res.json(user);
     } catch (error) {
       res.status(500).json({ message: "Server error" });
