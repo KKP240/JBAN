@@ -18,16 +18,16 @@ const fetchUserProfile = async function () {
                                   </path>
                               </svg>
                               <div>${user.name}</div>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256" class="drop-menu__icon">
+                                  <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                  </path>
+                              </svg>
                               <div class="drop-menu">
                                   <ul class="drop-menu__list">
                                       <li class="drop-menu__item"><a href="/orderHistory" class="drop-menu__link">ประวัติคำสั่งซื้อ</a></li>
                                       <li class="drop-menu__item"><a href="/logout" class="drop-menu__link">ออกจากระบบ</a></li>
                                   </ul>
                               </div>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256" class="drop-menu__icon">
-                                  <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
-                                  </path>
-                              </svg>
                           </div>`;
     document.querySelector(".username").addEventListener("click", openDropdown);
     window.addEventListener("click", closeDropdownWindow);

@@ -58,6 +58,7 @@ input[type="text"] {
   outline: none;
   text-indent: 10px;
   font-size: 14px;
+  font-family: "Kanit", serif;
 }
 
 input[type="text"]:focus {
@@ -164,8 +165,8 @@ div.navpart2 {
   position: absolute;
   bottom: 0;
   left: -1px;
-  transform: translateY(93%);
-  transition: all 0.2s;
+  transform: translateY(90%);
+  /* transition: all 0.2s; */
   z-index: 1000;
   width: 100.75%;
   background-color: #fff;

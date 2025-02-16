@@ -10,29 +10,33 @@ const fetchProduct = async function () {
     <div class="product__item" data-type="${d.category}" data-stock="${d.stock}" data-id="${d._id}" data-create="${d.createdAt}" data-update="${d.updatedAt}">
       <div class="product__con-img">
         <img src="https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/68ef016b7946bcd32035a30c40e23f9209c53261_xxl-1.jpg" alt="img-product" class="product__img" />
+        <div class="percent">-50%</div>
       </div>
       <div class="product__content">
         <div class="product__content-heading">
           <h3 class="heading-product">${d.name}</h3>
           <img src="/icon/heart.svg" alt="heart" class="product__fav" data-state="not-fill" >
         </div>
-        <div class="product__content-price">${d.price} บาท</div>
+        <div class="product__content-price">${d.price} บาท <span class="discount">&nbsp;</span></div>
         <div class="product__content-rating">
-          <input type="radio" id="star5" name="rating" value="5" /><label
+          <div class="rating">
+            <input type="radio" id="star5" name="rating" value="5" /><label
             for="star5"
-          ></label>
-          <input type="radio" id="star4" name="rating" value="4" /><label
+            ></label>
+            <input type="radio" id="star4" name="rating" value="4" /><label
             for="star4"
-          ></label>
-          <input type="radio" id="star3" name="rating" value="3" /><label
+            ></label>
+            <input type="radio" id="star3" name="rating" value="3" /><label
             for="star3"
-          ></label>
-          <input type="radio" id="star2" name="rating" value="2" /><label
+            ></label>
+            <input type="radio" id="star2" name="rating" value="2" /><label
             for="star2"
-          ></label>
-          <input type="radio" id="star1" name="rating" value="1" /><label
+            ></label>
+            <input type="radio" id="star1" name="rating" value="1" /><label
             for="star1"
-          ></label>
+            ></label>
+          </div>
+          <div class="rating-count">(0 rating)</div>
         </div>
       </div>
     </div>`;

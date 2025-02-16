@@ -68,6 +68,7 @@ h1 {
 }
 
 .ac {
+  font-family: "Kanit", serif;
   width: 100%;
   padding: 1.4rem 0 1.4rem 4.5rem;
   font-size: 1.6rem;
@@ -95,6 +96,7 @@ h1 {
 }
 
 button {
+  font-family: "Kanit", serif;
   padding: 1.2rem;
   font-size: 1.8rem;
   width: 12rem;

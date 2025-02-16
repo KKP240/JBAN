@@ -59,7 +59,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100rem;
-  height: 50rem;
+  height: 52rem;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
@@ -89,6 +89,10 @@ body {
 
 .form {
   width: 100%;
+}
+
+input {
+  font-family: "Kanit", serif;
 }
 
 .form__top {
@@ -150,6 +154,7 @@ body {
 }
 
 .form__body button {
+  font-family: "Kanit", serif;
   padding: 1.2rem;
   width: 12rem;
   background-color: black;

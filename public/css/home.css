@@ -267,12 +267,25 @@ body {
 }
 
 .product__con-img {
+  position: relative;
 }
 
 .product__img {
   border-radius: 5px;
   max-width: 100%;
   height: auto;
+}
+
+.percent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0.2rem 0.8rem;
+  font-size: 1.3rem;
+  font-weight: 400;
+  background-color: #00aaff;
+  color: #fff;
+  display: none;
 }
 
 .product__content {
@@ -301,24 +314,39 @@ body {
   color: #5a5a5a;
 }
 
+.discount {
+  color: #00aaff;
+}
+
 .product__content-rating {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rating {
   display: flex;
   justify-content: left;
   flex-direction: row-reverse;
   align-items: center;
 }
 
-.product__content-rating input {
+.rating input {
   display: none;
 }
 
-.product__content-rating label {
+.rating label {
   font-size: 2rem;
   color: #ccc;
   cursor: pointer;
   transition: color 0.3s;
 }
 
-.product__content-rating label::before {
+.rating label::before {
   content: "★";
+}
+
+.rating-count {
+  font-size: 1.4rem;
+  color: #00aaff;
 }
