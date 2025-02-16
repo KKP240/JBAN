@@ -1,44 +1,47 @@
 ///////////////////////////////////////////////////////
 
-// Fetch user data
-const fetchUserProfile = async function () {
-  const userEl = document.querySelector(".user");
-
-  const token = localStorage.getItem("token");
-  const response = await fetch("http://localhost:5000/api/auth/me", {
-    headers: { Authorization: `${token}` },
-  });
-
-  if (response.ok) {
-    const user = await response.json();
-
-    userEl.innerHTML = `<div class="username">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
-                                <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z">
-                                </path>
-                            </svg>
-                            <div>${user.name}</div>
-                            <div class="drop-menu">
-                                <ul class="drop-menu__list">
-                                    <li class="drop-menu__item"><a href="/orderHistory" class="drop-menu__link">ประวัติคำสั่งซื้อ</a></li>
-                                    <li class="drop-menu__item"><a href="/logout" class="drop-menu__link">ออกจากระบบ</a></li>
-                                </ul>
-                            </div>
-                        </div>`;
-    document.querySelector(".username").addEventListener("click", openDropdown);
-    window.addEventListener("click", closeDropdownWindow);
-  }
-
-  if (!response.ok) {
-    userEl.innerHTML = `<a href="/login" class="btn-login">เข้าสู่ระบบ</a>`;
-  }
-};
-
+// Fetch products
 const fetchProduct = async function () {
   try {
     const res = await fetch("http://localhost:5000/api/products");
     const data = await res.json();
-    console.log(data);
+    data.forEach((d) => {
+      const html = `
+    <div class="product__item" data-type="${d.category}" data-stock="${d.stock}" data-id="${d._id}" data-create="${d.createdAt}" data-update="${d.updatedAt}">
+      <div class="product__con-img">
+        <img src="https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/68ef016b7946bcd32035a30c40e23f9209c53261_xxl-1.jpg" alt="img-product" class="product__img" />
+      </div>
+      <div class="product__content">
+        <div class="product__content-heading">
+          <h3 class="heading-product">${d.name}</h3>
+          <img src="/icon/heart.svg" alt="heart" class="product__fav" data-state="not-fill" >
+        </div>
+        <div class="product__content-price">${d.price} บาท</div>
+        <div class="product__content-rating">
+          <input type="radio" id="star5" name="rating" value="5" /><label
+            for="star5"
+          ></label>
+          <input type="radio" id="star4" name="rating" value="4" /><label
+            for="star4"
+          ></label>
+          <input type="radio" id="star3" name="rating" value="3" /><label
+            for="star3"
+          ></label>
+          <input type="radio" id="star2" name="rating" value="2" /><label
+            for="star2"
+          ></label>
+          <input type="radio" id="star1" name="rating" value="1" /><label
+            for="star1"
+          ></label>
+        </div>
+      </div>
+    </div>`;
+
+      document.querySelector(".product").insertAdjacentHTML("beforeend", html);
+      document
+        .querySelector(".product")
+        .addEventListener("click", processProduct);
+    });
   } catch (err) {
     console.log(err.message);
   }
@@ -46,26 +49,32 @@ const fetchProduct = async function () {
 
 ///////////////////////////////////////////////////////
 
-// Open drop down
-const openDropdown = function (e) {
-  if (e.target.closest(".username")) {
-    document.querySelector(".drop-menu").classList.toggle("showDrop");
-    document.querySelector(".username svg").classList.toggle("change-bg");
-    e.target.closest(".username").classList.toggle("change-bg");
-  }
+// Fill heart
+const fillHeart = function (productFv, url, word) {
+  productFv.src = url;
+  productFv.dataset.state = word;
 };
 
-// Close drop down window
-const closeDropdownWindow = function (e) {
-  if (!e.target.closest(".username")) {
-    document.querySelector(".drop-menu").classList.remove("showDrop");
-    document.querySelector(".username svg").classList.remove("change-bg");
-    document.querySelector(".username").classList.remove("change-bg");
-  }
-};
+///////////////////////////////////////////////////////
 
-// Window load
-window.addEventListener("DOMContentLoaded", () => {
-  fetchUserProfile();
-  fetchProduct();
-});
+// Process product
+const processProduct = function (e) {
+  const productItem = e.target.closest(".product__item");
+  const productFv = e.target.closest(".product__fav");
+
+  if (!productItem) return;
+
+  if (productFv) {
+    if (productFv.dataset.state === "not-fill") {
+      fillHeart(productFv, "/icon/heart-fill.svg", "fill");
+      return;
+    }
+
+    if (productFv.dataset.state === "fill") {
+      fillHeart(productFv, "/icon/heart.svg", "not-fill");
+      return;
+    }
+  }
+
+  window.location.href = "/productDetail";
+};
