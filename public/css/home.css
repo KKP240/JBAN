@@ -282,12 +282,16 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 0.2rem 0.8rem;
-  font-size: 1.3rem;
+  padding: 0.2rem 2rem;
+  font-size: 1.8rem;
   font-weight: 400;
   background-color: #00aaff;
   color: #fff;
   display: none;
+}
+
+.active-percent {
+  display: block;
 }
 
 .product__content {
@@ -314,10 +318,19 @@ body {
 .product__content-price {
   font-weight: 300;
   color: #5a5a5a;
+  position: relative;
 }
 
 .discount {
+  position: absolute;
+  top: 0;
+  left: 30%;
   color: #00aaff;
+}
+
+.has-promotion {
+  text-decoration: line-through;
+  text-decoration-color: #00aaff;
 }
 
 .product__content-rating {
@@ -351,6 +364,10 @@ body {
 .rating-count {
   font-size: 1.4rem;
   color: #00aaff;
+}
+
+.active-rating {
+  color: #00aaff !important;
 }
 
 .hero-promotion {

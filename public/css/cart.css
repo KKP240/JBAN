@@ -122,6 +122,13 @@ div.product-info span {
 
 .quantity {
     text-align: right;
+    width: 25%;
+}
+
+.amount {
+    display: inline-block;
+    min-width: 40px;
+    text-align: center;
 }
 
 .quantity span {
@@ -139,11 +146,11 @@ div.product-info span {
 }
 
 .minus {
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .plus {
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .price {
