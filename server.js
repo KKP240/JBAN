@@ -75,11 +75,7 @@ app.get("/api", (req, res) => {
 // });
 
 app.get("/", (req, res) => {
-<<<<<<< HEAD
-    res.render("add_edit_delete_products");
-=======
     res.render("home");
->>>>>>> 9c92dce5c78cd99346b496463c26218c4b8f795b
 });
 
 app.get("/cart", (req, res) => {
