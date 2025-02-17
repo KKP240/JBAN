@@ -241,10 +241,11 @@ body {
 
 .section-product {
   width: 85%;
-  margin: 3rem;
+  margin: 4rem 3rem;
 }
 
 .product {
+  margin-top: 4rem;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 4rem;
@@ -349,4 +350,65 @@ body {
 .rating-count {
   font-size: 1.4rem;
   color: #00aaff;
+}
+
+.hero-promotion {
+  width: 100%;
+  position: relative;
+}
+
+.slide-show {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.slide-show__img {
+  width: 100%;
+  border-radius: 5px;
+  transition: all 0.5s;
+}
+
+.slide-show__img:not(:first-child) {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.slide-show__img:nth-child(1) {
+  transform: translateX(0);
+}
+
+.slide-show__img:nth-child(2) {
+  transform: translateX(100%);
+}
+
+.slide-show__img:nth-child(3) {
+  transform: translateX(200%);
+}
+
+.group-btn-silde {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  /* left: 0; */
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.btn-slide {
+  width: 4rem;
+  height: 3px;
+  border: none;
+  /* border-bottom: 5px solid #d3d3d3; */
+  background-color: #d3d3d3;
+  transition: all 0.3s;
+}
+
+.active-show-btn {
+  background-color: #fff;
 }

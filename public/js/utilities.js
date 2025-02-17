@@ -95,6 +95,46 @@ const openHideMenu = function (e) {
 
 ///////////////////////////////////////////////////////
 
+// Slide show
+let count = 0;
+// const defaultSlideShow = function () {
+//   document.querySelectorAll(".slide-show__img").forEach((i, index) => {
+//     i.style.transform = `translateX(${index * 100}%)`;
+//   });
+// };
+
+// defaultSlideShow();
+
+const slideShow = function () {
+  document.querySelectorAll(".btn-slide").forEach((b) => {
+    b.classList.remove("active-show-btn");
+  });
+
+  const imgs = document.querySelectorAll(".slide-show__img");
+
+  imgs.forEach((i, index) => {
+    i.style.transform = `translateX(${-(count + 1 - index) * 100}%)`;
+    console.log(`translateX(${-(count + 1 - index) * 100}%)`);
+
+    if (-(count + 1 - index) * 100 === 0) {
+      document
+        .querySelector(`.btn-slide-${index + 1}`)
+        .classList.add("active-show-btn");
+    }
+  });
+
+  count += 1;
+  if (count === imgs.length - 1) {
+    count = -1;
+  }
+};
+// slideShow();
+// slideShow();
+// slideShow();
+setInterval(slideShow, 5000);
+
+///////////////////////////////////////////////////////
+
 // Window load
 window.addEventListener("DOMContentLoaded", () => {
   fetchUserProfile();
