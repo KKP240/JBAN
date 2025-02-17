@@ -66,7 +66,7 @@ app.set("views", path.join(__dirname, "src/views"));
 
 // API Route
 app.get("/api", (req, res) => {
-  res.send("API is running...");
+    res.send("API is running...");
 });
 
 // ให้ `/` เสิร์ฟ login-page.html
@@ -75,23 +75,23 @@ app.get("/api", (req, res) => {
 // });
 
 app.get("/", (req, res) => {
-  res.render("home");
+    res.render("home");
 });
 
 app.get("/login", (req, res) => {
-  res.render("login");
+    res.render("login");
 });
 
 app.get("/register", (req, res) => {
-  res.render("register");
+    res.render("register");
 });
 
 app.get("/home", (req, res) => {
-  res.render("home");
+    res.render("home");
 });
 
 app.get("/orderHistory", (req, res) => {
-  res.render("history");
+    res.render("history");
 });
 
 

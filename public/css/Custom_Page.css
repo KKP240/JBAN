@@ -1,21 +1,27 @@
+html {
+    font-size: 62.5%;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Kanit", serif;
-    font-weight: bold;
+    user-select: none;
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    margin-top: 90px;
 }
 
 .product-container {
     display: flex;
     gap: 40px;
     justify-content: center;
+    margin-right: 50px;
 }
 
 .product-image {
@@ -136,6 +142,7 @@ h3 {
 
 .fabric-section input::placeholder {
     color: #afafaf;
+    font-size: 10px;
     /* Add placeholder text color */
 }
 
@@ -165,17 +172,83 @@ h3 {
     font-weight: normal;
 }
 
-.color-buttons {
-    display: flex;
-    gap: 10px;
+.color-picker {
+    display: none;
+    position: absolute;
+    background: #444;
+    border: 1px solid #666;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 300px;
+}
+
+.color-picker.active {
+    display: block;
+}
+
+.color-area {
+    width: 250px;
+    height: 150px;
+    position: relative;
+    margin-bottom: 10px;
+    cursor: crosshair;
+    background: linear-gradient(to right, #fff, #f00);
+}
+
+.color-area::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent, #000);
+}
+
+.hue-slider {
+    width: 20px;
+    height: 150px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: linear-gradient(to bottom, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+    cursor: pointer;
+}
+
+.color-cursor {
+    width: 10px;
+    height: 10px;
+    border: 2px solid white;
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    cursor: move;
+}
+
+.hue-cursor {
+    width: 100%;
+    height: 3px;
+    background: white;
+    position: absolute;
+    pointer-events: none;
+    transform: translateY(-50%);
 }
 
 .color-button {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
     cursor: pointer;
+    padding: 0;
+}
+
+.color-buttons {
+    position: relative;
+    display: inline-block;
 }
 
 .quantity-control {
@@ -226,6 +299,7 @@ h3 {
 
 input {
     border-radius: 2px;
+    color: #000;
 }
 
 .additional-info-section textarea {
@@ -256,7 +330,7 @@ input {
 .texticon p {
     font-size: 8px;
     margin-top: 9px;
-    color: #afafaf;
+    color: #3b3b3b;
 }
 
 .info-icon2 {
@@ -274,4 +348,14 @@ input {
     font-size: 8px;
     margin-top: 2px;
     color: #afafaf;
+}
+
+input:focus,
+textarea:focus {
+    border: 1px solid #000000;
+    outline: none;
+}
+
+button:active {
+    border-color: #000000;
 }
