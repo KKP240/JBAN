@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/views/recommend_page.ejs
 <!DOCTYPE html>
 <html lang="th">
 
@@ -110,4 +111,156 @@
         <%- include("footer"); %>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page | JPBAN</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/Recommend_Page.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <%- include("navbar"); %>
+        <div class="container">
+            <div class="product-container">
+                <div class="product-image">
+                    <button class="arrow arrow-left">←</button>
+                    <img src="/images/เสื้อ.webp" alt="เสื้อยืด" class="shirt">
+                    <button class="arrow arrow-right">→</button>
+                </div>
+
+                <div class="product-details">
+                    <div class="button-group">
+                        <button class="recommend">Recommend</button>
+                        <button class="custom">Custom</button>
+                    </div>
+                    <h1 class="product-title">เสื้อยืด</h1>
+
+                    <div class="rating" id="productRating">
+                        <span class="star" data-rating="1">★</span>
+                        <span class="star" data-rating="2">★</span>
+                        <span class="star" data-rating="3">★</span>
+                        <span class="star" data-rating="4">★</span>
+                        <span class="star" data-rating="5">★</span>
+                        <span class="heart" id="heartButton">♥</span>
+                    </div>
+
+                    <div class="size-section">
+                        <p>เลือกขนาด</p>
+                        <div class="size-buttons">
+                            <button class="size-button">S</button>
+                            <button class="size-button">M</button>
+                            <button class="size-button">L</button>
+                            <button class="size-button">XL</button>
+                        </div>
+                    </div>
+
+                    <div class="color-section">
+                        <p>เลือกสี</p>
+                        <div class="color-buttons">
+                            <button class="color-button" style="background-color: green;"></button>
+                            <button class="color-button" style="background-color: red;"></button>
+                            <button class="color-button" style="background-color: blue;"></button>
+                            <button class="color-button" style="background-color: black;"></button>
+                        </div>
+                    </div>
+
+                    <div class="quantity-section">
+                        <p>จำนวน</p>
+                        <div class="quantity-control">
+                            <button class="quantity-button">-</button>
+                            <span style="font-size: 13px;">1</span>
+                            <button class="quantity-button">+</button>
+                        </div>
+                    </div>
+
+                    <div class="price-section">
+                        <span>ราคารวม</span>
+                        <span>฿309.00 บาท</span>
+                    </div>
+
+                    <button class="add-to-cart">เพิ่มไปยังตะกร้า</button>
+                </div>
+            </div>
+
+            <div class="reviews-section">
+                <h2>Reviews</h2>
+                <div class="rating" id="reviewsRating">
+                    <span class="star" data-rating="1">★</span>
+                    <span class="star" data-rating="2">★</span>
+                    <span class="star" data-rating="3">★</span>
+                    <span class="star" data-rating="4">★</span>
+                    <span class="star" data-rating="5">★</span>
+                    <span style="color: #00AAFF; font-size: 12px; margin-left: 10px;">(3 ratings)</span>
+                </div>
+
+                <div class="review">
+                    <div class="review-header">
+                        <div class="reviewer-avatar"></div>
+                        <div>
+                            <div style="font-size: 15px;">Nutthawat</div>
+                        </div>
+                    </div>
+                    <div class="rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star" style="color: #ddd;">★</span>
+                    </div>
+                    <p>อาหารอร่อย หาที่จอดรถง่าย</p>
+                </div>
+            </div>
+        </div>
+        <%- include("footer"); %>
+            <script>
+                function initStarRating(containerId) {
+                    const container = document.getElementById(containerId);
+                    if (!container) return;
+
+                    const stars = container.getElementsByClassName('star');
+
+                    function updateStars(rating) {
+                        for (let i = 0; i < stars.length; i++) {
+                            if (i < rating) {
+                                stars[i].classList.add('active');
+                            } else {
+                                stars[i].classList.remove('active');
+                            }
+                        }
+                    }
+
+                    // Add click event to each star
+                    Array.from(stars).forEach(star => {
+                        star.addEventListener('click', function() {
+                            const rating = parseInt(this.getAttribute('data-rating'));
+                            updateStars(rating);
+                        });
+                    });
+                }
+
+                // Initialize both rating systems and heart toggle
+                document.addEventListener('DOMContentLoaded', function() {
+                    initStarRating('productRating');
+                    initStarRating('reviewsRating');
+
+                    const heart = document.getElementById('heartButton');
+                    if (heart) {
+                        heart.addEventListener('click', function() {
+                            this.classList.toggle('active');
+                        });
+                    }
+                });
+            </script>
+</body>
+
+>>>>>>> 6c212bb44ba47f8cd460cbe386ff8a87aa8dd2cf:src/views/Product Details(Recommend Page).ejs
 </html>

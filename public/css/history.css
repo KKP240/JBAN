@@ -4,22 +4,27 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 62.5%;
+}
+
 body {
     margin: 0;
     font-family: "Kanit", serif;
+    font-size: 16px;
 }
 
 .container{
     display: grid;
     width: 80%;
-    margin: auto;
-    align-items: start;
+    margin: 100px auto;
 }
 
 .return{
     height: 30px;
     padding: 36px;
     padding-left: 0;
+    margin-bottom: 24px;
 }
 
 .return a{

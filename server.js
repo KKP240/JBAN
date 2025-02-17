@@ -78,6 +78,14 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 
+app.get("/cart", (req, res) => {
+  res.render("cart");
+});
+
+app.get("/favourite", (req, res) => {
+  res.render("favourite");
+});
+
 app.get("/login", (req, res) => {
     res.render("login");
 });

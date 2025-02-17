@@ -1,9 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+html {
+    font-size: 62.5%;
+}
+
 body {
     margin: 0;
-    font-family: "Inter", serif;
+    font-family: "Kanit", serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.7;
 }
 
 div.favouriteinfo {
+    margin-top: 60px;
     padding-top: 50px;
     margin-left: 10%;
     margin-right: 10%;
@@ -12,6 +26,8 @@ div.favouriteinfo {
 
 div.favouriteinfo h1 {
     font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 20px;
 }
 
 div.favouritetable table {
@@ -26,7 +42,8 @@ div.favouritetable tr {
 }
 
 div.favouritetable th {
-    font-size: 28px;
+    font-size: 24px;
+    font-weight: 400;
     color: rgb(74, 74, 74);
     padding-bottom: 1%;
 }
@@ -56,7 +73,7 @@ div.favouritetable th:nth-child(4) {
 } 
 
 .favouritetable td {
-    font-size: 18px;
+    font-size: 20px;
     padding-top: 5%;
     padding-bottom: 5%;
 }
@@ -83,7 +100,8 @@ div.favouritetable th:nth-child(4) {
 }
 
 .product-name {
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: 400;
     color: black;
     padding-bottom: 5%;
 }
@@ -104,6 +122,7 @@ div span {
 }
 
 .basket button {
+    font-family: "Kanit", serif;
     width: 180px;
     height: 45px;
     font-size: 16px;
