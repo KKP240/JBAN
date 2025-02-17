@@ -115,7 +115,7 @@ const slideShow = function () {
   });
 
   count += 1;
-  
+
   if (count === imgs.length - 1) {
     count = -1;
   }
@@ -145,7 +145,6 @@ document.addEventListener("visibilitychange", () => {
 // Window load
 window.addEventListener("DOMContentLoaded", () => {
   fetchUserProfile();
-  fetchProduct();
   document
     .querySelector(".menu-detail__list")
     .addEventListener("click", openHideMenu);
