@@ -75,7 +75,7 @@ app.get("/api", (req, res) => {
 // });
 
 app.get("/", (req, res) => {
-    res.render("custom_page");
+    res.render("home");
 });
 
 app.get("/cart", (req, res) => {
