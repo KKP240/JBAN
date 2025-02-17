@@ -8,7 +8,8 @@
   padding-left: 35px;
   padding-right: 35px;
   top: 0;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   background-color: white;
   padding: 2rem 3rem;
   z-index: 1100;

@@ -23,7 +23,7 @@ body {
 }
 
 .aside-menu {
-  padding: 2rem 2rem 6rem 2rem;
+  padding: 10rem 2rem 6rem 2rem;
   position: sticky;
   top: 0;
   left: 0;
@@ -31,9 +31,9 @@ body {
   flex-direction: column;
   width: 15%;
   gap: 3rem;
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
-  height: 90rem;
-  overflow-y: auto;
+  /* border-right: 1px solid rgba(0, 0, 0, 0.2); */
+  /* height: 90rem;
+  overflow-y: auto; */
 }
 
 .menu-detail__heading {
@@ -241,7 +241,7 @@ body {
 
 .section-product {
   width: 85%;
-  margin: 4rem 3rem;
+  padding: 12rem 3rem 4rem 3rem;
 }
 
 .product {
@@ -366,7 +366,7 @@ body {
 .slide-show__img {
   width: 100%;
   border-radius: 5px;
-  transition: all 0.5s;
+  transition: all 0.5s ease-in-out;
 }
 
 .slide-show__img:not(:first-child) {

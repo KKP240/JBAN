@@ -97,14 +97,6 @@ const openHideMenu = function (e) {
 
 // Slide show
 let count = 0;
-// const defaultSlideShow = function () {
-//   document.querySelectorAll(".slide-show__img").forEach((i, index) => {
-//     i.style.transform = `translateX(${index * 100}%)`;
-//   });
-// };
-
-// defaultSlideShow();
-
 const slideShow = function () {
   document.querySelectorAll(".btn-slide").forEach((b) => {
     b.classList.remove("active-show-btn");
@@ -114,7 +106,6 @@ const slideShow = function () {
 
   imgs.forEach((i, index) => {
     i.style.transform = `translateX(${-(count + 1 - index) * 100}%)`;
-    console.log(`translateX(${-(count + 1 - index) * 100}%)`);
 
     if (-(count + 1 - index) * 100 === 0) {
       document
@@ -124,14 +115,30 @@ const slideShow = function () {
   });
 
   count += 1;
+  
   if (count === imgs.length - 1) {
     count = -1;
   }
 };
-// slideShow();
-// slideShow();
-// slideShow();
-setInterval(slideShow, 5000);
+
+var interval;
+const startSlideShow = function () {
+  interval = setInterval(slideShow, 4000);
+};
+
+const stopSlideShow = function () {
+  clearInterval(interval);
+};
+
+startSlideShow();
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    stopSlideShow();
+  } else {
+    startSlideShow();
+  }
+});
 
 ///////////////////////////////////////////////////////
 
