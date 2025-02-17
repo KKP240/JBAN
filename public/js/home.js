@@ -14,6 +14,7 @@ const fetchProduct = async function () {
 
 ///////////////////////////////////////////////////////
 
+// Show product
 const showProduct = async function () {
   const data = await fetchProduct();
 
@@ -27,36 +28,50 @@ const showProduct = async function () {
 // Insert ui product
 const insertUiProduct = function (d) {
   const html = `
-  <div class="product__item" data-type="${d.category}" data-stock="${d.stock}" data-id="${d._id}" data-create="${d.createdAt}" data-update="${d.updatedAt}">
+  <div class="product__item" data-type="${d.category}" data-stock="${
+    d.stock
+  }" data-id="${d._id}" data-create="${d.createdAt}" data-update="${
+    d.updatedAt
+  }">
     <div class="product__con-img">
       <img src="https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/68ef016b7946bcd32035a30c40e23f9209c53261_xxl-1.jpg" alt="img-product" class="product__img" />
-      <div class="percent">-50%</div>
+      <div class="percent ${d.isPromotion ? "active-percent" : ""}">${
+    d.isPromotion
+      ? `${100 - (d.price / d.originalPrice).toFixed(2) * 100}%`
+      : "&nbsp;"
+  }</div>
     </div>
     <div class="product__content">
       <div class="product__content-heading">
         <h3 class="heading-product">${d.name}</h3>
         <img src="/icon/heart.svg" alt="heart" class="product__fav" data-state="not-fill" >
       </div>
-      <div class="product__content-price">${d.price} บาท <span class="discount">&nbsp;</span></div>
+      <div class="product__content-price ${
+        d.isPromotion ? "has-promotion" : ""
+      }">${
+    d.isPromotion ? d.originalPrice : d.price
+  } บาท <span class="discount">${
+    d.originalPrice ? d.price : "&nbsp;"
+  }</span></div>
       <div class="product__content-rating">
         <div class="rating">
           <input type="radio" id="star5" name="rating" value="5" /><label
-          for="star5"
+          for="star5" class="${d.averageRating >= 5 ? "active-rating" : ""}"
           ></label>
           <input type="radio" id="star4" name="rating" value="4" /><label
-          for="star4"
+          for="star4" class="${d.averageRating >= 4 ? "active-rating" : ""}"
           ></label>
           <input type="radio" id="star3" name="rating" value="3" /><label
-          for="star3"
+          for="star3" class="${d.averageRating >= 3 ? "active-rating" : ""}"
           ></label>
           <input type="radio" id="star2" name="rating" value="2" /><label
-          for="star2"
+          for="star2" class="${d.averageRating >= 2 ? "active-rating" : ""}"
           ></label>
           <input type="radio" id="star1" name="rating" value="1" /><label
-          for="star1"
+          for="star1" class="${d.averageRating >= 1 ? "active-rating" : ""}"
           ></label>
         </div>
-        <div class="rating-count">(0 rating)</div>
+        <div class="rating-count">(${d.numReviews ?? 0} rating)</div>
       </div>
     </div>
   </div>`;
@@ -99,6 +114,7 @@ const processProduct = function (e) {
 
 ///////////////////////////////////////////////////////
 
+// Clear ui product
 const clearUiProduct = function () {
   document.querySelector(".product").innerHTML = ``;
 };
@@ -116,17 +132,16 @@ const searchProduct = async function (e) {
     return;
   }
 
-
   data.forEach((d) => {
-    if (
-      d.name.toLowerCase().includes(e.key) ||
-      d.name.toLowerCase().includes(e.target.value)
-    ) {
+    if (d.name.toLowerCase().trim().includes(e.target.value)) {
       insertUiProduct(d);
     }
   });
 };
 
+///////////////////////////////////////////////////////
+
+// Event
 document
   .querySelector(".search-bar")
   .addEventListener("keydown", searchProduct);
