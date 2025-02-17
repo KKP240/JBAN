@@ -1,12 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+html {
+    font-size: 62.5%;
+}
+
 body {
     margin: 0;
     font-family: "Kanit", serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.7;
 }
 
 div.cart {
     padding-top: 60px;
-    margin-left: 14%;
-    margin-right: 14%;
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
     margin-bottom: 5%;
 }
 
@@ -25,14 +39,15 @@ div.cart {
     align-items: center;
     color: #00AAFF;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 div.wholeprice {
     display: flex;
 }
 
-.originprice{
+.originprice {
     font-size: 30px;
 }
 
@@ -89,7 +104,7 @@ div.cartinfo p {
 
 .product-name {
     font-size: 26px !important;
-    font-weight: bold;
+    font-weight: 400;
     color: black !important;
     padding-bottom: 5%;
 }
@@ -135,7 +150,7 @@ div.product-info span {
     text-align: center;
 }
 
-.price span{
+.price span {
     font-size: 24px;
     font-weight: bold;
 }
@@ -152,6 +167,7 @@ div.discount {
 }
 
 .discount input[type="text"] {
+    font-family: "Kanit", serif;
     width: 100%;
     height: 35px;
     border: hidden;
@@ -187,10 +203,11 @@ div.message {
 }
 
 .message textarea {
+    font-family: "Kanit", serif;
     width: 100%;
     height: 150px;
     resize: none;
-    padding: 10px;   
+    padding: 10px;
     font-size: 16px;
     border: hidden;
     outline: none;
@@ -208,6 +225,7 @@ div.message {
 }
 
 .order-button {
+    font-family: "Kanit", serif;
     width: 180px;
     height: 60px;
     position: top;

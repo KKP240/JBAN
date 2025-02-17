@@ -1,9 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+html {
+    font-size: 62.5%;
+}
+
 body {
     margin: 0;
-    font-family: "Inter", serif;
+    font-family: "Kanit", serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.7;
 }
 
 div.favouriteinfo {
+    margin-top: 60px;
     padding-top: 50px;
     margin-left: 10%;
     margin-right: 10%;

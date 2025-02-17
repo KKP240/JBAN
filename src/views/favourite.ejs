@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Favourite | JPBAN</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/css/favourite.css" />
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Favourite | JPBAN</title>
+  <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/favourite.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+  <%- include("navbar"); %>
+
     <div class="favouriteinfo">
       <h1>รายการโปรด</h1>
 
@@ -31,10 +36,8 @@
           <tbody>
             <tr>
               <td class="goods">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6F-1K32fpYChgdu2kNt7UTT3Tf_67M4fZw&s"
-                  class="product-img"
-                />
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6F-1K32fpYChgdu2kNt7UTT3Tf_67M4fZw&s"
+                  class="product-img" />
                 <div class="product-info">
                   <span class="product-name">เสื้อยืด-แขนยาว</span>
                   <span>สี เขียว</span>
@@ -45,27 +48,19 @@
               <td class="available">มีสินค้า</td>
               <td class="basket">
                 <button type="button">เพิ่มไปยังตะกร้า</button>
-                <a href=""
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="32"
-                    height="32"
-                    fill="#eb000c"
-                    viewBox="0 0 256 256"
-                  >
+                <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c"
+                    viewBox="0 0 256 256">
                     <path
-                      d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"
-                    ></path></svg
-                ></a>
+                      d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
+                    </path>
+                  </svg></a>
               </td>
             </tr>
 
             <tr>
               <td class="goods">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6F-1K32fpYChgdu2kNt7UTT3Tf_67M4fZw&s"
-                  class="product-img"
-                />
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6F-1K32fpYChgdu2kNt7UTT3Tf_67M4fZw&s"
+                  class="product-img" />
                 <div class="product-info">
                   <span class="product-name">เสื้อยืด-แขนยาว</span>
                   <span>สี เขียว</span>
@@ -76,27 +71,19 @@
               <td class="almost_out_of_stock">สินค้าใกล้หมด</td>
               <td class="basket">
                 <button type="button">เพิ่มไปยังตะกร้า</button>
-                <a href=""
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="32"
-                    height="32"
-                    fill="#eb000c"
-                    viewBox="0 0 256 256"
-                  >
+                <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c"
+                    viewBox="0 0 256 256">
                     <path
-                      d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"
-                    ></path></svg
-                ></a>
+                      d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
+                    </path>
+                  </svg></a>
               </td>
             </tr>
 
             <tr>
               <td class="goods">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6F-1K32fpYChgdu2kNt7UTT3Tf_67M4fZw&s"
-                  class="product-img"
-                />
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6F-1K32fpYChgdu2kNt7UTT3Tf_67M4fZw&s"
+                  class="product-img" />
                 <div class="product-info">
                   <span class="product-name">เสื้อยืด-แขนยาว</span>
                   <span>สี เขียว</span>
@@ -107,23 +94,21 @@
               <td class="out_of_stock">สินค้าหมด</td>
               <td class="basket">
                 <button type="button">เพิ่มไปยังตะกร้า</button>
-                <a href=""
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="32"
-                    height="32"
-                    fill="#eb000c"
-                    viewBox="0 0 256 256"
-                  >
+                <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c"
+                    viewBox="0 0 256 256">
                     <path
-                      d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"
-                    ></path></svg
-                ></a>
+                      d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
+                    </path>
+                  </svg></a>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-  </body>
+
+    <%- include("footer"); %>
+  <script src="js/utilities.js"></script>
+</body>
+
 </html>
