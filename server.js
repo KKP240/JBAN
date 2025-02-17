@@ -75,15 +75,15 @@ app.get("/api", (req, res) => {
 // });
 
 app.get("/", (req, res) => {
-    res.render("home");
+    res.render("custom_page");
 });
 
 app.get("/cart", (req, res) => {
-  res.render("cart");
+    res.render("cart");
 });
 
 app.get("/favourite", (req, res) => {
-  res.render("favourite");
+    res.render("favourite");
 });
 
 app.get("/login", (req, res) => {
