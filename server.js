@@ -75,7 +75,7 @@ app.get("/api", (req, res) => {
 // });
 
 app.get("/", (req, res) => {
-    res.render("custom_page");
+    res.render("add_edit_delete_products");
 });
 
 app.get("/cart", (req, res) => {
