@@ -430,3 +430,15 @@ body {
 .active-show-btn {
   background-color: #fff;
 }
+
+.active-filter {
+  color: #00aaff;
+}
+
+.show-product {
+  display: flex;
+}
+
+.hidden-product {
+  display: none;
+}

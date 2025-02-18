@@ -5,7 +5,6 @@ const fetchProduct = async function () {
   try {
     const res = await fetch("http://localhost:5000/api/products");
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (err) {
     console.log(err.message);
@@ -28,11 +27,7 @@ const showProduct = async function () {
 // Insert ui product
 const insertUiProduct = function (d) {
   const html = `
-  <div class="product__item" data-type="${d.category}" data-stock="${
-    d.stock
-  }" data-id="${d._id}" data-create="${d.createdAt}" data-update="${
-    d.updatedAt
-  }">
+  <div class="product__item" data-name="${d.name}" data-type="${d.type}" data-id="${d._id}" data-create="${d.createdAt}" data-price="${d.price}">
     <div class="product__con-img">
       <img src="https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/68ef016b7946bcd32035a30c40e23f9209c53261_xxl-1.jpg" alt="img-product" class="product__img" product-id="${d._id}"/>
       <div class="percent ${d.isPromotion ? "active-percent" : ""}">${
@@ -97,7 +92,7 @@ const processProduct = function (e) {
 
   if (!productItem) return;
 
-  if (productFv) {
+  if (productFv && document.querySelector(".username")) {
     if (productFv.dataset.state === "not-fill") {
       fillHeart(productFv, "/icon/heart-fill.svg", "fill");
       return;
@@ -114,29 +109,125 @@ const processProduct = function (e) {
 
 ///////////////////////////////////////////////////////
 
-// Clear ui product
-const clearUiProduct = function () {
-  document.querySelector(".product").innerHTML = ``;
+// Hidden all ui product
+const HiddenAllUiProduct = function () {
+  document.querySelectorAll('.product__item').forEach(p => {
+    HiddenUiProduct(p)
+  })
 };
+
+// Hidden ui product
+const HiddenUiProduct = function (p) {
+  p.classList.add('hidden-product');
+  p.classList.remove('show-product')
+};
+
+// Show all ui product
+const showUiAllProduct = function () {
+  document.querySelectorAll('.product__item').forEach(p => {
+    showUiProduct(p)
+  })
+};
+
+// Show ui product
+const showUiProduct = function (p) {
+  p.classList.add('show-product');
+  p.classList.remove('hidden-product');
+};
+
+// Clear ui product
+const clearUiProduct = function(){
+  document.querySelector('.product').innerHTML = '';
+}
 
 ///////////////////////////////////////////////////////
 
 // Search
 const searchProduct = async function (e) {
-  const data = await fetchProduct();
+  const products = document.querySelectorAll('.product__item');
+  const value = e.target.value;
 
-  clearUiProduct();
-
-  if (e.target.value === "") {
-    showProduct();
+  if (value === "") {
+    showUiAllProduct();
     return;
   }
 
-  data.forEach((d) => {
-    if (d.name.toLowerCase().trim().includes(e.target.value)) {
-      insertUiProduct(d);
+  products.forEach((p) => {
+    if (!(p.dataset.name.toLowerCase().trim().includes(value.toLowerCase().trim()))) {
+      HiddenUiProduct(p);
+    }else {
+      showUiProduct(p);
     }
   });
+};
+
+///////////////////////////////////////////////////////
+
+// Filter products
+const filterProduct = async function (e) {
+  const curEl = e.target.closest(".menu-filter__item");
+  if (!curEl) return;
+
+  document
+    .querySelectorAll(".menu-filter__item")
+    .forEach((d) => d.classList.remove("active-filter"));
+
+  curEl.classList.toggle("active-filter");
+  
+  const products = Array.from(document.querySelectorAll('.product__item'));
+
+  clearUiProduct();
+
+  if (curEl.dataset.filter === "low-to-high") {
+    const newProducts = sortLowToHigh(products);
+    newProducts.forEach((p) => {
+      document.querySelector('.product').appendChild(p)
+    });
+    return;
+  }
+
+  if (curEl.dataset.filter === "high-to-low") {
+    const newProducts = sortHighToLow(products);
+    newProducts.forEach((p) => {
+      document.querySelector('.product').appendChild(p)
+    });
+    return;
+  }
+
+  if (curEl.dataset.filter === "old-to-new") {
+    const newProducts = sortOldToNew(products);
+    newProducts.forEach((p) => {
+      document.querySelector('.product').appendChild(p)
+    });
+    return;
+  }
+
+  if (curEl.dataset.filter === "new-to-old") {
+    const newProducts = sortNewToOld(products);
+    newProducts.forEach((p) => {
+      document.querySelector('.product').appendChild(p)
+    });
+    return;
+  }
+};
+
+///////////////////////////////////////////////////////
+
+// Sort filter
+const sortLowToHigh = function (products) {
+  return products.sort((a, b) => Number(a.dataset.price) - Number(b.dataset.price));
+};
+
+const sortHighToLow = function (products) {
+  return products.sort((a, b) => Number(b.dataset.price) - Number(a.dataset.price));
+};
+
+const sortOldToNew = function (products) {
+  return products.sort((a, b) => new Date(a.dataset.create) - new Date(b.dataset.create));
+};
+
+const sortNewToOld = function (products) {
+  return products.sort((a, b) => new Date(b.dataset.create) - new Date(a.dataset.create));
 };
 
 ///////////////////////////////////////////////////////
@@ -144,5 +235,10 @@ const searchProduct = async function (e) {
 // Event
 document
   .querySelector(".search-bar")
-  .addEventListener("keydown", searchProduct);
+  .addEventListener("keyup", searchProduct);
+
+document
+  .querySelector(".menu-filter__list")
+  .addEventListener("click", filterProduct);
+
 showProduct();
