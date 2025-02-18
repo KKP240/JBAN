@@ -234,3 +234,8 @@ button:active {
     font-size: 13px;
     color: #000;
 }
+
+.selected {
+    border: 2px solid #00AAFF;
+    outline: none;
+  }

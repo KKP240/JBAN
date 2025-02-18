@@ -29,7 +29,7 @@
                         <button class="recommend">แนะนำ</button>
                         <button class="custom">กำหนดเอง</button>
                     </div>
-                    <h1 class="product-title">เสื้อยืด</h1>
+                    <h1 class="product-title"><%= product.name %></h1>
 
                     <div class="rating" id="productRating">
                         <span class="star" data-rating="1">★</span>
@@ -71,7 +71,17 @@
 
                     <div class="price-section">
                         <span>ราคารวม</span>
-                        <span>฿309.00 บาท</span>
+                        <% if (product.isPromotion && product.originalPrice) { %>
+                            <!-- ถ้ามีโปร ให้โชว์ราคาปกติกับราคาลด -->
+                            <span style="text-decoration: line-through; color: #999;">
+                              ฿<%= product.originalPrice.toFixed(2) %>
+                            </span>
+                            <span style="color: #FF0000; font-weight: bold;">
+                              ฿<%= product.price.toFixed(2) %>
+                            </span>
+                          <% } else { %>
+                            <span>฿<%= product.price.toFixed(2) %></span>
+                          <% } %>
                     </div>
 
                     <button class="add-to-cart">เพิ่มไปยังตะกร้า</button>

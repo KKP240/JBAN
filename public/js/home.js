@@ -34,7 +34,7 @@ const insertUiProduct = function (d) {
     d.updatedAt
   }">
     <div class="product__con-img">
-      <img src="https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/68ef016b7946bcd32035a30c40e23f9209c53261_xxl-1.jpg" alt="img-product" class="product__img" />
+      <img src="https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/68ef016b7946bcd32035a30c40e23f9209c53261_xxl-1.jpg" alt="img-product" class="product__img" product-id="${d._id}"/>
       <div class="percent ${d.isPromotion ? "active-percent" : ""}">${
     d.isPromotion
       ? `${100 - (d.price / d.originalPrice).toFixed(2) * 100}%`
@@ -108,8 +108,8 @@ const processProduct = function (e) {
       return;
     }
   }
-
-  window.location.href = "/productDetail";
+  const productId = productItem.getAttribute('data-id');
+  window.location.href = `/productdetails?id=${productId}`;
 };
 
 ///////////////////////////////////////////////////////

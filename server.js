@@ -26,6 +26,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./src/config/db");
+const Product = require("./src/models/Product");
 
 const app = express();
 connectDB();
@@ -100,6 +101,24 @@ app.get("/home", (req, res) => {
 
 app.get("/orderHistory", (req, res) => {
     res.render("history");
+});
+
+app.get('/productdetails', async (req, res) => {
+    const productId = req.query.id;
+    if (!productId) {
+        return res.redirect('/');
+    }
+
+    try {
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).send('ไม่พบสินค้า');
+        }
+        res.render('productDetail', { product });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+    }
 });
 
 

@@ -6,9 +6,9 @@ const adminMiddleware = require('../middlewares/adminMiddleware');
 const router = express.Router();
 
 // ✅ API สำหรับ Admin (ต้องใช้ Token)
-router.post('/', authMiddleware, adminMiddleware, createProduct);
-router.put('/:id', authMiddleware, adminMiddleware, updateProduct);
-router.delete('/:id', authMiddleware, adminMiddleware, deleteProduct);
+router.post('/', authMiddleware, adminMiddleware, createProduct); // เพิ่ม
+router.put('/:id', authMiddleware, adminMiddleware, updateProduct); // แก้ไข
+router.delete('/:id', authMiddleware, adminMiddleware, deleteProduct); // ลบ
 router.put('/:id/set-promotion', authMiddleware, adminMiddleware, setPromotion);
 router.put('/:id/remove-promotion', authMiddleware, adminMiddleware, removePromotion);
 
