@@ -27,12 +27,16 @@ const showProduct = async function () {
 // Insert ui product
 const insertUiProduct = function (d) {
   const html = `
-  <div class="product__item" data-name="${d.name}" data-type="${d.type}" data-id="${d._id}" data-create="${d.createdAt}" data-price="${d.price}">
+  <div class="product__item" data-name="${d.name}" data-type="${
+    d.type
+  }" data-id="${d._id}" data-create="${d.createdAt}" data-price="${d.price}">
     <div class="product__con-img">
-      <img src="https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/68ef016b7946bcd32035a30c40e23f9209c53261_xxl-1.jpg" alt="img-product" class="product__img" product-id="${d._id}"/>
+      <img src="https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/68ef016b7946bcd32035a30c40e23f9209c53261_xxl-1.jpg" alt="img-product" class="product__img" product-id="${
+        d._id
+      }"/>
       <div class="percent ${d.isPromotion ? "active-percent" : ""}">${
     d.isPromotion
-      ? `${100 - (d.price / d.originalPrice).toFixed(2) * 100}%`
+      ? `-${100 - (d.price / d.originalPrice).toFixed(2) * 100}%`
       : "&nbsp;"
   }</div>
     </div>
@@ -103,62 +107,44 @@ const processProduct = function (e) {
       return;
     }
   }
-  const productId = productItem.getAttribute('data-id');
-  window.location.href = `/productdetails?id=${productId}`;
+
+  if (!productFv && productItem) {
+    const productId = productItem.getAttribute("data-id");
+    window.location.href = `/productdetails?id=${productId}`;
+  }
 };
 
 ///////////////////////////////////////////////////////
 
 // Hidden all ui product
 const HiddenAllUiProduct = function () {
-  document.querySelectorAll('.product__item').forEach(p => {
-    HiddenUiProduct(p)
-  })
+  document.querySelectorAll(".product__item").forEach((p) => {
+    HiddenUiProduct(p);
+  });
 };
 
 // Hidden ui product
 const HiddenUiProduct = function (p) {
-  p.classList.add('hidden-product');
-  p.classList.remove('show-product')
+  p.classList.add("hidden-product");
+  p.classList.remove("show-product");
 };
 
 // Show all ui product
 const showUiAllProduct = function () {
-  document.querySelectorAll('.product__item').forEach(p => {
-    showUiProduct(p)
-  })
+  document.querySelectorAll(".product__item").forEach((p) => {
+    showUiProduct(p);
+  });
 };
 
 // Show ui product
 const showUiProduct = function (p) {
-  p.classList.add('show-product');
-  p.classList.remove('hidden-product');
+  p.classList.add("show-product");
+  p.classList.remove("hidden-product");
 };
 
 // Clear ui product
-const clearUiProduct = function(){
-  document.querySelector('.product').innerHTML = '';
-}
-
-///////////////////////////////////////////////////////
-
-// Search
-const searchProduct = async function (e) {
-  const products = document.querySelectorAll('.product__item');
-  const value = e.target.value;
-
-  if (value === "") {
-    showUiAllProduct();
-    return;
-  }
-
-  products.forEach((p) => {
-    if (!(p.dataset.name.toLowerCase().trim().includes(value.toLowerCase().trim()))) {
-      HiddenUiProduct(p);
-    }else {
-      showUiProduct(p);
-    }
-  });
+const clearUiProduct = function () {
+  document.querySelector(".product").innerHTML = "";
 };
 
 ///////////////////////////////////////////////////////
@@ -173,15 +159,15 @@ const filterProduct = async function (e) {
     .forEach((d) => d.classList.remove("active-filter"));
 
   curEl.classList.toggle("active-filter");
-  
-  const products = Array.from(document.querySelectorAll('.product__item'));
+
+  const products = Array.from(document.querySelectorAll(".product__item"));
 
   clearUiProduct();
 
   if (curEl.dataset.filter === "low-to-high") {
     const newProducts = sortLowToHigh(products);
     newProducts.forEach((p) => {
-      document.querySelector('.product').appendChild(p)
+      document.querySelector(".product").appendChild(p);
     });
     return;
   }
@@ -189,7 +175,7 @@ const filterProduct = async function (e) {
   if (curEl.dataset.filter === "high-to-low") {
     const newProducts = sortHighToLow(products);
     newProducts.forEach((p) => {
-      document.querySelector('.product').appendChild(p)
+      document.querySelector(".product").appendChild(p);
     });
     return;
   }
@@ -197,7 +183,7 @@ const filterProduct = async function (e) {
   if (curEl.dataset.filter === "old-to-new") {
     const newProducts = sortOldToNew(products);
     newProducts.forEach((p) => {
-      document.querySelector('.product').appendChild(p)
+      document.querySelector(".product").appendChild(p);
     });
     return;
   }
@@ -205,7 +191,7 @@ const filterProduct = async function (e) {
   if (curEl.dataset.filter === "new-to-old") {
     const newProducts = sortNewToOld(products);
     newProducts.forEach((p) => {
-      document.querySelector('.product').appendChild(p)
+      document.querySelector(".product").appendChild(p);
     });
     return;
   }
@@ -215,30 +201,98 @@ const filterProduct = async function (e) {
 
 // Sort filter
 const sortLowToHigh = function (products) {
-  return products.sort((a, b) => Number(a.dataset.price) - Number(b.dataset.price));
+  return products.sort(
+    (a, b) => Number(a.dataset.price) - Number(b.dataset.price)
+  );
 };
 
 const sortHighToLow = function (products) {
-  return products.sort((a, b) => Number(b.dataset.price) - Number(a.dataset.price));
+  return products.sort(
+    (a, b) => Number(b.dataset.price) - Number(a.dataset.price)
+  );
 };
 
 const sortOldToNew = function (products) {
-  return products.sort((a, b) => new Date(a.dataset.create) - new Date(b.dataset.create));
+  return products.sort(
+    (a, b) => new Date(a.dataset.create) - new Date(b.dataset.create)
+  );
 };
 
 const sortNewToOld = function (products) {
-  return products.sort((a, b) => new Date(b.dataset.create) - new Date(a.dataset.create));
+  return products.sort(
+    (a, b) => new Date(b.dataset.create) - new Date(a.dataset.create)
+  );
 };
+
+///////////////////////////////////////////////////////
+
+// Open hide menu
+const openHideMenu = function (e) {
+  const curEl = e.target.closest(".menu-detail__item-heading");
+  if (!curEl) return;
+
+  const childSvg = curEl.querySelector(".menu-detail__icon");
+  const nextEl = curEl.nextElementSibling;
+
+  nextEl.classList.toggle("show-hide-menu");
+  curEl.classList.toggle("state-active-menu");
+  childSvg.classList.toggle("rotate");
+};
+
+///////////////////////////////////////////////////////
+
+// Slide show
+let count = 0;
+const slideShow = function () {
+  document.querySelectorAll(".btn-slide").forEach((b) => {
+    b.classList.remove("active-show-btn");
+  });
+
+  const imgs = document.querySelectorAll(".slide-show__img");
+
+  imgs.forEach((i, index) => {
+    i.style.transform = `translateX(${-(count + 1 - index) * 100}%)`;
+
+    if (-(count + 1 - index) * 100 === 0) {
+      document
+        .querySelector(`.btn-slide-${index + 1}`)
+        .classList.add("active-show-btn");
+    }
+  });
+
+  count += 1;
+
+  if (count === imgs.length - 1) {
+    count = -1;
+  }
+};
+
+var interval;
+const startSlideShow = function () {
+  interval = setInterval(slideShow, 4000);
+};
+
+const stopSlideShow = function () {
+  clearInterval(interval);
+};
+
+startSlideShow();
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    stopSlideShow();
+  } else {
+    startSlideShow();
+  }
+});
 
 ///////////////////////////////////////////////////////
 
 // Event
 document
-  .querySelector(".search-bar")
-  .addEventListener("keyup", searchProduct);
-
-document
   .querySelector(".menu-filter__list")
   .addEventListener("click", filterProduct);
-
+document
+  .querySelector(".menu-detail__list")
+  .addEventListener("click", openHideMenu);
 showProduct();
