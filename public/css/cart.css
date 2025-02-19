@@ -58,7 +58,7 @@ div.cartinfo {
     margin-right: 8%;
 }
 
-div.cartinfo h1 {
+div.cartinfo span {
     font-size: 38px;
     font-weight: 400;
 }
@@ -204,6 +204,12 @@ div.discount {
     padding: 1px;
 }
 
+.discount button{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
 div.message {
     width: 40%;
     margin-top: 3%;
@@ -244,3 +250,14 @@ div.message {
     border-radius: 7px;
     cursor: pointer;
 }
+
+/* CSS สำหรับราคาที่ขีดฆ่าและลดขนาด */
+.original-price {
+    text-decoration: line-through;  /* ขีดฆ่าราคา */
+    font-size: 30px !important; /* ลดขนาดฟอนต์ */
+  }
+  
+  .discounted-price {
+    color: #00aaff; /* สีสำหรับราคาหลังจากหักส่วนลด */
+  }
+  
