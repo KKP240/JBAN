@@ -54,7 +54,7 @@ html {
 }
 
 .product-image {
-    position: relative;
+    /* position: relative; */
     width: 50%;
     display: flex;
     justify-content: center;
@@ -62,8 +62,9 @@ html {
 }
 
 .product-image img {
-    width: 80%;
+    width: 300px;
     height: auto;
+    margin-top: 58px;
 }
 
 /* .arrow {
@@ -100,7 +101,7 @@ html {
 .rating {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .star {
@@ -138,14 +139,18 @@ html {
 }
 
 .size-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 14px;
     margin-top: 10px;
-    border-radius: 3px;
-    width: 24px;
-    height: 24px;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
     border: 1px solid #ddd;
     background: white;
     cursor: pointer;
+    padding: 4px;
 }
 
 
@@ -229,6 +234,10 @@ html {
     margin-bottom: 20px;
 }
 
+.price-section span{
+    font-size: 18px;
+}
+
 .add-to-cart {
     width: 130px;
     padding: 8px;
@@ -285,6 +294,7 @@ button:active {
 .text1 {
     font-weight: normal;
     color: #000;
+    font-size: 18px;
 }
 
 .selected {

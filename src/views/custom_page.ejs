@@ -20,9 +20,9 @@
         <div class="container">
             <div class="product-container">
                 <div class="product-image">
-                    <button class="arrow arrow-left">←</button>
-                    <img src="/images/เสื้อ.webp" alt="เสื้อยืด">
-                    <button class="arrow arrow-right">→</button>
+                    <!-- <button class="arrow arrow-left">←</button> -->
+                    <img src="/images/black-tshirt.jpg" alt="เสื้อยืด">
+                    <!-- <button class="arrow arrow-right">→</button> -->
                 </div>
                 <div class="product-details">
                     <div class="button-group">
@@ -31,52 +31,46 @@
                     </div>
                     <div class="size-section">
                         <div class="texticon">
-                            <h3>ขนาดเสื้อ (นิ้ว)</h3>
-                            <img src="/icon/warning-circle.svg" alt="">
-                            <h5 class="text2">ตารางขนาดพื้นฐาน</h5>
+                            <div class="text-size">ขนาดเสื้อ (นิ้ว)</div>
+                            <div class="left">
+                                <img src="/icon/warning-circle.svg" alt="">
+                                <div class="text2">ตารางขนาดพื้นฐาน</div>
+                            </div>
                         </div>
                         <div class="size-inputs">
                             <div class="size-group">
                                 <label>รอบอก</label>
-                                <input type="text">
+                                <input type="number" min="0">
                             </div>
                             <div class="size-group">
                                 <label>ความยาว</label>
-                                <input type="text">
+                                <input type="number" min="0">
                             </div>
                         </div>
                     </div>
 
                     <div class="fabric-section">
-                        <h3>เนื้อผ้า</h3>
+                        <div>เนื้อผ้า</div>
                         <input type="text" placeholder="ex. ผ้าฝ้าย cotton, ผ้า polyester">
                     </div>
 
                     <div class="additional-info-section">
-                        <h3>เพิ่มเติม</h3>
+                        <div>เพิ่มเติม</div>
                         <textarea rows="4" cols="50" placeholder="ex. ชื่อทีมบนเสื้อ ชื่อผลิตภัณฑ์"></textarea>
                     </div>
 
                     <div class="color-group">
                         <span class="color-label">สีเสื้อ</span>
                         <div class="color-buttons">
-                            <button class="color-button"></button>
-                            <div class="color-picker">
-                                <div class="color-area">
-                                    <div class="color-cursor"></div>
-                                </div>
-                                <div class="hue-slider">
-                                    <div class="hue-cursor"></div>
-                                </div>
-                            </div>
+                            <input type="color" name="" id="color">
                         </div>
 
                         <div class="quantity-group">
                             <span class="quantity-label">จำนวน</span>
                             <div class="quantity-control">
-                                <button class="quantity-button" onclick="deletenum()">-</button>
-                                <span id="num">1</span>
-                                <button class="quantity-button" onclick="addnum()">+</button>
+                                <button class="quantity-button left" onclick="deletenum()">-</button>
+                                <span class="quantity" id="num">1</span>
+                                <button class="quantity-button right" onclick="addnum()">+</button>
                             </div>
                         </div>
                     </div>
