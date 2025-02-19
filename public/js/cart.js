@@ -30,9 +30,13 @@ document.getElementById('applyDiscount').addEventListener('click', function () {
     var discountCode = document.getElementById('discountCode').value; // รับค่าจาก input
     var priceElement = document.getElementById('price'); // เลือก element ที่แสดงราคาปัจจุบัน
     var originalPriceElement = document.getElementById('originalPrice'); // เลือก element ของราคาที่ต้องการขีดฆ่า
+    var discountMessage = document.getElementById('discountMessage'); // เลือก element สำหรับแสดงข้อความแจ้งผล
 
     // ตรวจสอบว่ามีราคาใหม่แล้วหรือยัง
     var existingDiscountedPrice = document.querySelector('.discounted-price');
+
+    // ลบข้อความที่มีอยู่ก่อนหน้านี้
+    discountMessage.textContent = '';
 
     if (existingDiscountedPrice) {
         // ถ้ามีราคาหลังหักส่วนลดอยู่แล้ว ให้หยุดทำงาน (ไม่เพิ่มใหม่)
@@ -53,7 +57,15 @@ document.getElementById('applyDiscount').addEventListener('click', function () {
 
         // เพิ่มราคาหลังหักส่วนลดไปที่ div
         priceElement.appendChild(discountedPriceSpan);
+
+        // แสดงข้อความว่ามีการใช้โค้ดส่วนลด
+        discountMessage.textContent = 'ใช้โค้ดส่วนลดแล้ว';
+        discountMessage.classList.remove('error'); // ลบคลาสสีแดง
+        discountMessage.classList.add('success'); // เพิ่มคลาสสีเขียว
     } else {
-        alert('โค้ดส่วนลดไม่ถูกต้อง');
+        // ถ้าโค้ดไม่ถูกต้อง
+        discountMessage.textContent = 'โค้ดส่วนลดไม่ถูกต้อง';
+        discountMessage.classList.remove('success'); // ลบคลาสสีเขียว
+        discountMessage.classList.add('error'); // เพิ่มคลาสสีแดง
     }
 });
