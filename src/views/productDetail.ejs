@@ -22,9 +22,9 @@
     <div class="container">
       <div class="product-container">
         <div class="product-image">
-          <button class="arrow arrow-left">←</button>
-          <img src="/images/เสื้อ.webp" alt="เสื้อยืด" class="shirt" />
-          <button class="arrow arrow-right">→</button>
+          <!-- <button class="arrow arrow-left">←</button> -->
+          <img src="/images/black-tshirt.jpg" alt="เสื้อยืด" class="shirt" />
+          <!-- <button class="arrow arrow-right">→</button> -->
         </div>
 
         <div class="product-details">
@@ -41,6 +41,22 @@
             <span class="star" data-rating="4">★</span>
             <span class="star" data-rating="5">★</span>
             <span class="heart" id="heartButton">♥</span>
+          </div>
+
+          <!-- เลือกสี -->
+          <div class="color-section">
+            <h3 class="text1">เลือกสี</h3>
+            <div class="color-buttons">
+              <!-- ลูปผ่าน variants เพื่อแสดงปุ่มสี -->
+              <% product.variants.forEach(variant => { %>
+                <button
+                  class="color-button"
+                  style="background-color: <%= variant.color %>;"
+                  onclick="selectColor('<%= variant.color %>')"
+                  value="<%= variant.color %>;"
+                ></button>
+              <% }) %>
+            </div>
           </div>
 
           <!-- เลือกขนาด -->
@@ -63,29 +79,30 @@
               <% }) %>
             </div>
           </div>
-  
-          <!-- เลือกสี -->
-          <div class="color-section">
-            <h3 class="text1">เลือกสี</h3>
-            <div class="color-buttons">
-              <!-- ลูปผ่าน variants เพื่อแสดงปุ่มสี -->
-              <% product.variants.forEach(variant => { %>
-                <button
-                  class="color-button"
-                  style="background-color: <%= variant.color %>;"
-                  onclick="selectColor('<%= variant.color %>')"
-                ></button>
-              <% }) %>
-            </div>
-          </div>
 
           <div class="quantity-section">
             <h3 class="text1">จำนวน</h3>
             <div class="quantity-control">
-              <button class="quantity-button" onclick="deletenum()">-</button>
-              <span style="font-size: 13px" id="num">1</span>
-              <button class="quantity-button" onclick="addnum()">+</button>
+              <button class="quantity-button btn-left" onclick="deletenum()">-</button>
+              <span class="quantity" id="num">1</span>
+              <button class="quantity-button btn-right" onclick="addnum()">+</button>
             </div>
+          </div>
+
+            <div class="stock">จำนวนสินค้าที่มี : 
+              <% 
+              let uniqueStock = new Set();
+              product.variants.forEach(variant => {
+                variant.sizes.forEach(s => uniqueStock.add(s.stock));
+              });
+              // แปลงเป็น array แล้ว sort ตามต้องการ
+              let stockArray = Array.from(uniqueStock);
+            %>
+            <% stockArray.forEach(stock => { %>
+              <span class="stock-amount" onclick="selectSize('<%= stock %>')">
+                <%= stock %>
+              </span>
+            <% }) %>
           </div>
 
           <div class="price-section">
@@ -122,11 +139,13 @@
 
         <div class="review">
           <div class="review-header">
-            <div class="reviewer-avatar"></div>
+            <div class="reviewer-avatar">
+              <img src="icon/user-circle.svg" alt="">
+            </div>
             <div>
               <div style="font-size: 15px">Nutthawat</div>
             </div>
-          </div>
+        </div>
           <div class="rating">
             <span class="star">★</span>
             <span class="star">★</span>
@@ -136,8 +155,47 @@
           </div>
           <h3 class="text1">อาหารอร่อย หาที่จอดรถง่าย</h3>
         </div>
+
+        <div class="review">
+          <div class="review-header">
+            <div class="reviewer-avatar">
+              <img src="icon/user-circle.svg" alt="">
+            </div>
+            <div>
+              <div style="font-size: 15px">Nutthawat</div>
+            </div>
+        </div>
+          <div class="rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star" style="color: #ddd">★</span>
+          </div>
+          <h3 class="text1">อาหารอร่อย หาที่จอดรถง่าย</h3>
+        </div>
+        
       </div>
     </div>
     <%- include("footer"); %>
+    <script>
+      const colorbtnList = document.querySelectorAll('.color-button');
+
+      colorbtnList.forEach(colorbtn => {
+          colorbtn.addEventListener('click', () => {
+              document.querySelector('.color-active')?.classList.remove('color-active');
+              colorbtn.classList.add('color-active');
+          });
+      });
+      
+      const sizebtnList = document.querySelectorAll('.size-button');
+
+      sizebtnList.forEach(sizebtn => {
+          sizebtn.addEventListener('click', () => {
+              document.querySelector('.size-active')?.classList.remove('size-active');
+              sizebtn.classList.add('size-active');
+          });
+      });
+    </script>
   </body>
 </html>
