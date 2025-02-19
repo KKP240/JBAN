@@ -52,8 +52,7 @@
                 <button
                   class="color-button"
                   style="background-color: <%= variant.color %>;"
-                  onclick="selectColor('<%= variant.color %>')"
-                  value="<%= variant.color %>;"
+                  data-color="<%= variant.color %>"
                 ></button>
               <% }) %>
             </div>
@@ -63,19 +62,19 @@
         <div class="size-section">
             <h3 class="text1">เลือกขนาด</h3>
             <div class="size-buttons">
-              <!-- ลูปผ่าน variants -> sizes -->
-              <% 
-                let uniqueSizes = new Set();
-                product.variants.forEach(variant => {
-                  variant.sizes.forEach(s => uniqueSizes.add(s.size));
-                });
-                // แปลงเป็น array แล้ว sort ตามต้องการ
-                let sizeArray = Array.from(uniqueSizes);
-              %>
-              <% sizeArray.forEach(size => { %>
-                <button class="size-button" onclick="selectSize('<%= size %>')">
-                  <%= size %>
-                </button>
+              <% product.variants.forEach(variant => { %>
+                <% variant.sizes.forEach(s => { %>
+                  <button 
+                    class="size-button"
+                    data-color="<%= variant.color %>"
+                    data-colors="<%= product.variants.length %>"
+                    data-size="<%= s.size %>"
+                    data-sizes="<%= variant.sizes.length %>"
+                    data-stock="<%= s.stock %>"
+                  >
+                    <%= s.size %>
+                  </button>
+                <% }) %>
               <% }) %>
             </div>
           </div>
@@ -90,19 +89,11 @@
           </div>
 
             <div class="stock">จำนวนสินค้าที่มี : 
-              <% 
-              let uniqueStock = new Set();
-              product.variants.forEach(variant => {
-                variant.sizes.forEach(s => uniqueStock.add(s.stock));
-              });
-              // แปลงเป็น array แล้ว sort ตามต้องการ
-              let stockArray = Array.from(uniqueStock);
-            %>
-            <% stockArray.forEach(stock => { %>
-              <span class="stock-amount" onclick="selectSize('<%= stock %>')">
-                <%= stock %>
+            
+              <span class="stock-amount">
+                
               </span>
-            <% }) %>
+            
           </div>
 
           <div class="price-section">
@@ -179,22 +170,43 @@
     </div>
     <%- include("footer"); %>
     <script>
-      const colorbtnList = document.querySelectorAll('.color-button');
+      document.addEventListener("DOMContentLoaded", function () {
+        let selectedColor = null;
+        let selectedSize = null;
 
-      colorbtnList.forEach(colorbtn => {
-          colorbtn.addEventListener('click', () => {
-              document.querySelector('.color-active')?.classList.remove('color-active');
-              colorbtn.classList.add('color-active');
-          });
-      });
+        const colorButtons = document.querySelectorAll(".color-button");
+        const sizeButtons = document.querySelectorAll(".size-button");
+        const stockDisplay = document.querySelector(".stock-amount");
+
+        // ฟังก์ชันอัปเดต stock
+        function updateStock() {
+            if (selectedColor && selectedSize) {
+                const selectedStock = [...sizeButtons].find(
+                    btn => btn.dataset.color === selectedColor && btn.dataset.size === selectedSize
+                )?.dataset.stock || "0"; // ถ้าไม่มี stock ให้เป็น 0
+                stockDisplay.textContent = selectedStock;
+            }
+        }
       
-      const sizebtnList = document.querySelectorAll('.size-button');
-
-      sizebtnList.forEach(sizebtn => {
-          sizebtn.addEventListener('click', () => {
-              document.querySelector('.size-active')?.classList.remove('size-active');
-              sizebtn.classList.add('size-active');
-          });
+        // คลิกเลือกสี
+        colorButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                document.querySelector(".color-active")?.classList.remove("color-active");
+                this.classList.add("color-active");
+                selectedColor = this.dataset.color;
+                updateStock();
+            });
+        });
+      
+        // คลิกเลือกขนาด
+        sizeButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                document.querySelector(".size-active")?.classList.remove("size-active");
+                this.classList.add("size-active");
+                selectedSize = this.dataset.size;
+                updateStock();
+            });
+        });
       });
     </script>
   </body>
