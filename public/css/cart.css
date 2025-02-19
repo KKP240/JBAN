@@ -142,9 +142,12 @@ div.product-info span {
     pointer-events: auto;
 }
 
-.minus,
-.plus {
+.minus{
     margin-right: 10px;
+}
+
+.plus {
+    margin-left: 10px;
 }
 
 .price {

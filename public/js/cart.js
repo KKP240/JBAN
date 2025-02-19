@@ -63,6 +63,7 @@ document.getElementById('applyDiscount').addEventListener('click', function () {
         discountMessage.classList.remove('error'); // ลบคลาสสีแดง
         discountMessage.classList.add('success'); // เพิ่มคลาสสีเขียว
     } else {
+        
         // ถ้าโค้ดไม่ถูกต้อง
         discountMessage.textContent = 'โค้ดส่วนลดไม่ถูกต้อง';
         discountMessage.classList.remove('success'); // ลบคลาสสีเขียว
