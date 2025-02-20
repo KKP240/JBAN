@@ -27,87 +27,87 @@
                 <div id="price">
                     <span>ราคาสุทธิ</span>
                     &nbsp;
-                    <span id="originalPrice">฿309.00</span>
+                    <span id="originalPrice">฿0.00</span>
                 </div>
                 <p>ราคานี้ยังไม่รวมค่าจัดส่งเริ่มสั่งซื้อ</p>
 
-                <div class="carttable">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="goods">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6F-1K32fpYChgdu2kNt7UTT3Tf_67M4fZw&s"
-                                        class="product-img">
-                                    <div class="product-info">
-                                        <span class="product-name">เสื้อยืด-แขนยาว</span>
-                                        <span>สี เขียว</span>
-                                        <span>ไซส์ M</span>
-                                    </div>
-                                </td>
+                <div class="cartTable">
+                    <table id="cartTable">
 
-                                <td class="quantity">
-                                    <button class="minus" type="button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0d0d0d"
-                                            viewBox="0 0 256 256">
-                                            <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z">
-                                            </path>
-                                        </svg>
-                                    </button>
-                                    <span class="amount">1</span>
-                                    <button class="plus" type="button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0d0d0d"
-                                            viewBox="0 0 256 256">
-                                            <path
-                                                d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z">
-                                            </path>
-                                        </svg>
-                                    </button>
-                                </td>
+                        <tr class="cart-item">
+                            <td class="goods">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6F-1K32fpYChgdu2kNt7UTT3Tf_67M4fZw&s"
+                                    class="product-img" />
+                                <div class="product-info">
+                                    <span class="product-name">เสื้อยืด-แขนยาว</span>
+                                    <span>สี เขียว</span>
+                                    <span>ไซส์ M</span>
+                                </div>
+                            </td>
 
-                                <td class="price">
-                                    <span>฿60.00</span>
-                                    <br>
-                                    <a href="#" class="remove">ลบออก</a>
-                                </td>
-                            </tr>
+                            <td class="quantity">
+                                <button class="minus" type="button" onclick="updateQuantity(this, -1)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0d0d0d"
+                                        viewBox="0 0 256 256">
+                                        <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z">
+                                        </path>
+                                    </svg>
+                                </button>
+                                <span class="amount">1</span>
+                                <button class="plus" type="button" onclick="updateQuantity(this, 1)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0d0d0d"
+                                        viewBox="0 0 256 256">
+                                        <path
+                                            d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </td>
 
-                            <tr>
-                                <td class="goods">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6F-1K32fpYChgdu2kNt7UTT3Tf_67M4fZw&s"
-                                        class="product-img">
-                                    <div class="product-info">
-                                        <span class="product-name">เสื้อยืด-แขนยาว</span>
-                                        <span>สี เขียว</span>
-                                        <span>ไซส์ M</span>
-                                    </div>
-                                </td>
+                            <td class="price">
+                                <span class="unitPrice">฿60.00</span>
+                                <br>
+                                <a href="#" class="remove">ลบออก</a>
+                            </td>
+                        </tr>
 
-                                <td class="quantity">
-                                    <button class="minus" type="button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0d0d0d"
-                                            viewBox="0 0 256 256">
-                                            <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z">
-                                            </path>
-                                        </svg>
-                                    </button>
-                                    <span class="amount">1</span>
-                                    <button class="plus" type="button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0d0d0d"
-                                            viewBox="0 0 256 256">
-                                            <path
-                                                d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z">
-                                            </path>
-                                        </svg>
-                                    </button>
-                                </td>
+                        <tr class="cart-item">
+                            <td class="goods">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY6F-1K32fpYChgdu2kNt7UTT3Tf_67M4fZw&s"
+                                    class="product-img" />
+                                <div class="product-info">
+                                    <span class="product-name">เสื้อยืด-แขนสั้น</span>
+                                    <span>สี แดง</span>
+                                    <span>ไซส์ L</span>
+                                </div>
+                            </td>
 
-                                <td class="price">
-                                    <span>฿60.00</span>
-                                    <br>
-                                    <a href="#" class="remove">ลบออก</a>
-                                </td>
-                            </tr>
-                        </tbody>
+                            <td class="quantity">
+                                <button class="minus" type="button" onclick="updateQuantity(this, -1)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0d0d0d"
+                                        viewBox="0 0 256 256">
+                                        <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z">
+                                        </path>
+                                    </svg>
+                                </button>
+                                <span class="amount">1</span>
+                                <button class="plus" type="button" onclick="updateQuantity(this, 1)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0d0d0d"
+                                        viewBox="0 0 256 256">
+                                        <path
+                                            d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </td>
+
+                            <td class="price">
+                                <span class="unitPrice">฿80.00</span>
+                                <br>
+                                <a href="#" class="remove">ลบออก</a>
+                            </td>
+                        </tr>
+
                     </table>
                 </div>
 

@@ -140,7 +140,7 @@ const searchProduct = async function (e) {
     }
   });
 
-  document.querySelector('.search-sum').textContent = `${document.querySelector('.search-group-data').children.length} result`
+  document.querySelector('.search-sum').textContent = `${document.querySelector('.search-group-data').children.length} ผลลัพธ์`
 
   if(!document.querySelector('.search-group-data').childNodes.length) {
     notFoundSearchData();
@@ -169,7 +169,7 @@ const clearSearchData = function(){
 
 // Not found search data
 const notFoundSearchData = function(){
-  document.querySelector('.search-group-data').innerHTML = '<div style="text-align: center;">Search not found.</div>';
+  document.querySelector('.search-group-data').innerHTML = '<div style="text-align: center;">ไม่พบการค้นหา</div>';
 }
 
 ///////////////////////////////////////////////////////

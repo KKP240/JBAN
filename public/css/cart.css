@@ -69,17 +69,17 @@ div.cartinfo p {
     color: rgb(87, 87, 87);
 }
 
-.carttable table {
+.cartTable table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.carttable tr {
+.cartTable tr {
     padding: 10px;
     border-bottom: 2px solid rgb(185, 185, 185);
 }
 
-.carttable td {
+.cartTable td {
     font-size: 18px;
     padding-top: 5%;
     padding-bottom: 5%;

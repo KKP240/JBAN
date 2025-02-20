@@ -1,72 +1,126 @@
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".quantity").forEach(quantityContainer => {
-        const minusButton = quantityContainer.querySelector(".minus");
-        const plusButton = quantityContainer.querySelector(".plus");
-        const quantitySpan = quantityContainer.querySelector(".amount");
+const originalPriceElement = document.getElementById('originalPrice');
+const priceElement = document.getElementById('price');
+const discountMessage = document.getElementById('discountMessage');
 
-        minusButton.addEventListener("click", function () {
-            let currentValue = parseInt(quantitySpan.textContent, 10);
-            if (currentValue > 1) {
-                quantitySpan.textContent = currentValue - 1;
-            }
-        });
+let discountAmount = 0; // กำหนดค่าเริ่มต้นของส่วนลดเป็น 0
+let originalPrice = 0;
+let totalPrice = 0; // กำหนดราคาสุทธิเริ่มต้น
 
-        plusButton.addEventListener("click", function () {
-            let currentValue = parseInt(quantitySpan.textContent, 10);
-            quantitySpan.textContent = currentValue + 1;
-        });
+// ฟังก์ชันในการคำนวณราคาใหม่
+function updatePrice() {
+    const cartItems = document.querySelectorAll('.cart-item');
+    totalPrice = 0; // เริ่มต้นราคาที่ 0
+    originalPrice = 0;
+
+    // คำนวณราคาแต่ละรายการและรวมเป็นราคาสุทธิ
+    cartItems.forEach(item => {
+        const quantity = parseInt(item.querySelector('.amount').textContent, 10);
+        const unitPriceText = item.querySelector('.unitPrice').textContent;
+        const unitPrice = parseFloat(unitPriceText.replace('฿', '').trim()); // ตรวจสอบให้แน่ใจว่าอ่านราคาถูกต้อง
+        const itemTotalPrice = unitPrice * quantity;
+        totalPrice += itemTotalPrice;
+        originalPrice += itemTotalPrice;
+    });
+
+    // ถ้ามีส่วนลด จะหักจากราคาสุทธิ
+    if (discountAmount > 0) {
+        totalPrice -= discountAmount;
+    }
+
+    // อัปเดตราคาสุทธิ (แสดงราคาเดิมที่ไม่มีส่วนลด)
+    originalPriceElement.textContent = `฿${originalPrice.toFixed(2)}`;
+
+    // ตรวจสอบว่ามีส่วนลดหรือไม่ ถ้ามีให้แสดงราคาใหม่ที่ถูกหักส่วนลด
+    const discountedPriceSpan = document.querySelector('.discounted-price');
+    if (discountAmount > 0) {
+        // ถ้ามีราคาหลังหักส่วนลดแล้วให้แสดงใหม่
+        if (discountedPriceSpan) {
+            discountedPriceSpan.textContent = `฿${totalPrice.toFixed(2)}`;
+        } else {
+            // ถ้ายังไม่มี span สำหรับราคาหลังหักส่วนลด
+            const newDiscountedPriceSpan = document.createElement('span');
+            newDiscountedPriceSpan.classList.add('discounted-price');
+            newDiscountedPriceSpan.textContent = `฿${totalPrice.toFixed(2)}`;
+            priceElement.appendChild(newDiscountedPriceSpan);
+        }
+    } else {
+        // ถ้าไม่มีส่วนลดให้ลบราคาหลังส่วนลดออก
+        if (discountedPriceSpan) {
+            discountedPriceSpan.remove();
+        }
+    }
+
+    // ตรวจสอบว่าราคาหลังหักส่วนลดต่ำกว่า 200 บาทหรือไม่
+    if (originalPrice < 200 && discountAmount > 0) {
+        // ถ้าราคาต่ำกว่า 200 บาท ให้ลบส่วนลดออก
+        discountAmount = 0;
+        // ลบ class original-price เมื่อราคาต่ำกว่า 200 บาท
+        originalPriceElement.classList.remove('original-price');
+        updatePrice();  // รีเฟรชการคำนวณราคา
+        discountMessage.textContent = 'ราคาสินค้าต่ำกว่า 200 บาท จึงไม่สามารถใช้โค้ดส่วนลดได้';
+        discountMessage.classList.remove('success');
+        discountMessage.classList.add('error');
+    }
+}
+
+// ฟังก์ชันในการอัปเดตจำนวนสินค้า
+function updateQuantity(button, amountChange) {
+    const item = button.closest('.cart-item');  // หาตำแหน่งของแถวสินค้า
+    const amountElement = item.querySelector('.amount');  // หาจำนวนสินค้าของแถวนี้
+    let currentAmount = parseInt(amountElement.textContent, 10);
+
+    currentAmount += amountChange;
+    if (currentAmount < 1) currentAmount = 1; // เริ่มต้นที่ 1 ไม่ให้จำนวนสินค้าน้อยกว่า 1
+
+    amountElement.textContent = currentAmount;
+
+    updatePrice(); // อัปเดตราคา
+}
+
+// ลบสินค้าจากตะกร้า
+document.querySelectorAll('.remove').forEach(removeBtn => {
+    removeBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const item = e.target.closest('.cart-item'); // หาตำแหน่งของแถวสินค้า
+        item.remove();  // ลบแถวสินค้า
+
+        updatePrice(); // อัปเดตราคาหลังจากลบสินค้า
+        alert('สินค้าถูกลบออกจากตะกร้า');
     });
 });
 
-document.querySelectorAll('.remove').forEach(function (button) {
-    button.addEventListener('click', function (event) {
-        event.preventDefault(); // หยุดการทำงานตามปกติของลิงค์ (ไม่ให้เลื่อนหน้า)
-        var row = this.closest('tr'); // หาตัวแถวที่ลิงค์นี้อยู่
-        row.remove(); // ลบแถวนี้ออก
-    });
-});
-
+// ฟังก์ชันสำหรับการใช้ส่วนลด
 document.getElementById('applyDiscount').addEventListener('click', function () {
     var discountCode = document.getElementById('discountCode').value; // รับค่าจาก input
-    var priceElement = document.getElementById('price'); // เลือก element ที่แสดงราคาปัจจุบัน
-    var originalPriceElement = document.getElementById('originalPrice'); // เลือก element ของราคาที่ต้องการขีดฆ่า
-    var discountMessage = document.getElementById('discountMessage'); // เลือก element สำหรับแสดงข้อความแจ้งผล
-
-    // ตรวจสอบว่ามีราคาใหม่แล้วหรือยัง
-    var existingDiscountedPrice = document.querySelector('.discounted-price');
-
-    // ลบข้อความที่มีอยู่ก่อนหน้านี้
     discountMessage.textContent = '';
 
-    if (existingDiscountedPrice) {
-        // ถ้ามีราคาหลังหักส่วนลดอยู่แล้ว ให้หยุดทำงาน (ไม่เพิ่มใหม่)
-        return;
-    }
-
+    // ตรวจสอบว่าโค้ดส่วนลดถูกต้องหรือไม่
     if (discountCode === 'discount100') {
-        var originalPrice = 309.00; // ราคาปัจจุบัน
-        var discountedPrice = originalPrice - 100; // คำนวณราคาหลังจากใช้ส่วนลด
+        // เช็คว่าราคาสุทธิมากกว่า 200 บาทหรือไม่
+        if (originalPrice >= 200) {
+            discountAmount = 100; // กำหนดส่วนลด
 
-        // เพิ่มคลาส 'original-price' ให้กับราคาเดิม
-        originalPriceElement.classList.add('original-price');
+            // เพิ่มคลาส 'original-price' ให้กับราคาเดิม
+            originalPriceElement.classList.add('original-price');
 
-        // สร้าง span สำหรับราคาหลังจากหักส่วนลด
-        var discountedPriceSpan = document.createElement('span');
-        discountedPriceSpan.classList.add('discounted-price');
-        discountedPriceSpan.textContent = ` ฿${discountedPrice.toFixed(2)}`;
-
-        // เพิ่มราคาหลังหักส่วนลดไปที่ div
-        priceElement.appendChild(discountedPriceSpan);
-
-        // แสดงข้อความว่ามีการใช้โค้ดส่วนลด
-        discountMessage.textContent = 'ใช้โค้ดส่วนลดแล้ว';
-        discountMessage.classList.remove('error'); // ลบคลาสสีแดง
-        discountMessage.classList.add('success'); // เพิ่มคลาสสีเขียว
+            discountMessage.textContent = 'ใช้โค้ดส่วนลดแล้ว';
+            discountMessage.classList.remove('error');
+            discountMessage.classList.add('success');
+        } else {
+            // ถ้าราคาน้อยกว่า 200 บาท
+            discountMessage.textContent = 'ราคาสินค้าต่ำกว่า 200 บาท จึงไม่สามารถใช้โค้ดส่วนลดได้';
+            discountMessage.classList.remove('success');
+            discountMessage.classList.add('error');
+        }
     } else {
-        
         // ถ้าโค้ดไม่ถูกต้อง
         discountMessage.textContent = 'โค้ดส่วนลดไม่ถูกต้อง';
-        discountMessage.classList.remove('success'); // ลบคลาสสีเขียว
-        discountMessage.classList.add('error'); // เพิ่มคลาสสีแดง
+        discountMessage.classList.remove('success');
+        discountMessage.classList.add('error');
     }
+
+    updatePrice(); // คำนวณราคาใหม่หลังจากใช้ส่วนลด
 });
+
+// เริ่มต้นคำนวณราคาสุทธิเมื่อโหลดหน้า
+updatePrice();
