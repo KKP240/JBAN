@@ -48,7 +48,7 @@
               <td class="available">มีสินค้า</td>
               <td class="basket">
                 <button type="button">เพิ่มไปยังตะกร้า</button>
-                <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c"
+                <a href="javascript:void(0)" onclick="removeRow(this)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c"
                     viewBox="0 0 256 256">
                     <path
                       d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
@@ -71,7 +71,7 @@
               <td class="almost_out_of_stock">สินค้าใกล้หมด</td>
               <td class="basket">
                 <button type="button">เพิ่มไปยังตะกร้า</button>
-                <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c"
+                <a href="javascript:void(0)" onclick="removeRow(this)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c"
                     viewBox="0 0 256 256">
                     <path
                       d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
@@ -94,7 +94,7 @@
               <td class="out_of_stock">สินค้าหมด</td>
               <td class="basket">
                 <button type="button">เพิ่มไปยังตะกร้า</button>
-                <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c"
+                <a href="javascript:void(0)" onclick="removeRow(this)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c"
                     viewBox="0 0 256 256">
                     <path
                       d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
@@ -109,6 +109,15 @@
 
     <%- include("footer"); %>
   <script src="js/utilities.js"></script>
+
+  <script>
+    function removeRow(element) {
+      // Find the <tr> element that contains the <a> and remove it
+      var row = element.closest('tr');
+      row.remove();
+    }
+  </script>
+
 </body>
 
 </html>
