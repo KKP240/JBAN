@@ -49,8 +49,14 @@ const loginUser = async (req, res) => {
         }
 
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
-
-        res.json({ message: "Login successful", token });
+        // document.cookie = `token=${token}; path=/; SameSite=Strict`;
+        res.cookie("token", token, {
+          httpOnly: false, // ป้องกันการเข้าถึงจาก JavaScript
+          // secure: process.env.NODE_ENV === "production", // ใช้ secure เฉพาะใน Production
+          sameSite: "Strict", // ป้องกัน CSRF
+          maxAge: 24 * 60 * 60 * 1000, // 1 วัน
+      });
+        res.json({ message: "Login successful"});
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -79,7 +85,14 @@ const registerUser = async (req, res) => {
   
       // Generate JWT token
       const token = jwt.sign({ userId: newUser._id, role: newUser.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  
+      
+      res.cookie("token", token, {
+        httpOnly: false,
+        // secure: process.env.NODE_ENV === "production",
+        sameSite: "Strict",
+        maxAge: 60 * 60 * 1000, // 1 ชั่วโมง
+    });
+
       res.status(201).json({
         message: 'User registered successfully',
         token
@@ -91,13 +104,25 @@ const registerUser = async (req, res) => {
 
   const me = async (req, res) => {
     try {
-      // req.user ถูกผูกไว้จาก authMiddleware
-      const user = await User.findById(req.user.id);
-      res.json(user);
+        // เปลี่ยนมาใช้ cookie
+        const token = req.cookies.token;
+        if (!token) {
+            return res.status(401).json({ message: "Not authenticated" });
+        }
+
+        
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.userId)
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json(user);
     } catch (error) {
-      res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: "Server error" });
     }
-  };
+};
 
 // const registerUser = async (req, res) => {
 //     const { name, email, password } = req.body;
