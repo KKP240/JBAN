@@ -432,7 +432,7 @@ body {
 }
 
 .active-filter {
-  color: #00aaff;
+  color: #00aaff !important;
 }
 
 .show-product {
