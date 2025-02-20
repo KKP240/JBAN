@@ -288,8 +288,8 @@ html {
     margin-right: 10px;
 }
 
-button:active {
-    border-color: #000000;
+button:not(.add-to-cart, .recommend, .custom):active {
+    border: 2px solid #d6d6d6;
 }
 
 .text1 {
@@ -317,4 +317,8 @@ button:active {
     img {
         width: 1.4rem;
     }
+}
+
+.shirt {
+    border-radius: 5px;
 }

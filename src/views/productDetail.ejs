@@ -53,6 +53,7 @@
                   class="color-button"
                   style="background-color: <%= variant.color %>;"
                   data-color="<%= variant.color %>"
+                  data-sizes="<%= variant.sizes.length %>"
                 ></button>
               <% }) %>
             </div>
@@ -102,11 +103,11 @@
             <span style="text-decoration: line-through; color: #999">
               ฿<%= product.originalPrice.toFixed(2) %>
             </span>
-            <span style="color: #ff0000; font-weight: bold">
+            <span style="color: #ff0000; font-weight: bold" class="label-discount">
               ฿<%= product.price.toFixed(2) %>
             </span>
             <% } else { %>
-            <span>฿<%= product.price.toFixed(2) %></span>
+            <span class="label-price">฿<%= product.price.toFixed(2) %></span>
             <% } %>
           </div>
 
@@ -122,8 +123,8 @@
           <span class="star" data-rating="3">★</span>
           <span class="star" data-rating="4">★</span>
           <span class="star" data-rating="5">★</span>
-          <span style="color: #00aaff; font-size: 12px; margin-left: 10px"
-            >(3 ratings)</span
+          <span style="color: #00aaff; font-size: 12px; margin-left: 10px" data-avg-rating="<%=product.averageRating %>" class="avg-star"
+            >(<%=product.numReviews %> ratings)</span
           >
         </div>
 
@@ -172,7 +173,6 @@
       document.addEventListener("DOMContentLoaded", function () {
           let selectedColor = null;
           let selectedSize = null;
-          let check = false;
 
           const colorButtons = document.querySelectorAll(".color-button");
           const sizeButtons = document.querySelectorAll(".size-button");
@@ -184,11 +184,6 @@
               sizeButtons.forEach(btn => {
                   btn.style.display = btn.dataset.color === selectedColor ? "inline-block" : "none";
               });
-              
-              if(!check) {
-                document.querySelector('.size-buttons').insertAdjacentHTML('beforeend', `<div class="choose-color">กรุณาเลือกสี <img src="/icon/warning-circle.svg"><div>`)
-                check = true;
-              }
               
               // document.querySelector('.size-buttons').querySelector('.choose-color').style.display = "none"
               
@@ -231,8 +226,14 @@
           });
     
           // ซ่อนปุ่มขนาดเริ่มต้น
-          updateSizeButtons();
-          // document.querySelector('.size-buttons').querySelector('.choose-color').style.display = "flex"
+          const colorSize = document.querySelector('.color-button').dataset.sizes;
+
+          document.querySelectorAll('.size-button').forEach((b, index) => index+1 > colorSize ? b.style.display = "none" : b.style.display = "inline-block");
+          document.querySelector('.size-buttons').insertAdjacentHTML('beforeend', `<div class="choose-color">กรุณาเลือกสี <img src="/icon/warning-circle.svg"><div>`)
+
+          // Review star
+          const avgRating = Number(document.querySelector('.avg-star').dataset.avgRating);
+          document.querySelectorAll('.star').forEach(s => Number(s.dataset.rating) <= avgRating ? s.style.color = "#00AAFF" : s.style.color = "#ddd")
       });
     </script>
   </body>
