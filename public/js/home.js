@@ -21,10 +21,8 @@ document.addEventListener("DOMContentLoaded", async function() {
   showAllProduct();
   mainPage.startSlideShow();
   document.querySelector(".menu-detail__list").addEventListener("click", mainPage.openHideMenu);
-  document.querySelector(".menu-filter__list").addEventListener("click", filter.filterProduct);
-  document.querySelector('.promo').addEventListener('click', filter.filterProductPromo);
+  document.querySelector(".menu-filter__list").addEventListener("click", filter.filterProductSort);
   document.querySelector('.menu-detail').addEventListener('click', filter.filterProductDetail);
-  
 });
 
 document.addEventListener("visibilitychange", () => {

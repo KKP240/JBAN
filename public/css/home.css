@@ -174,20 +174,21 @@ body {
   border: 2px solid #00aaff;
 }
 
-.red {
-  background-color: #860000;
-}
-
-.blue {
-  background-color: #008cff;
-}
-
-.green {
-  background-color: #67f067;
-}
-
 .black {
-  background-color: #292929;
+  background-color: black;
+}
+
+.gray {
+  background-color: gray;
+}
+
+.white {
+  background-color: white;
+  border: 2px solid #5a5a5a;
+}
+
+.navyBlue {
+  background-color: navy;
 }
 
 .menu-filter__heading {
@@ -432,6 +433,10 @@ body {
 }
 
 .active-filter {
+  color: #00aaff !important;
+}
+
+.active-filter-sort {
   color: #00aaff !important;
 }
 

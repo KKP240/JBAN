@@ -8,8 +8,8 @@ export const insertUiProduct = function (d) {
   const heartState = isFav ? "fill" : "not-fill";
 
   const html = `
-  <div class="product__item" data-name="${d.name}" data-category="${d.category}" data-id="${d._id}" data-create="${d.createdAt}" data-price="${d.price}" data-promotion="${d.isPromotion}" data-filter="not-filter"
-    data-type="${d.type}" >
+  <div class="product__item" data-name="${d.name}" data-category="${d.category}" data-id="${d._id}" data-create="${d.createdAt}" data-price="${d.price}" data-promotion="${d.isPromotion}" data-type="${d.type}"
+    data-filter-promo="not-filter" data-filter-types="not-filter" data-filter-sizes="not-filter" data-filter-colors="not-filter" >
     <div class="product__con-img">
       <img src="https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/68ef016b7946bcd32035a30c40e23f9209c53261_xxl-1.jpg" alt="img-product" class="product__img" product-id="${d._id}"/>
       <div class="percent ${d.isPromotion ? "active-percent" : ""}">${
