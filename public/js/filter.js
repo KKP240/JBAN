@@ -111,8 +111,8 @@ export const filterProductDetail = function(e){
 // Fliter clothes
 export const filterClothes = function(productItem, curEl){
   productItem.forEach(p => {
-    if(p.dataset.name.includes(curEl.textContent) || p.dataset.filter.includes('filter-')){
-      if(!p.dataset.filter.includes('filter-clothes') && !p.dataset.filter.includes('filter-')) p.dataset.filter = `filter-clothes-${curEl.textContent}`
+    if(p.dataset.type === curEl.textContent || p.dataset.filter.includes('filter-')){
+      if(!p.dataset.filter.includes('filter-clothes') && !p.dataset.filter.includes('filter-')) p.dataset.filter = `filter-clothes-${p.dataset.type}`
       disProduct.showUiProduct(p);
     }else{
       disProduct.HiddenUiProduct(p);
