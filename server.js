@@ -29,6 +29,7 @@ const connectDB = require("./src/config/db");
 const Product = require("./src/models/Product");
 const cookieParser = require('cookie-parser');
 const User = require("./src/models/User");
+const Cart = require('./src/models/Cart');
 
 const app = express();
 connectDB();
@@ -82,8 +83,14 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 
-app.get("/cart", (req, res) => {
-    res.render("cart");
+app.get('/cart', authMiddleware, async (req, res) => {
+    try {
+        const cart = await Cart.findOne({ userId: req.user.id }).populate('items.productId');
+        res.render('cart', { cart }); 
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+    }
 });
 
 // app.get("/favourite", (req, res) => {
@@ -199,7 +206,6 @@ app.get('/favourite', authMiddleware, async (req, res) => {
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
     }
 });
-
 
 
 
