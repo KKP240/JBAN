@@ -102,6 +102,14 @@ app.get("/home", (req, res) => {
     res.render("home");
 });
 
+app.get("/men", (req, res) => {
+    res.render("men");
+});
+
+app.get("/women", (req, res) => {
+    res.render("women");
+});
+
 app.get("/orderHistory", (req, res) => {
     res.render("history");
 });

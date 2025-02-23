@@ -440,6 +440,10 @@ body {
   color: #00aaff !important;
 }
 
+.active-btn-color {
+  border: 2px solid #00aaff;
+}
+
 .show-product {
   display: flex;
 }

@@ -10,9 +10,12 @@ export const filterProductDetail = function(e){
 
   curEl.classList.toggle('active-filter');
   const checkActive = curEl.classList.contains('active-filter');
+  if(curEl.dataset.filter === "color") curEl.classList.toggle('active-btn-color');
 
   curEl.dataset.filter === "promotion" ? filterPromotion(document.querySelectorAll('.product__item'), checkActive) : '';
   curEl.dataset.filter === "type" ? filterType(document.querySelectorAll('.product__item'), checkActive, curEl) : '';
+  curEl.dataset.filter === "size" ? filterSize(document.querySelectorAll('.product__item'), checkActive, curEl) : '';
+  curEl.dataset.filter === "color" ? filterColor(document.querySelectorAll('.product__item'), checkActive, curEl) : '';
 
   if(!checkAcitveFilter()) disProduct.showUiAllProduct(document.querySelectorAll('.product__item'));
 }
@@ -39,7 +42,7 @@ const filterPromotion = function(productItems, checkActive){
           const check = checkAcitveFilter();
           if(check) disProduct.HiddenUiProduct(item)
         }
-        else if(data.filterTypes !== "not-filter" || data.filterSizes !== "not-filter" || data.filterColors !== "not-filter") {
+        if(data.filterTypes !== "not-filter" || data.filterSizes !== "not-filter" || data.filterColors !== "not-filter") {
           disProduct.showUiProduct(item);
         }
       }
@@ -67,10 +70,71 @@ const filterType = function(productItems, checkActive, curEl){
           const check = checkAcitveFilter();
           if(check) disProduct.HiddenUiProduct(item);
         }  
-        else if(data.filterPromo !== "not-filter" || data.filterSizes !== "not-filter" || data.filterColors !== "not-filter")
+        if(data.filterPromo !== "not-filter" || data.filterSizes !== "not-filter" || data.filterColors !== "not-filter")
           disProduct.showUiProduct(item);
       }
     })
+}
+
+// Filter size
+const filterSize = async function(productItems, checkActive, curEl){
+  const info = Array.from(await productData.fetchProduct());
+  Array.from(productItems).forEach(item => {
+    const curSize = curEl.id.toUpperCase();
+    const curData = info.find(d => d._id === item.dataset.id);
+    const curColors = curData.variants.map(c => c.sizes);
+    const size = curColors.some(s => s.find(a => a.size === curSize));
+    const data = item.dataset;
+
+    if(checkActive){
+      if(size) {
+        data.filterSizes !== "not-filter" ? data.filterSizes += curSize : data.filterSizes = curSize
+        disProduct.showUiProduct(item);
+      }
+      else if(data.filterPromo === "not-filter" && data.filterSizes === "not-filter" && data.filterColors === "not-filter" && data.filterTypes === "not-filter"){
+        disProduct.HiddenUiProduct(item);
+      }
+    }else{
+      if(data.filterSizes.includes(curSize)) {
+        data.filterSizes = String(data.filterSizes).replace(curSize, "") !== "" ? String(data.filterSizes).replace(curSize, "") : "not-filter";
+
+        const check = checkAcitveFilter();
+        if(check && data.filterSizes === "not-filter") disProduct.HiddenUiProduct(item);
+      }
+      if(data.filterPromo !== "not-filter" || data.filterTypes !== "not-filter" || data.filterColors !== "not-filter")
+        disProduct.showUiProduct(item);
+    }
+  })
+}
+
+// Filter color
+const filterColor = async function(productItems, checkActive, curEl){
+  const info = Array.from(await productData.fetchProduct());
+  Array.from(productItems).forEach(item => {
+    const curColor = curEl.dataset.value;
+    const curData = info.find(d => d._id === item.dataset.id);
+    const color = curData.variants.some(c => c.color === curColor)
+    const data = item.dataset;
+
+    if(checkActive){
+      if(color) {
+        data.filterColors !== "not-filter" ? data.filterColors += curColor : data.filterColors = curColor
+        disProduct.showUiProduct(item);
+      }
+      else if(data.filterPromo === "not-filter" && data.filterSizes === "not-filter" && data.filterColors === "not-filter" && data.filterTypes === "not-filter"){
+        disProduct.HiddenUiProduct(item);
+      }
+    }else{
+      if(data.filterColors.includes(curColor)) {
+        data.filterColors = String(data.filterColors).replace(curColor, "") !== "" ? String(data.filterColors).replace(curColor, "") : "not-filter";
+
+        const check = checkAcitveFilter();
+        if(check && data.filterColors === "not-filter") disProduct.HiddenUiProduct(item);
+      }
+      if(data.filterPromo !== "not-filter" || data.filterTypes !== "not-filter" || data.filterSizes !== "not-filter")
+        disProduct.showUiProduct(item);
+    }
+  })
 }
 
 ///////////////////////////////////////////////////////
