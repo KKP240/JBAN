@@ -72,14 +72,10 @@ app.get("/api", (req, res) => {
 // ให้ `/` เสิร์ฟ login-page.html
 // app.get("/", (req, res) => {
 //   res.sendFile(path.join(__dirname, "src/views", "login/login.html"));
-// });
+// });  
 
 app.get("/", (req, res) => {
-<<<<<<< HEAD
-    res.render("add_edit_delete_products");
-=======
     res.render("home");
->>>>>>> 9c92dce5c78cd99346b496463c26218c4b8f795b
 });
 
 app.get("/cart", (req, res) => {
