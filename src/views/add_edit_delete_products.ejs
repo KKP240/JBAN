@@ -11,6 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script defer src="/js/add_edit_delete_products.js"></script>
+    <script defer src="/js/utilities.js"></script>
 </head>
 
 <body>
@@ -19,25 +21,20 @@
             <h1 class="produ">จัดการสินค้า</h1>
             <button class="addpro">+ เพิ่มสินค้า</button>
             <table>
-                <tr>
-                    <td>รูปภาพสินค้า</td>
-                    <td>ชื่อสินค้า</td>
-                    <td>จำนวนสินค้า</td>
-                    <td>ราคาสินค้า</td>
-                    <td>คำอธิบาย</td>
-                    <td>ประเภท</td>
-                    <td>การกระทำ</td>
-                </tr>
-                <tr>
-                    <td><img src="/images/เสื้อ.webp" alt="เสื้อยืด" class="imgprodu"></td>
-                    <td>เสื้อยืดแขนยาว</td>
-                    <th class="text01">สีดำ <br>S : 2 ตัว <br>M : 6 ตัว <br>L : 10 ตัว <br>XL : 5 ตัว <br><br>สีแดง <br>S : 2 ตัว <br>M : 6 ตัว <br>L : 10 ตัว <br>XL : 5 ตัว
-                        </td>
-                        <td>390 บาท</td>
-                        <td>ใส่แล้วบินได้ สรรพคุณ มากมาย ป้องกันกระสุน</td>
-                        <td>ชายและหญิง</td>
-                        <td><button class="add">แก้ไข</button><button class="edit">ลบสินค้า</button><br><button class="promochun">เพิ่มโปรโมชั่น</button></td>
-                </tr>
+                <thead>
+                    <tr>
+                        <td>รูปภาพสินค้า</td>
+                        <td>ชื่อสินค้า</td>
+                        <td>จำนวนสินค้า</td>
+                        <td>ราคาสินค้า</td>
+                        <td>คำอธิบาย</td>
+                        <td>ประเภท</td>
+                        <td>การกระทำ</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data rows will be inserted dynamically here -->
+                </tbody>
             </table>
         </div>
 </body>

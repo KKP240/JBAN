@@ -83,10 +83,10 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 
-app.get('/cart', authMiddleware, async (req, res) => {
+app.get('/cart', authMiddleware, async(req, res) => {
     try {
         const cart = await Cart.findOne({ userId: req.user.id }).populate('items.productId');
-        res.render('cart', { cart }); 
+        res.render('cart', { cart });
     } catch (error) {
         console.error(error);
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
@@ -121,7 +121,12 @@ app.get("/orderHistory", (req, res) => {
     res.render("history");
 });
 
-app.get('/productdetails', async (req, res) => {
+app.get("/custom_page", (req, res) => {
+    res.render("custom_page");
+});
+
+
+app.get('/productdetails', async(req, res) => {
     const productId = req.query.id;
     if (!productId) {
         return res.redirect('/');
@@ -139,7 +144,7 @@ app.get('/productdetails', async (req, res) => {
     }
 });
 
-app.get('/favourite', authMiddleware, async (req, res) => {
+app.get('/favourite', authMiddleware, async(req, res) => {
     console.log('req.user:', req.user);
     if (!req.user) {
         return res.redirect('/');
@@ -151,31 +156,30 @@ app.get('/favourite', authMiddleware, async (req, res) => {
             return res.status(404).send('ไม่พบผู้ใช้');
         }
 
-        console.log('User found:', user); 
+        console.log('User found:', user);
 
         const favourites = user.favorites || [];
         console.log("favourites:", favourites);
 
         const products = await Product.find({ '_id': { $in: favourites } });
 
-        
         const groupedProducts = [];
 
         products.forEach(product => {
-            
+
             const existingProduct = groupedProducts.find(p => p.name === product.name);
 
             if (existingProduct) {
-                
+
                 product.variants.forEach(variant => {
                     variant.sizes.forEach(size => {
                         existingProduct.totalStock += size.stock;
                         existingProduct.totalprice = size.price;
-                        
+
                     });
                 });
             } else {
-                
+
                 const newProduct = {
                     name: product.name,
                     imageUrl: product.imageUrl,
@@ -199,7 +203,7 @@ app.get('/favourite', authMiddleware, async (req, res) => {
 
         console.log("Grouped products:", groupedProducts);
 
-        
+
         res.render('favourite', { favourites: groupedProducts });
     } catch (error) {
         console.error('Error fetching favourites:', error);
