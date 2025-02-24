@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+}
 
 html {
     font-size: 62.5%;
@@ -58,7 +58,7 @@ div.cartinfo {
     margin-right: 8%;
 }
 
-div.cartinfo h1 {
+div.cartinfo span {
     font-size: 38px;
     font-weight: 400;
 }
@@ -69,17 +69,17 @@ div.cartinfo p {
     color: rgb(87, 87, 87);
 }
 
-.carttable table {
+.cartTable table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.carttable tr {
+.cartTable tr {
     padding: 10px;
     border-bottom: 2px solid rgb(185, 185, 185);
 }
 
-.carttable td {
+.cartTable td {
     font-size: 18px;
     padding-top: 5%;
     padding-bottom: 5%;
@@ -129,10 +129,7 @@ div.product-info span {
     display: inline-block;
     min-width: 40px;
     text-align: center;
-}
-
-.quantity span {
-    font-size: 24px;
+    font-size: 26px !important;
 }
 
 .quantity button {
@@ -145,7 +142,7 @@ div.product-info span {
     pointer-events: auto;
 }
 
-.minus {
+.minus{
     margin-right: 10px;
 }
 
@@ -204,6 +201,12 @@ div.discount {
     padding: 1px;
 }
 
+.discount button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
 div.message {
     width: 40%;
     margin-top: 3%;
@@ -243,4 +246,39 @@ div.message {
     border: none;
     border-radius: 7px;
     cursor: pointer;
+}
+
+.original-price {
+    text-decoration: line-through;
+    font-size: 30px !important;
+}
+
+.discounted-price {
+    color: #00aaff;
+}
+
+.minus:active,
+.plus:active {
+    outline: 1px solid black;
+    border: hidden;
+}
+
+.order-button:hover{
+    background-color: #0088cc;
+}
+
+#discountMessage {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+#discountMessage.success {
+    color: green;
+    
+}
+
+#discountMessage.error {
+    color: red;
 }

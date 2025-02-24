@@ -6,14 +6,14 @@ import * as filter from "/js/filter.js";
 
 // Show product
 const showAllProduct = async function () {
-  const info = await data.fetchProduct();
+  const info = Array.from(await data.fetchProduct()).filter(i => i.category === "men");
 
   setTimeout(() => {
     mainPage.removeLoadingElements()
     info.forEach((d) => {
       mainPage.insertUiProduct(d);
     });
-  }, 1000) 
+  }, 1000)
 };
 
 ///////////////////////////////////////////////////////

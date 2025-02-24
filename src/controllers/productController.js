@@ -3,9 +3,9 @@ const Product = require('../models/Product');
 // ✅ เพิ่มสินค้าใหม่ (Admin)
 const createProduct = async (req, res) => {
     try {
-        const { name, description, price, image, category, variants, isPromotion , originalPrice , averageRating, numReviews  } = req.body;
+        const { name, type, description, price, image, category, variants, isPromotion , originalPrice , averageRating, numReviews  } = req.body;
 
-        const product = new Product({ name, description, price, image, category, variants, isPromotion , originalPrice , averageRating, numReviews  });
+        const product = new Product({ name, type, description, price, image, category, variants, isPromotion , originalPrice , averageRating, numReviews  });
         await product.save();
 
         res.status(201).json({ message: "Product created successfully", product });

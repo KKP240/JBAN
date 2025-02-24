@@ -26,6 +26,10 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./src/config/db");
+const Product = require("./src/models/Product");
+const cookieParser = require('cookie-parser');
+const User = require("./src/models/User");
+const Cart = require('./src/models/Cart');
 
 const app = express();
 connectDB();
@@ -33,7 +37,7 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(cors());
-
+app.use(cookieParser());
 // Routes
 const authRoutes = require("./src/routes/authRoutes");
 app.use("/api/auth", authRoutes);
@@ -51,6 +55,7 @@ const userRoutes = require("./src/routes/userRoutes");
 app.use("/api/user", userRoutes);
 
 const path = require("path");
+const authMiddleware = require("./src/middlewares/authMiddleware");
 
 app.use(express.static(path.join(__dirname, "public")));
 // app.use(express.static(path.join(__dirname, "public/css")));
@@ -78,13 +83,19 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 
-app.get("/cart", (req, res) => {
-    res.render("cart");
+app.get('/cart', authMiddleware, async (req, res) => {
+    try {
+        const cart = await Cart.findOne({ userId: req.user.id }).populate('items.productId');
+        res.render('cart', { cart }); 
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+    }
 });
 
-app.get("/favourite", (req, res) => {
-    res.render("favourite");
-});
+// app.get("/favourite", (req, res) => {
+//     res.render("favourite");
+// });
 
 app.get("/login", (req, res) => {
     res.render("login");
@@ -98,9 +109,104 @@ app.get("/home", (req, res) => {
     res.render("home");
 });
 
+app.get("/men", (req, res) => {
+    res.render("men");
+});
+
+app.get("/women", (req, res) => {
+    res.render("women");
+});
+
 app.get("/orderHistory", (req, res) => {
     res.render("history");
 });
+
+app.get('/productdetails', async (req, res) => {
+    const productId = req.query.id;
+    if (!productId) {
+        return res.redirect('/');
+    }
+
+    try {
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).send('ไม่พบสินค้า');
+        }
+        res.render('productDetail', { product });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+    }
+});
+
+app.get('/favourite', authMiddleware, async (req, res) => {
+    console.log('req.user:', req.user);
+    if (!req.user) {
+        return res.redirect('/');
+    }
+
+    try {
+        const user = await User.findById(req.user);
+        if (!user) {
+            return res.status(404).send('ไม่พบผู้ใช้');
+        }
+
+        console.log('User found:', user); 
+
+        const favourites = user.favorites || [];
+        console.log("favourites:", favourites);
+
+        const products = await Product.find({ '_id': { $in: favourites } });
+
+        
+        const groupedProducts = [];
+
+        products.forEach(product => {
+            
+            const existingProduct = groupedProducts.find(p => p.name === product.name);
+
+            if (existingProduct) {
+                
+                product.variants.forEach(variant => {
+                    variant.sizes.forEach(size => {
+                        existingProduct.totalStock += size.stock;
+                        existingProduct.totalprice = size.price;
+                        
+                    });
+                });
+            } else {
+                
+                const newProduct = {
+                    name: product.name,
+                    imageUrl: product.imageUrl,
+                    totalStock: 0
+                };
+
+                product.variants.forEach(variant => {
+                    variant.sizes.forEach(size => {
+                        newProduct.totalStock += size.stock;
+                        newProduct.totalprice = size.price;
+                    });
+                });
+
+                groupedProducts.push(newProduct);
+            }
+        });
+
+        groupedProducts.forEach(product => {
+            product.status = product.totalStock > 0 ? 'มีสินค้า' : 'สินค้าหมด';
+        });
+
+        console.log("Grouped products:", groupedProducts);
+
+        
+        res.render('favourite', { favourites: groupedProducts });
+    } catch (error) {
+        console.error('Error fetching favourites:', error);
+        res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+    }
+});
+
 
 
 const PORT = process.env.PORT || 5000;

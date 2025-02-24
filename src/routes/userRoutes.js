@@ -22,6 +22,23 @@ router.post("/favorites/:productId", authMiddleware, async (req, res) => {
   }
 });
 
+// 📌 API ลบสินค้าจาก Favourite
+router.delete("/favorites/:productId", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const productId = req.params.productId;
+    // ลบ productId ออกจาก favorites (กรองออกจาก array)
+    user.favorites = user.favorites.filter(id => id.toString() !== productId);
+
+    await user.save();
+    res.json({ message: "Removed from favorites", favorites: user.favorites });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
 // 📌 API ดูสินค้าที่ Favourite
 router.get("/favorites", authMiddleware, async (req, res) => {
   try {

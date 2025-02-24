@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: "Kanit", serif;
     user-select: none;
+    font-size: 16px;
 }
 
 html {
@@ -53,7 +54,7 @@ html {
 }
 
 .product-image {
-    position: relative;
+    /* position: relative; */
     width: 50%;
     display: flex;
     justify-content: center;
@@ -61,11 +62,12 @@ html {
 }
 
 .product-image img {
-    width: 80%;
+    width: 300px;
     height: auto;
+    margin-top: 58px;
 }
 
-.arrow {
+/* .arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -81,7 +83,7 @@ html {
 
 .arrow-right {
     right: 10px;
-}
+} */
 
 .product-details {
     width: 250px;
@@ -99,19 +101,19 @@ html {
 .rating {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .star {
     color: #ddd;
-    cursor: pointer;
+    /* cursor: pointer; */
     font-size: 20px;
     transition: color 0.2s;
 }
 
-.star.active {
+/* .star.active {
     color: #00AAFF;
-}
+} */
 
 .size-section,
 .color-section,
@@ -122,6 +124,7 @@ html {
 .size-buttons {
     display: flex;
     gap: 10px;
+    position: relative;
 }
 
 .heart {
@@ -137,15 +140,20 @@ html {
 }
 
 .size-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
     margin-top: 10px;
-    border-radius: 3px;
-    width: 15px;
-    height: 15px;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
     border: 1px solid #ddd;
     background: white;
     cursor: pointer;
-    font-size: 7px;
+    padding: 4px;
 }
+
 
 .color-buttons {
     display: flex;
@@ -154,35 +162,81 @@ html {
 
 .color-button {
     margin-top: 10px;
-    width: 15px;
-    height: 15px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    border: none;
+    border: 1px solid lightgray;
     cursor: pointer;
+}
+
+/* .color-button:active{
+    border: 1px solid red;
+} */
+
+.color-active{
+    border: 0.2rem solid #0088DD;
+}
+
+.size-active{
+    border: 0.2rem solid #0088DD;
+}
+
+.stock{
+    font-size: 14px;
+    opacity: 60%;
+    text-align: left;
+    margin-bottom: 16px;
+}
+
+.stock-amount{
+    color: #0088DD;
+    font-size: 14px;
 }
 
 .quantity-control {
     margin-top: 10px;
     display: flex;
     align-items: center;
+    justify-content: start;
     gap: 10px;
+    width: 100px;
+}
+
+.quantity-control .quantity{
+    width: 10px;
 }
 
 .quantity-button {
     border-radius: 2px;
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border: 1px solid #ddd;
     background: white;
     cursor: pointer;
+}
+
+.btn-left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.btn-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
 }
 
 .price-section {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+}
+
+.price-section span{
+    font-size: 18px;
 }
 
 .add-to-cart {
@@ -195,7 +249,13 @@ html {
     cursor: pointer;
     display: block;
     margin-left: auto;
+    transition: 0.25s;
     /* ชิดขวา */
+}
+
+.add-to-cart:hover{
+    background-color: #0088DD;
+    
 }
 
 .reviews-section {
@@ -205,10 +265,11 @@ html {
 }
 
 .review {
-    background-color: #dff4ff;
+    /* background-color: lightgray; */
+    border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 15px;
     margin-bottom: 10px;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .review-header {
@@ -218,19 +279,46 @@ html {
 }
 
 .reviewer-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: #ddd;
     margin-right: 10px;
 }
 
-button:active {
-    border-color: #000000;
+button:not(.add-to-cart, .recommend, .custom):active {
+    border: 2px solid #d6d6d6;
 }
 
 .text1 {
     font-weight: normal;
-    font-size: 13px;
     color: #000;
+    font-size: 18px;
+}
+
+.selected {
+    border: 2px solid #00AAFF;
+    outline: none;
+  }
+
+.choose-color {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: .5rem;
+    transform: translateY(-110%);
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: #00AAFF;
+
+    img {
+        width: 1.4rem;
+    }
+}
+
+.shirt {
+    border-radius: 5px;
 }

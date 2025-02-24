@@ -53,13 +53,14 @@ const processForm = async function (e) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
+    credentials: "include",
   });
 
   const data = await response.json();
 
   if (response.ok) {
     showModal();
-    localStorage.setItem("token", data.token); // เก็บ token ใน localStorage
+    // localStorage.setItem("token", data.token); // เก็บ token ใน localStorage
   }
 
   if (!response.ok) {
