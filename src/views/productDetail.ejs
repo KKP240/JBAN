@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/recommend_page.css" />
     <script src="/js/recommend_page.js"></script>
     <script defer src="/js/utilities.js"></script>
+    <script src="/js/productdetail.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
     <link
@@ -111,7 +112,7 @@
             <% } %>
           </div>
 
-          <button class="add-to-cart">เพิ่มไปยังตะกร้า</button>
+          <button class="add-to-cart" onclick="handleAddToCart()">เพิ่มไปยังตะกร้า</button>
         </div>
       </div>
 
@@ -170,71 +171,8 @@
     </div>
     <%- include("footer"); %>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          let selectedColor = null;
-          let selectedSize = null;
-
-          const colorButtons = document.querySelectorAll(".color-button");
-          const sizeButtons = document.querySelectorAll(".size-button");
-          const stockDisplay = document.querySelector(".stock-amount");
-    
-          // ซ่อนปุ่มขนาดที่ไม่เกี่ยวข้อง
-          function updateSizeButtons() {
-              
-              sizeButtons.forEach(btn => {
-                  btn.style.display = btn.dataset.color === selectedColor ? "inline-block" : "none";
-              });
-              
-              // document.querySelector('.size-buttons').querySelector('.choose-color').style.display = "none"
-              
-              // ล้างการเลือกขนาดที่ไม่เกี่ยวข้อง
-              document.querySelector(".size-active")?.classList.remove("size-active");
-              selectedSize = null;
-              stockDisplay.textContent = "0";
-          }
-    
-          // อัปเดต stock ตามสีและขนาดที่เลือก
-          function updateStock() {
-              if (selectedColor && selectedSize) {
-                  const selectedStock = [...sizeButtons].find(
-                      btn => btn.dataset.color === selectedColor && btn.dataset.size === selectedSize
-                  )?.dataset.stock || "0"; // ถ้าไม่มี stock ให้เป็น 0
-                  stockDisplay.textContent = selectedStock;
-              }
-          }
-    
-          // คลิกเลือกสี
-          colorButtons.forEach(button => {
-              button.addEventListener("click", function () {
-                  document.querySelector(".color-active")?.classList.remove("color-active");
-                  this.classList.add("color-active");
-                  selectedColor = this.dataset.color;
-                  updateSizeButtons();
-              });
-          });
-    
-          // คลิกเลือกขนาด
-          sizeButtons.forEach(button => {
-              button.addEventListener("click", function () {
-                  if (button.style.display === "none") return; // ห้ามเลือกขนาดที่ซ่อนอยู่
-    
-                  document.querySelector(".size-active")?.classList.remove("size-active");
-                  this.classList.add("size-active");
-                  selectedSize = this.dataset.size;
-                  updateStock();
-              });
-          });
-    
-          // ซ่อนปุ่มขนาดเริ่มต้น
-          const colorSize = document.querySelector('.color-button').dataset.sizes;
-
-          document.querySelectorAll('.size-button').forEach((b, index) => index+1 > colorSize ? b.style.display = "none" : b.style.display = "inline-block");
-          document.querySelector('.size-buttons').insertAdjacentHTML('beforeend', `<div class="choose-color">กรุณาเลือกสี <img src="/icon/warning-circle.svg"><div>`)
-
-          // Review star
-          const avgRating = Number(document.querySelector('.avg-star').dataset.avgRating);
-          document.querySelectorAll('.star').forEach(s => Number(s.dataset.rating) <= avgRating ? s.style.color = "#00AAFF" : s.style.color = "#ddd")
-      });
+      const productData = <%- JSON.stringify(product) %>;
+      console.log("Product data:", productData);
     </script>
   </body>
 </html>

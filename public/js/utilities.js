@@ -7,9 +7,9 @@ const userEl = document.querySelector(".user");
 
 // Fetch user data
 const fetchUserProfile = async function () {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
   const response = await fetch("http://localhost:5000/api/auth/me", {
-    headers: { Authorization: `${token}` },
+    credentials: "include", // เวลาจะใช้ token ทำแบบนี้ 
   });
 
   if (response.ok) {

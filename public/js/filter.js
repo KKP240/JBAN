@@ -1,171 +1,141 @@
 import * as disProduct from "/js/displayProduct.js";
 
-///////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
-// Filter products
-export const filterProduct = async function (e) {
-  const curEl = e.target.closest(".menu-filter__item");
-  if (!curEl) return;
+// varibles
+let productItems;
+let check = true;
 
-  document
-    .querySelectorAll(".menu-filter__item")
-    .forEach((d) => d.classList.remove("active-filter"));
+let productFilter = [];
+let productColor = [];
+let productSize = [];
 
-  curEl.classList.toggle("active-filter");
+//////////////////////////////////////////////////////
 
-  const products = Array.from(document.querySelectorAll(".product__item"));
+// Filter product
+export const filterProduct = async function(e, info){
+  const curEl = e.target.closest("[data-filter]");
+  if(!curEl) return;
+
+  if(curEl.dataset.filter === "sort") document.querySelectorAll('[data-filter="sort"]').forEach(d => d.classList.remove('active-filter'))
+
+  curEl.classList.toggle('active-filter');
+  if(curEl.dataset.filter === "color") curEl.classList.toggle('active-btn-color');
+
+  const activeEl = Array.from(document.querySelectorAll('.active-filter'));
+
+  if(check){
+    productItems = document.querySelectorAll('.product__item')
+    check = false;
+  }
+
+  let productEls = productItems;
   disProduct.clearUiProduct(document.querySelector('.product'));
-  
-  checkFilterProduct(curEl, products);
-};
 
-///////////////////////////////////////////////////////
-
-// Check filter product
-const checkFilterProduct = function(curEl, products) {
-  let newProducts;
-
-  if (curEl.dataset.filter === "low-to-high") {
-    newProducts = sortLowToHigh(products);
-  }
-
-  if (curEl.dataset.filter === "high-to-low") {
-    newProducts = sortHighToLow(products);
-  }
-
-  if (curEl.dataset.filter === "old-to-new") {
-    newProducts = sortOldToNew(products);
-  }
-
-  if (curEl.dataset.filter === "new-to-old") {
-    newProducts = sortNewToOld(products);
-  }
-
-  newProducts.forEach((p) => document.querySelector(".product").appendChild(p));
-}
-
-///////////////////////////////////////////////////////
-
-// Filter product promotion
-export const filterProductPromo = function(e){
-  if(e.target.closest('.promo')){
-    e.target.classList.toggle('active-filter')
-
-    if(e.target.classList.contains('active-filter')){
-      filterPromo(document.querySelectorAll('.product__item'))
-    }else {
-      hiddenFilterPromo(document.querySelectorAll('.product__item'))
+  activeEl.forEach(el => {
+    switch (el.dataset.filter) {
+      case "promotion":
+        productEls = filterPromotion(productEls)
+        break;
+      case "type":
+        productEls = filterType(productEls, el)
+        break;
+      case "color":
+        productEls = filterColor(productEls, el, info)
+        break;
+      case "size":
+        productEls = filterSize(productEls, el, info)
+        break;
+      case "sort":
+        productEls = sortProducts(el.dataset.value, productEls)
+        break;
     }
-
-    checkAcitveFilter();
-    return;
-  }
+  })
+  
+  productEls.forEach(p => document.querySelector('.product').appendChild(p));
+  productFilter = [];
+  productColor = [];
+  productSize = [];
 }
 
 ///////////////////////////////////////////////////////
 
-// Fliter promotion
-export const filterPromo = function(productItems){
+// Filter promotion
+const filterPromotion = function(productItems){
+  return Array.from(productItems).filter(p => p.dataset.promotion !== "false");
+}
+
+///////////////////////////////////////////////////////
+
+// Filter type
+const filterType = function(productItems, el){
   Array.from(productItems).forEach(p => {
-    if(p.dataset.promotion === "false" && !p.dataset.filter.includes('filter-')) {
-      disProduct.HiddenUiProduct(p);
-    }
-      
-    if(p.dataset.promotion === "true") {
-      p.dataset.filter = "filter-promo";
-      disProduct.showUiProduct(p)
-    }
+    if(el.dataset.value === p.dataset.type) productFilter.push(p)
   })
-}
-
-// Hidden filter promotion
-const hiddenFilterPromo = function(productItem){
-  productItem.forEach(p => {
-    if(p.dataset.filter === `filter-promo`){
-      p.dataset.filter = "not-filter"
-      disProduct.HiddenUiProduct(p);
-    }
-  })
+  return productFilter;
 }
 
 ///////////////////////////////////////////////////////
 
-// Fliter product detail
-export const filterProductDetail = function(e){
-  if(e.target.closest('.menu-detail__item-content')){
-    e.target.classList.toggle('active-filter')
+// Filter color
+const filterColor = function(productItems, el, info){
+  Array.from(productItems).forEach(p => {
+    const curData = info.find(i => i._id === p.dataset.id)
+    const curcolors = curData.variants.some(c => c.color === el.dataset.value)
+    if(curcolors) productColor.push(p)
+  })
+  return productColor;
+}
 
-    if(e.target.classList.contains('active-filter')){
-      filterClothes(document.querySelectorAll('.product__item'), e.target)
-    }else {
-      hiddenFilterClothes(document.querySelectorAll('.product__item'), `clothes-${e.target.textContent}`)
-    }
+///////////////////////////////////////////////////////
 
-    checkAcitveFilter();
-    return;
+// Filter size
+const filterSize = function(productItems, el, info){
+  Array.from(productItems).forEach(p => {
+    const curData = info.find(i => i._id === p.dataset.id)
+    const curcolors = curData.variants.map(v => v.sizes)
+    const curSizes = curcolors.some(c => c.find(a => a.size === el.dataset.value));
+    if(curSizes) productSize.push(p)
+  })
+  return productSize;
+}
+
+///////////////////////////////////////////////////////
+
+// Sort product
+const sortProducts = function(filter, products) {
+  switch (filter){
+    case "low-to-high" :
+      return sortByPrice(products, true)
+    case "high-to-low":
+      return sortByPrice(products, false)
+    case "old-to-new":
+      return sortByDate(products, true);
+    case "new-to-old":
+      return sortByDate(products, false);
+    default:
+      return products
   }
 }
 
 ///////////////////////////////////////////////////////
 
-// Fliter clothes
-export const filterClothes = function(productItem, curEl){
-  productItem.forEach(p => {
-    if(p.dataset.name.includes(curEl.textContent) || p.dataset.filter.includes('filter-')){
-      if(!p.dataset.filter.includes('filter-clothes') && !p.dataset.filter.includes('filter-')) p.dataset.filter = `filter-clothes-${curEl.textContent}`
-      disProduct.showUiProduct(p);
-    }else{
-      disProduct.HiddenUiProduct(p);
-    }
-  })
-}
-
-// Hidden filter clothes
-const hiddenFilterClothes = function(productItem, valueFil){
-  productItem.forEach(p => {
-    if(p.dataset.filter === `filter-${valueFil}`){
-      p.dataset.filter = "not-filter"
-      disProduct.HiddenUiProduct(p);
-    }
-  })
+// Sort by price
+const sortByPrice = function(products, boolean){
+  return Array.from(products).sort((a, b) => {
+    const lowToHigh = Number(a.dataset.price) - Number(b.dataset.price)
+    const highToLow = Number(b.dataset.price) - Number(a.dataset.price)
+    return boolean ? lowToHigh : highToLow
+  });
 }
 
 ///////////////////////////////////////////////////////
 
-// Sort filter
-const sortLowToHigh = function (products) {
-  return products.sort(
-    (a, b) => Number(a.dataset.price) - Number(b.dataset.price)
-  );
-};
-
-const sortHighToLow = function (products) {
-  return products.sort(
-    (a, b) => Number(b.dataset.price) - Number(a.dataset.price)
-  );
-};
-
-const sortOldToNew = function (products) {
-  return products.sort(
-    (a, b) => new Date(a.dataset.create) - new Date(b.dataset.create)
-  );
-};
-
-const sortNewToOld = function (products) {
-  return products.sort(
-    (a, b) => new Date(b.dataset.create) - new Date(a.dataset.create)
-  );
-};
-
-///////////////////////////////////////////////////////
-
-const checkAcitveFilter = function(){
-  const checkPromo = document.querySelector(".promo").classList.contains('active-filter')
-  const lenProDetail = Array.from(document.querySelectorAll('.menu-detail__item-content')).filter(m => m.classList.contains('active-filter')).length
-  const lenInput = Array.from(document.querySelectorAll('.label-input')).filter(m => m.classList.contains('active-filter')).length
-  const lenColor = Array.from(document.querySelectorAll('.menu-colors li')).filter(m => m.classList.contains('active-filter')).length
-  
-  const result = lenProDetail + lenInput + lenColor  
-
-  if(!checkPromo && result === 0) disProduct.showUiAllProduct(document.querySelectorAll('.product__item'));
+// Sort by date
+const sortByDate = function(products, boolean){
+  return Array.from(products).sort((a, b) => {
+    const oldToNew = new Date(a.dataset.create) - new Date(b.dataset.create);
+    const newToOld = new Date(b.dataset.create) - new Date(a.dataset.create);
+    return boolean ? oldToNew : newToOld;
+  })
 }
