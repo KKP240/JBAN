@@ -77,7 +77,7 @@ app.get("/api", (req, res) => {
 // ให้ `/` เสิร์ฟ login-page.html
 // app.get("/", (req, res) => {
 //   res.sendFile(path.join(__dirname, "src/views", "login/login.html"));
-// });
+// });  
 
 app.get("/", (req, res) => {
     res.render("home");
