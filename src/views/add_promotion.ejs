@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Promotion | JPBAN</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/add_promotion.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <%- include("navbar"); %>
+
+        <div class="addpromotion">
+            <h1 class="topic">เพิ่มโปรโมชั่น</h1>
+            <div class="container">
+                <div class="img">
+                    <img
+                        src="https://static.wixstatic.com/media/ea71bb_b631500a48fc4188904118d012194cff~mv2_d_1819_2413_s_2.jpg/v1/fill/w_560,h_742,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/ea71bb_b631500a48fc4188904118d012194cff~mv2_d_1819_2413_s_2.jpg">
+                </div>
+
+                <div class="promotion-info">
+                    <div class="promotion-name">
+                        <label for="pName">ชื่อสินค้า</label>
+                        <input type="text" name="" id="pName" value="เสื้อยืดแขนยาว" readonly>
+                    </div>
+                    <div class="original-price">
+                        <label for="">ราคาปกติ</label>
+                        <div>
+                            <input type="number" name="" id="oPrice" value="390" readonly>
+                            <span>บาท</span>
+                        </div>
+                    </div>
+                    <div class="Percent">
+                        <label for="Percent">กำหนดเปอร์เซ็น</label>
+                        <div>
+                            <input type="number" name="" id="Percent">
+                            <span>%</span>
+                        </div>
+                    </div>
+                    <div class="set-Price">
+                        <label for="setPrice">ราคาโปรโมชั่น</label>
+                        <div>
+                            <input type="number" name="" id="setPrice">
+                            <span>บาท</span>
+                        </div>
+                    </div>
+
+                    <button class="promotion-button" type="submit">เพิ่มโปรโมชั่น</button>
+                </div>
+            </div>
+
+        </div>
+        <%- include("footer"); %>
+
+            <script src="js/utilities.js"></script>
+            <script>
+                // ฟังก์ชันคำนวณราคาโปรโมชั่นจากเปอร์เซ็นต์
+                function calculateSetPriceFromPercent() {
+                    const oPrice = parseFloat(document.getElementById('oPrice').value); // ราคาปกติ
+                    let percent = parseFloat(document.getElementById('Percent').value); // เปอร์เซ็นต์
+
+                    if (!isNaN(oPrice) && !isNaN(percent) && oPrice > 0 && percent >= 0) {
+                        // ควบคุมให้เปอร์เซ็นต์ไม่เกิน 100
+                        if (percent > 100) {
+                            percent = 100;
+                            document.getElementById('Percent').value = percent; // ปรับเปอร์เซ็นต์เป็น 100
+                        }
+
+                        // ตรวจสอบให้เปอร์เซ็นต์ไม่ติดลบ
+                        if (percent < 0) {
+                            percent = 0;
+                            document.getElementById('Percent').value = percent; // ตั้งเปอร์เซ็นต์เป็น 0
+                        }
+
+                        // คำนวณราคาโปรโมชั่นจากเปอร์เซ็นต์
+                        let discountedPrice = oPrice - ((percent / 100) * oPrice);
+
+                        // ควบคุมให้ราคาโปรโมชั่นไม่เกินราคาปกติและไม่ต่ำกว่า 0
+                        if (discountedPrice > oPrice) discountedPrice = oPrice;
+                        if (discountedPrice < 0) discountedPrice = 0;
+
+                        document.getElementById('setPrice').value = discountedPrice.toFixed(2); // แสดงผลราคาโปรโมชั่น
+                    }
+                }
+
+                // ฟังก์ชันคำนวณเปอร์เซ็นต์จากราคาโปรโมชั่น
+                function calculatePercentFromSetPrice() {
+                    const oPrice = parseFloat(document.getElementById('oPrice').value); // ราคาปกติ
+                    let setPrice = parseFloat(document.getElementById('setPrice').value); // ราคาโปรโมชั่น
+
+                    // ตรวจสอบให้ setPrice ไม่ต่ำกว่า 0 และไม่เกินราคาปกติ
+                    if (!isNaN(oPrice) && !isNaN(setPrice) && oPrice > 0) {
+                        if (setPrice < 0) {
+                            setPrice = 0;  // ถ้าใส่ค่าติดลบจะตั้งให้เป็น 0
+                            document.getElementById('setPrice').value = setPrice;
+                        }
+                        if (setPrice > oPrice) {
+                            setPrice = oPrice;  // ถ้าใส่ค่าเกินราคาปกติจะตั้งให้เป็นราคาปกติ
+                            document.getElementById('setPrice').value = setPrice;
+                        }
+
+                        // คำนวณเปอร์เซ็นต์จากราคาโปรโมชั่น
+                        let percent = ((oPrice - setPrice) / oPrice) * 100;
+
+                        // ตรวจสอบให้เปอร์เซ็นต์ไม่ต่ำกว่า 0 หรือไม่เกิน 100
+                        if (percent > 100) percent = 100;
+                        if (percent < 0) percent = 0;
+
+                        document.getElementById('Percent').value = percent.toFixed(2); // แสดงเปอร์เซ็นต์
+                    }
+                }
+
+                // เพิ่ม event listener ให้กับ input fields
+                window.addEventListener('DOMContentLoaded', function () {
+                    document.getElementById('Percent').addEventListener('input', function () {
+                        let percent = parseFloat(document.getElementById('Percent').value);
+                        // ถ้าเป็นค่าลบ จะปรับเป็น 0
+                        if (percent < 0) {
+                            document.getElementById('Percent').value = 0;
+                        }
+                        calculateSetPriceFromPercent();
+                    });
+
+                    document.getElementById('setPrice').addEventListener('input', function () {
+                        let setPrice = parseFloat(document.getElementById('setPrice').value);
+                        // ถ้าเป็นค่าลบ จะปรับเป็น 0
+                        if (setPrice < 0) {
+                            document.getElementById('setPrice').value = 0;
+                        }
+                        calculatePercentFromSetPrice();
+                    });
+                });
+            </script>
+
+</body>
+
+</html>

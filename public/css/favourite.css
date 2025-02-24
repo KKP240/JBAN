@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    font-family: "Kanit", serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+div.favouriteinfo {
+    margin-top: 60px;
+    padding-top: 50px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 5%;
+}
+
+div.favouriteinfo h1 {
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+div.favouritetable table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+div.favouritetable tr {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 2px solid rgb(185, 185, 185);
+}
+
+div.favouritetable th {
+    font-size: 24px;
+    font-weight: 400;
+    color: rgb(74, 74, 74);
+    padding-bottom: 1%;
+}
+
+div.favouritetable th:nth-child(1),div.favouritetable th:nth-child(2),div.favouritetable th:nth-child(3)    {
+    width: 25%;
+}
+
+
+/* div.favouritetable th:nth-child(1) {
+    width: 30%;
+}
+
+div.favouritetable th:nth-child(2) {
+    width: 20%;
+}
+
+div.favouritetable th:nth-child(3) {
+    text-align: left;
+    padding-left: 7%;
+    width: 20%;
+} */
+
+div.favouritetable th:nth-child(4) {
+    visibility: hidden;
+    width: 25%;
+} 
+
+.favouritetable td {
+    font-size: 20px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+/* div.favouritetable td:nth-child(3) {
+    text-align: center;
+    padding-left: 4%;
+    width: 20%;
+} */
+
+.goods {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.product-info {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.product-name {
+    font-size: 24px;
+    font-weight: 400;
+    color: black;
+    padding-bottom: 5%;
+}
+
+div span {
+    color: rgb(87, 87, 87);
+}
+
+.product-img {
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.basket a svg {
+    vertical-align: middle;
+    margin-left: 5%;
+}
+
+.basket button {
+    font-family: "Kanit", serif;
+    width: 180px;
+    height: 45px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background-color: #00AAFF;
+    cursor: pointer;
+}
+
+.out_of_stock {
+    color: #FF0000;
+}
+
+.almost_out_of_stock {
+    color: #EB5B00;
+}
+
+.available {
+    color: black;
+}

@@ -1,0 +1,257 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body{
+    font-family: "Kanit", serif;
+}
+
+.container{
+    margin-top: 100px;
+    font-size: 36px;
+    padding: 20%;
+    padding-top: 24px;
+    padding-bottom: 0;
+}
+
+.topic{
+    font-size: 40px;
+}
+
+.add-container{
+    /* padding: 100px; */
+    padding-top: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 48px;
+}
+
+.left{
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed lightgray;
+    width: 300px;
+    height: 450px;
+    padding: 16px;
+}
+
+.left img{
+    width: 250px;
+    height: 350px;
+    margin-bottom: 12px;
+    object-fit: cover;
+}
+
+.btn-editimage{
+    font-size: 16px;
+    width: 100px;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
+    color: white;
+    border: 1px solid #00AAFF;
+    background-color: #00AAFF;
+}
+
+.right{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    padding-right: 50px;
+    margin-left: 10%;
+    height: 600px;
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
+}
+
+.right input{
+    padding: 4px;
+    padding-left: 0;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    height: auto;
+}
+
+.right input:focus{
+    padding: 4px;
+    padding-left: 0;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+}
+
+.product-name{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.product-name input{
+    padding: 4px;
+    padding-left: 0;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    height: auto;
+}
+
+.product-name input:focus{
+    padding: 4px;
+    padding-left: 0;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    height: auto;
+}
+
+.category-gender{
+    margin-bottom: 16px;
+}
+
+.category-gender input{
+    margin-left: 16px;
+}
+
+.category-gender label{
+    padding-left: 8px;
+    margin-right: 4px;
+    color: #0088DD;
+    opacity: 70%;
+}
+
+.category-type{
+    margin-bottom: 16px;
+}
+
+.describe{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.describe textarea{
+    padding: 4px;
+    border: 1px solid lightgray;
+    resize: none;
+    outline: none;
+    height: 100px;
+    width: 300px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: "Kanit", serif;
+    padding: 8px;
+}
+
+.describe textarea:focus{
+    padding-left: 8px;
+}
+
+.price{
+    display: flex;
+    flex-direction: column;
+}
+
+.price input{
+    height: 30px;
+    width: 200px;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    height: auto;
+    outline: none;
+    padding-left: 10px;
+    font-family: "Kanit", serif;
+}
+
+.price input:focus{
+    padding-left: 10px;
+}
+
+.color{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+
+.color select{
+    text-align: left;
+    padding: 4px;
+    width: 120px;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    font-family: "Kanit", serif;
+    border-radius: 4px;
+}
+
+.color option{
+    font-size: 14px;
+    font-family: "Kanit", serif;
+}
+
+.color select:focus{
+    border: 1px solid lightgray;
+}
+
+.size-details{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    padding-top: 8px;
+}
+
+.size-details label, .add-size{
+    border: 1px solid lightgray;
+    padding: 4px;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.size-details input{
+    width: 200px;
+}
+
+.size-details input:placeholder-shown{
+    opacity: 70%;
+}
+
+.add-size{
+    margin-top: 8px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    font-size: 16px;
+}
+
+.add-more-details{
+    font-size: 14px;
+    color: #00AAFF;
+    cursor: pointer;
+}
+
+/* ลบแท็บที่เลื่อนเพิ่มหรือลดเลขออก */
+/* input[type=number] {
+    -moz-appearance: textfield;  สำหรับ Firefox 
+} */
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

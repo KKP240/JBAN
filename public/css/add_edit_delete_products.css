@@ -1,0 +1,101 @@
+html {
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Kanit", serif;
+    user-select: none;
+    font-size: 18px;
+}
+
+.box-add {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 110px;
+}
+
+.imgprodu {
+    width: 150px;
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+}
+
+tr {
+    height: 50px;
+}
+
+td {
+    width: 150px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #000000;
+}
+
+th {
+    border: 1px solid #000000;
+}
+
+.addpro {
+    align-self: flex-end;
+    margin-right: 100px;
+    border-radius: 50px;
+    width: 140px;
+    background-color: #ffffff;
+    border: 0.5px solid #666666;
+    height: 35px;
+}
+
+.produ {
+    align-self: flex-start;
+    margin-left: 100px;
+    font-size: 55px;
+    font-weight: normal;
+    margin-top: -20px;
+}
+
+.add {
+    width: 70px;
+    height: 38px;
+    border-radius: 9px;
+    border: none;
+    background-color: #EE8F03;
+    color: #ffffff;
+    margin: 5px;
+}
+
+.edit {
+    width: 75px;
+    height: 38px;
+    border-radius: 9px;
+    border: none;
+    background-color: #FF0000;
+    color: #ffffff;
+    margin: 5px;
+}
+
+.promochun {
+    width: 115px;
+    height: 45px;
+    border-radius: 9px;
+    border: none;
+    background-color: #0088DD;
+    color: #ffffff;
+    margin: 5px;
+}
+
+.text01 {
+    text-align: left;
+    padding-left: 40px;
+    font-weight: normal;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

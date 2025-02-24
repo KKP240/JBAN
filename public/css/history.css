@@ -1,0 +1,165 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    font-family: "Kanit", serif;
+    font-size: 16px;
+}
+
+.container{
+    display: grid;
+    width: 80%;
+    margin: 100px auto;
+}
+
+.return{
+    height: 30px;
+    padding: 36px;
+    padding-left: 0;
+    margin-bottom: 24px;
+}
+
+.return a{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-decoration: none;
+    color: #00AAFF;
+}
+
+.return span{
+    font-size: 18px;
+    margin-left: 8px;
+    font-weight: 600;
+}
+
+.main-content{
+    margin-left: 88px;
+    padding-bottom: 48px;
+    margin-right: 88px;
+}
+
+.main-content .topic{
+    font-size: 32px;
+}
+
+.order-card{
+    padding: 48px;
+    padding-bottom: 0;
+    padding-top: 36px;
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.order-card .total{
+    text-align: right;
+    font-size: 24px;
+    padding-bottom: 24px;
+    padding-top: 8px;
+}
+
+.total-price{
+    font-weight: 600;
+}
+
+.order-details{
+    width: 450px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    font-size: 18px;
+}
+
+.product-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.product-card .left{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 18px;
+}
+
+.product-details{
+    margin-top: 4px;
+    max-width: 400px;
+}
+
+.product-images{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    padding: 16px;
+    padding-left: 0;
+}
+
+.product-card img{
+    max-width: 150px;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+}
+
+.product-card .product-name{
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+
+.product-card .right{
+    height: 120px;
+    /* max-height: 150px;
+    min-height: 120px; */
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    text-align: right;
+}
+
+.right .review{
+    color: #00AAFF;
+    cursor: pointer;
+}
+
+.review:hover{
+    color: #0088DD;
+}
+
+.product-price{
+    font-size: 20px;
+}
+
+.right .sale{
+    display: flex;
+    align-items: center;
+}
+
+.oldprice{
+    text-decoration: line-through;
+    margin-top: 2px;
+    font-size: 16px;
+}
+
+.newprice{
+    margin-left: 8px;
+    color: #0088DD;
+    font-weight: 500;
+}
+
+.opacity-color{
+    color: #575757;
+}

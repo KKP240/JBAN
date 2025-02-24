@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Page</title>
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/recommend_page.css" />
+    <script src="/js/recommend_page.js"></script>
+    <script defer src="/js/utilities.js"></script>
+    <script src="/js/productdetail.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <%- include("navbar"); %>
+        <div class="container">
+            <div class="product-container">
+                <div class="product-image">
+                    <!-- <button class="arrow arrow-left">←</button> -->
+                    <img src="/images/black-tshirt.jpg" alt="เสื้อยืด" class="shirt" />
+                    <!-- <button class="arrow arrow-right">→</button> -->
+                </div>
+
+                <div class="product-details">
+                    <div class="button-group">
+                        <button class="recommend">แนะนำ</button>
+                        <button class="custom"><a href="/custom_page">กำหนดเอง</a></button>
+                    </div>
+                    <h1 class="product-title">
+                        <%= product.name %>
+                    </h1>
+
+                    <div class="rating" id="productRating">
+                        <span class="star" data-rating="1">★</span>
+                        <span class="star" data-rating="2">★</span>
+                        <span class="star" data-rating="3">★</span>
+                        <span class="star" data-rating="4">★</span>
+                        <span class="star" data-rating="5">★</span>
+                        <span class="heart" id="heartButton">♥</span>
+                    </div>
+
+                    <!-- เลือกสี -->
+                    <div class="color-section">
+                        <h3 class="text1">เลือกสี</h3>
+                        <div class="color-buttons">
+                            <!-- ลูปผ่าน variants เพื่อแสดงปุ่มสี -->
+                            <% product.variants.forEach(variant => { %>
+                                <button class="color-button" style="background-color: <%= variant.color %>;" data-color="<%= variant.color %>" data-sizes="<%= variant.sizes.length %>"></button>
+                                <% }) %>
+                        </div>
+                    </div>
+
+                    <!-- เลือกขนาด -->
+                    <div class="size-section">
+                        <h3 class="text1">เลือกขนาด</h3>
+                        <div class="size-buttons">
+
+                            <% product.variants.forEach(variant => { %>
+                                <% variant.sizes.forEach(s => { %>
+                                    <button class="size-button" data-color="<%= variant.color %>" data-size="<%= s.size %>" data-stock="<%= s.stock %>">
+                    <%= s.size %>
+                  </button>
+                                    <% }) %>
+                                        <% }) %>
+                        </div>
+                    </div>
+
+                    <div class="quantity-section">
+                        <h3 class="text1">จำนวน</h3>
+                        <div class="quantity-control">
+                            <button class="quantity-button btn-left" onclick="deletenum()">-</button>
+                            <span class="quantity" id="num">1</span>
+                            <button class="quantity-button btn-right" onclick="addnum()">+</button>
+                        </div>
+                    </div>
+
+                    <div class="stock">จำนวนสินค้าที่มี :
+
+                        <span class="stock-amount">
+                
+              </span>
+
+                    </div>
+
+                    <div class="price-section">
+                        <span>ราคาต่อชิ้น</span>
+                        <% if (product.isPromotion && product.originalPrice) { %>
+                            <!-- ถ้ามีโปร ให้โชว์ราคาปกติกับราคาลด -->
+                            <span style="text-decoration: line-through; color: #999">
+              ฿<%= product.originalPrice.toFixed(2) %>
+            </span>
+                            <span style="color: #ff0000; font-weight: bold" class="label-discount">
+              ฿<%= product.price.toFixed(2) %>
+            </span>
+                            <% } else { %>
+                                <span class="label-price">฿<%= product.price.toFixed(2) %></span>
+                                <% } %>
+                    </div>
+
+                    <button class="add-to-cart" onclick="handleAddToCart()">เพิ่มไปยังตะกร้า</button>
+                </div>
+            </div>
+
+            <div class="reviews-section">
+                <h2 style="font-weight: normal">Reviews</h2>
+                <div class="rating" id="reviewsRating">
+                    <span class="star" data-rating="1">★</span>
+                    <span class="star" data-rating="2">★</span>
+                    <span class="star" data-rating="3">★</span>
+                    <span class="star" data-rating="4">★</span>
+                    <span class="star" data-rating="5">★</span>
+                    <span style="color: #00aaff; font-size: 12px; margin-left: 10px" data-avg-rating="<%=product.averageRating %>" class="avg-star">(<%=product.numReviews %> ratings)</span
+          >
+        </div>
+
+        <div class="review">
+          <div class="review-header">
+            <div class="reviewer-avatar">
+              <img src="icon/user-circle.svg" alt="">
+            </div>
+            <div>
+              <div style="font-size: 15px">Nutthawat</div>
+            </div>
+        </div>
+          <div class="rating">
+            <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star" style="color: #ddd">★</span>
+                </div>
+                <h3 class="text1">อาหารอร่อย หาที่จอดรถง่าย</h3>
+            </div>
+
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer-avatar">
+                        <img src="icon/user-circle.svg" alt="">
+                    </div>
+                    <div>
+                        <div style="font-size: 15px">Nutthawat</div>
+                    </div>
+                </div>
+                <div class="rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star" style="color: #ddd">★</span>
+                </div>
+                <h3 class="text1">อาหารอร่อย หาที่จอดรถง่าย</h3>
+            </div>
+
+        </div>
+        </div>
+        <%- include("footer"); %>
+            <script>
+                const productData = <%- JSON.stringify(product) %>;
+                console.log("Product data:", productData);
+            </script>
+</body>
+
+</html>
