@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <script defer src="/js/utilities.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/edit_product.css">
+</head>
+<body>
+    <%- include("navbar"); %>
+
+    <div class="container">
+        <div class="topic">แก้ไขสินค้า</div>
+
+        <div class="add-container">
+            <div class="left">
+                <img id="previewImage" src="images/black-tshirt.jpg">
+                <label for="editImage" class="btn-editimage">แก้ไขรูปภาพ</label>
+                <input type="file" name="" id="editImage" accept="image/*" hidden>
+            </div>
+
+            <div class="right">
+                <div class="product-name">
+                    <label for="pName">ชื่อสินค้า</label>
+                    <input type="text" name="" id="pName">
+                </div>
+                <div class="category-gender">
+                    <div>เพศ</div>
+                    <input type="checkbox" name="male" id="male"><label for="male">ชาย</label>
+                    <input type="checkbox" name="female" id="female"><label for="female">หญิง</label>
+                </div>
+                <div class="category-type">
+                    <label for="pType">ประเภท</label><br>
+                    <input type="text" name="" id="pType">
+                </div>
+                <div class="describe">
+                    <label for="pDescribe">คำอธิบาย</label>
+                    <textarea name="" id="pDescribe"></textarea>
+                </div>
+                <div class="price">
+                    <label for="pPrice">ราคา</label>
+                    <input type="number" name="" id="pPrice" min="0">
+                </div>
+                
+                <div class="details-container">
+                    <div class="repeated-details">
+                        <div class="color">
+                            <label for="pColor">เลือกสี</label>
+                            <select name="" id="pColor">
+                                <option value="" selected style="color: gray;">-- เลือกสี --</option>
+                                <option value="#000000">สีดำ</option>
+                                <option value="#ffffff">สีขาว</option>
+                            </select>
+                        </div>
+                        <div class="size">
+                            <div class="size-details">
+                                <label for="size-s">S</label>
+                                <input type="text" id="size-s" placeholder="ใส่จำนวนสินค้า">
+                            </div>
+                            <div class="size-details">
+                                <label for="size-m">M</label>
+                                <input type="text" id="size-m" placeholder="ใส่จำนวนสินค้า">
+                            </div>
+                            <div class="size-details">
+                                <label for="size-l">L</label>
+                                <input type="text" id="size-l" placeholder="ใส่จำนวนสินค้า">
+                            </div>
+                            <div class="size-details">
+                                <label for="size-xl">XL</label>
+                                <input type="text" id="size-xl" placeholder="ใส่จำนวนสินค้า">
+                            </div>
+                            <div class="add-size">
+                                +
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div class="repeated-details">
+                    <div class="color">
+                        <label for="pColor">เลือกสี</label>
+                        <select name="" id="pColor">
+                            <option value="" selected>-- เลือกสี --</option>
+                            <option value="#000000">สีดำ</option>
+                            <option value="#ffffff">สีขาว</option>
+                        </select>
+                    </div>
+                    <div class="size">
+                        <div class="size-details">
+                            <label for="size-s">S</label>
+                            <input type="text" id="size-s" placeholder="ใส่จำนวนสินค้า">
+                        </div>
+                        <div class="size-details">
+                            <label for="size-m">M</label>
+                            <input type="text" id="size-m" placeholder="ใส่จำนวนสินค้า">
+                        </div>
+                        <div class="size-details">
+                            <label for="size-l">L</label>
+                            <input type="text" id="size-l" placeholder="ใส่จำนวนสินค้า">
+                        </div>
+                        <div class="size-details">
+                            <label for="size-xl">XL</label>
+                            <input type="text" id="size-xl" placeholder="ใส่จำนวนสินค้า">
+                        </div>
+                        <div class="add-size">
+                            +
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="add-more-details">
+                    เพิ่มรายละเอียดสินค้าเพิ่มเติม
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("editImage").addEventListener("change", function(event) {
+            const file = event.target.files[0]; // ดึงไฟล์ที่เลือก
+            const imgPreview = document.getElementById("previewImage");
+        
+            if (file && file.type.startsWith("image/")) {
+                imgPreview.src = URL.createObjectURL(file); // อัปเดตรูปภาพ
+                imgPreview.alt = file.name;
+            } else {
+                imgPreview.src = "";
+                imgPreview.alt = "Invalid image";
+            }
+        });
+
+        document.querySelector(".add-more-details").addEventListener("click", function() {
+        const detailsContainer = document.querySelector(".details-container");
+
+        const newDetails = `
+            <div class="repeated-details">
+                <div class="color">
+                    <label>เลือกสี</label>
+                    <select>
+                        <option value="" selected style="color: gray;">-- เลือกสี --</option>
+                        <option value="#000000">สีดำ</option>
+                        <option value="#ffffff">สีขาว</option>
+                    </select>
+                </div>
+                <div class="size">
+                    <div class="size-details">
+                        <label>S</label>
+                        <input type="text" placeholder="ใส่จำนวนสินค้า">
+                    </div>
+                    <div class="size-details">
+                        <label>M</label>
+                        <input type="text" placeholder="ใส่จำนวนสินค้า">
+                    </div>
+                    <div class="size-details">
+                        <label>L</label>
+                        <input type="text" placeholder="ใส่จำนวนสินค้า">
+                    </div>
+                    <div class="size-details">
+                        <label>XL</label>
+                        <input type="text" placeholder="ใส่จำนวนสินค้า">
+                    </div>
+                    <div class="add-size">+</div>
+                </div>
+            </div>
+        `;
+
+        detailsContainer.innerHTML += newDetails; // เพิ่ม HTML เข้าไปใน div
+    });
+    </script>
+</body>
+</html>

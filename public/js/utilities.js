@@ -50,6 +50,7 @@ const insertUiUser = function (user) {
                               </svg>
                               <div class="drop-menu">
                                   <ul class="drop-menu__list">
+                                      ${user.role === "admin" ? `<li class="drop-menu__item"><a href="/manageProduct" class="drop-menu__link">จัดการสินค้า</a></li>` : ""}
                                       <li class="drop-menu__item"><a href="/orderHistory" class="drop-menu__link">ประวัติคำสั่งซื้อ</a></li>
                                       <li class="drop-menu__item"><a href="/logout" class="drop-menu__link">ออกจากระบบ</a></li>
                                   </ul>
