@@ -8,12 +8,10 @@ import * as filter from "/js/filter.js";
 const showAllProduct = async function () {
   const info = Array.from(await data.fetchProduct()).filter(i => i.category === "men");
 
-  setTimeout(() => {
-    mainPage.removeLoadingElements()
-    info.forEach((d) => {
-      mainPage.insertUiProduct(d);
-    });
-  }, 1000)
+  mainPage.removeLoadingElements()
+  info.forEach((d) => {
+    mainPage.insertUiProduct(d);
+  });
 };
 
 ///////////////////////////////////////////////////////

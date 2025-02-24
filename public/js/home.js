@@ -8,12 +8,10 @@ import * as filter from "/js/filter.js";
 const showAllProduct = async function () {
   const info = await data.fetchProduct();
 
-  setTimeout(() => {
-    mainPage.removeLoadingElements()
-    info.forEach((d) => {
-      mainPage.insertUiProduct(d);
-    });
-  }, 1000) 
+  mainPage.removeLoadingElements()
+  info.forEach((d) => {
+    mainPage.insertUiProduct(d);
+  });
 };
 
 ///////////////////////////////////////////////////////
