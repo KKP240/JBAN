@@ -248,23 +248,18 @@ div.message {
     cursor: pointer;
 }
 
-/* CSS สำหรับราคาที่ขีดฆ่าและลดขนาด */
 .original-price {
     text-decoration: line-through;
-    /* ขีดฆ่าราคา */
     font-size: 30px !important;
-    /* ลดขนาดฟอนต์ */
 }
 
 .discounted-price {
     color: #00aaff;
-    /* สีสำหรับราคาหลังจากหักส่วนลด */
 }
 
 .minus:active,
 .plus:active {
     outline: 1px solid black;
-    /* ขอบดำเมื่อคลิก */
     border: hidden;
 }
 

@@ -56,6 +56,7 @@ function updatePrice() {
         discountAmount = 0;
         // ลบ class original-price เมื่อราคาต่ำกว่า 200 บาท
         originalPriceElement.classList.remove('original-price');
+        
         updatePrice();  // รีเฟรชการคำนวณราคา
         discountMessage.textContent = 'ราคาสินค้าต่ำกว่า 200 บาท จึงไม่สามารถใช้โค้ดส่วนลดได้';
         discountMessage.classList.remove('success');
