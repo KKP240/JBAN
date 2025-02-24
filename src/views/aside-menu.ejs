@@ -2,7 +2,7 @@
   <div class="menu-detail">
     <div class="menu-detail__heading">รายละเอียดสินค้า</div>
     <ul class="menu-detail__list">
-      <li class="menu-detail__item promo" data-filter="promotion">สินค้าโปรโมชั่น</li>
+      <li class="menu-detail__item promo" data-filter="promotion" data-value="promotion">สินค้าโปรโมชั่น</li>
       <li class="menu-detail__item">
         <div class="menu-detail__item-heading" data-head="type">
           <span>ประเภทสินค้า</span>
@@ -20,9 +20,9 @@
           </svg>
         </div>
         <ul class="menu-detail__list-content">
-          <li data-type="shirt" data-filter="type" class="menu-detail__item-content">เสื้อ</li>
-          <li data-type="pant" data-filter="type" class="menu-detail__item-content">กางเกง</li>
-          <li data-type="underwear" data-filter="type" class="menu-detail__item-content">กางเกงใน</li>
+          <li data-value="เสื้อ" data-filter="type" class="menu-detail__item-content">เสื้อ</li>
+          <li data-value="กางเกง" data-filter="type" class="menu-detail__item-content">กางเกง</li>
+          <li data-value="กางเกงใน" data-filter="type" class="menu-detail__item-content">กางเกงใน</li>
         </ul>
       </li>
       <li class="menu-detail__item">
@@ -44,19 +44,19 @@
         <ul class="menu-detail__list-content list-input-check">
           <li>
             <label class="label-input">
-              <input type="checkbox" name="size-s" id="s" class="input-check" data-filter="size"/>
+              <input type="checkbox" name="size-s" id="s" class="input-check" data-filter="size" data-value="S"/>
               <span class="check-mark"></span>S
             </label>
           </li>
           <li>
             <label class="label-input">
-              <input type="checkbox" name="size-m" id="m" class="input-check" data-filter="size"/>
+              <input type="checkbox" name="size-m" id="m" class="input-check" data-filter="size" data-value="M"/>
               <span class="check-mark"></span>M
             </label>
           </li>
           <li>
             <label class="label-input">
-              <input type="checkbox" name="size-l" id="l" class="input-check" data-filter="size"/>
+              <input type="checkbox" name="size-l" id="l" class="input-check" data-filter="size" data-value="L"/>
               <span class="check-mark"></span>L
             </label>
           </li>
@@ -68,6 +68,7 @@
                 id="xl"
                 class="input-check"
                 data-filter="size"
+                data-value="XL"
               />
               <span class="check-mark"></span>XL
             </label>
@@ -116,16 +117,16 @@
       </svg>
     </div>
     <ul class="menu-filter__list">
-      <li class="menu-filter__item" data-filter="low-to-high">
+      <li class="menu-filter__item" data-filter="sort" data-value="low-to-high">
         ราคาต่ำไปสูงสุด
       </li>
-      <li class="menu-filter__item" data-filter="high-to-low">
+      <li class="menu-filter__item" data-filter="sort" data-value="high-to-low">
         ราคาสูงสุดไปต่ำสุด
       </li>
-      <li class="menu-filter__item" data-filter="old-to-new">
+      <li class="menu-filter__item" data-filter="sort" data-value="old-to-new">
         สินค้าเก่าไปสินค้าใหม่
       </li>
-      <li class="menu-filter__item" data-filter="new-to-old">
+      <li class="menu-filter__item" data-filter="sort" data-value="new-to-old">
         สินค้าใหม่ไปสินค้าเก่า
       </li>
     </ul>

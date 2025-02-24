@@ -1,162 +1,108 @@
 import * as disProduct from "/js/displayProduct.js";
-import * as productData from "/js/fetchData.js";
 
-///////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
-// Filter product detail
-export const filterProductDetail = function(e){
+// varibles
+let productItems;
+let check = true;
+
+let productFilter = [];
+let productColor = [];
+let productSize = [];
+
+//////////////////////////////////////////////////////
+
+// Filter product
+export const filterProduct = async function(e, info){
   const curEl = e.target.closest("[data-filter]");
   if(!curEl) return;
 
+  if(curEl.dataset.filter === "sort") document.querySelectorAll('[data-filter="sort"]').forEach(d => d.classList.remove('active-filter'))
+
   curEl.classList.toggle('active-filter');
-  const checkActive = curEl.classList.contains('active-filter');
   if(curEl.dataset.filter === "color") curEl.classList.toggle('active-btn-color');
 
-  curEl.dataset.filter === "promotion" ? filterPromotion(document.querySelectorAll('.product__item'), checkActive) : '';
-  curEl.dataset.filter === "type" ? filterType(document.querySelectorAll('.product__item'), checkActive, curEl) : '';
-  curEl.dataset.filter === "size" ? filterSize(document.querySelectorAll('.product__item'), checkActive, curEl) : '';
-  curEl.dataset.filter === "color" ? filterColor(document.querySelectorAll('.product__item'), checkActive, curEl) : '';
+  const activeEl = Array.from(document.querySelectorAll('.active-filter'));
 
-  if(!checkAcitveFilter()) disProduct.showUiAllProduct(document.querySelectorAll('.product__item'));
+  if(check){
+    productItems = document.querySelectorAll('.product__item')
+    check = false;
+  }
+
+  let productEls = productItems;
+  disProduct.clearUiProduct(document.querySelector('.product'));
+
+  activeEl.forEach(el => {
+    switch (el.dataset.filter) {
+      case "promotion":
+        productEls = filterPromotion(productEls)
+        break;
+      case "type":
+        productEls = filterType(productEls, el)
+        break;
+      case "color":
+        productEls = filterColor(productEls, el, info)
+        break;
+      case "size":
+        productEls = filterSize(productEls, el, info)
+        break;
+      case "sort":
+        productEls = sortProducts(el.dataset.value, productEls)
+        break;
+    }
+  })
+  
+  productEls.forEach(p => document.querySelector('.product').appendChild(p));
+  productFilter = [];
+  productColor = [];
+  productSize = [];
 }
 
+///////////////////////////////////////////////////////
 
 // Filter promotion
-const filterPromotion = function(productItems, checkActive){
-    Array.from(productItems).forEach(item => {
-      const data = item.dataset;
-
-      if(checkActive){
-        if(data.promotion === "true") {
-          data.filterPromo = "promotion";
-          disProduct.showUiProduct(item);
-  
-        }else if(data.filterTypes === "not-filter" && data.filterSizes === "not-filter" && data.filterColors === "not-filter"){
-          disProduct.HiddenUiProduct(item);
-        }
-
-      }else{
-        if(data.filterPromo === "promotion") {
-          data.filterPromo = "not-filter";
-  
-          const check = checkAcitveFilter();
-          if(check) disProduct.HiddenUiProduct(item)
-        }
-        if(data.filterTypes !== "not-filter" || data.filterSizes !== "not-filter" || data.filterColors !== "not-filter") {
-          disProduct.showUiProduct(item);
-        }
-      }
-    })
+const filterPromotion = function(productItems){
+  return Array.from(productItems).filter(p => p.dataset.promotion !== "false");
 }
+
+///////////////////////////////////////////////////////
 
 // Filter type
-const filterType = function(productItems, checkActive, curEl){
-    Array.from(productItems).forEach(item => {
-      const data = item.dataset;
-
-      if(checkActive){
-        if(data.type === curEl.textContent) {
-          data.filterTypes = data.type;
-          disProduct.showUiProduct(item);
-        }
-        else if(data.filterPromo === "not-filter" && data.filterSizes === "not-filter" && data.filterColors === "not-filter" && data.filterTypes === "not-filter"){
-          disProduct.HiddenUiProduct(item);
-        }
-
-      }else {
-        if(data.filterTypes === data.type && data.filterTypes === curEl.textContent) {
-          data.filterTypes = "not-filter";
-
-          const check = checkAcitveFilter();
-          if(check) disProduct.HiddenUiProduct(item);
-        }  
-        if(data.filterPromo !== "not-filter" || data.filterSizes !== "not-filter" || data.filterColors !== "not-filter")
-          disProduct.showUiProduct(item);
-      }
-    })
-}
-
-// Filter size
-const filterSize = async function(productItems, checkActive, curEl){
-  const info = Array.from(await productData.fetchProduct());
-  Array.from(productItems).forEach(item => {
-    const curSize = curEl.id.toUpperCase();
-    const curData = info.find(d => d._id === item.dataset.id);
-    const curColors = curData.variants.map(c => c.sizes);
-    const size = curColors.some(s => s.find(a => a.size === curSize));
-    const data = item.dataset;
-
-    if(checkActive){
-      if(size) {
-        data.filterSizes !== "not-filter" ? data.filterSizes += curSize : data.filterSizes = curSize
-        disProduct.showUiProduct(item);
-      }
-      else if(data.filterPromo === "not-filter" && data.filterSizes === "not-filter" && data.filterColors === "not-filter" && data.filterTypes === "not-filter"){
-        disProduct.HiddenUiProduct(item);
-      }
-    }else{
-      if(data.filterSizes.includes(curSize)) {
-        data.filterSizes = String(data.filterSizes).replace(curSize, "") !== "" ? String(data.filterSizes).replace(curSize, "") : "not-filter";
-
-        const check = checkAcitveFilter();
-        if(check && data.filterSizes === "not-filter") disProduct.HiddenUiProduct(item);
-      }
-      if(data.filterPromo !== "not-filter" || data.filterTypes !== "not-filter" || data.filterColors !== "not-filter")
-        disProduct.showUiProduct(item);
-    }
+const filterType = function(productItems, el){
+  Array.from(productItems).forEach(p => {
+    if(el.dataset.value === p.dataset.type) productFilter.push(p)
   })
+  return productFilter;
 }
+
+///////////////////////////////////////////////////////
 
 // Filter color
-const filterColor = async function(productItems, checkActive, curEl){
-  const info = Array.from(await productData.fetchProduct());
-  Array.from(productItems).forEach(item => {
-    const curColor = curEl.dataset.value;
-    const curData = info.find(d => d._id === item.dataset.id);
-    const color = curData.variants.some(c => c.color === curColor)
-    const data = item.dataset;
-
-    if(checkActive){
-      if(color) {
-        data.filterColors !== "not-filter" ? data.filterColors += curColor : data.filterColors = curColor
-        disProduct.showUiProduct(item);
-      }
-      else if(data.filterPromo === "not-filter" && data.filterSizes === "not-filter" && data.filterColors === "not-filter" && data.filterTypes === "not-filter"){
-        disProduct.HiddenUiProduct(item);
-      }
-    }else{
-      if(data.filterColors.includes(curColor)) {
-        data.filterColors = String(data.filterColors).replace(curColor, "") !== "" ? String(data.filterColors).replace(curColor, "") : "not-filter";
-
-        const check = checkAcitveFilter();
-        if(check && data.filterColors === "not-filter") disProduct.HiddenUiProduct(item);
-      }
-      if(data.filterPromo !== "not-filter" || data.filterTypes !== "not-filter" || data.filterSizes !== "not-filter")
-        disProduct.showUiProduct(item);
-    }
+const filterColor = function(productItems, el, info){
+  Array.from(productItems).forEach(p => {
+    const curData = info.find(i => i._id === p.dataset.id)
+    const curcolors = curData.variants.some(c => c.color === el.dataset.value)
+    if(curcolors) productColor.push(p)
   })
+  return productColor;
 }
 
 ///////////////////////////////////////////////////////
 
-// Filter products sort
-export const filterProductSort = async function (e) {
-  const curEl = e.target.closest(".menu-filter__item");
-  if (!curEl) return;
-
-  document.querySelectorAll(".menu-filter__item").forEach((d) => d.classList.remove("active-filter-sort"));
-  curEl.classList.toggle("active-filter-sort");
-
-  const products = Array.from(document.querySelectorAll(".product__item"));
-  disProduct.clearUiProduct(document.querySelector('.product'));
-  
-  const sortPros = sortProducts(curEl.dataset.filter, products);
-  sortPros.forEach((p) => document.querySelector(".product").appendChild(p));
-};
+// Filter size
+const filterSize = function(productItems, el, info){
+  Array.from(productItems).forEach(p => {
+    const curData = info.find(i => i._id === p.dataset.id)
+    const curcolors = curData.variants.map(v => v.sizes)
+    const curSizes = curcolors.some(c => c.find(a => a.size === el.dataset.value));
+    if(curSizes) productSize.push(p)
+  })
+  return productSize;
+}
 
 ///////////////////////////////////////////////////////
 
-// Check filter product sort
+// Sort product
 const sortProducts = function(filter, products) {
   switch (filter){
     case "low-to-high" :
@@ -174,26 +120,22 @@ const sortProducts = function(filter, products) {
 
 ///////////////////////////////////////////////////////
 
-// Sort filter
+// Sort by price
 const sortByPrice = function(products, boolean){
-  return products.sort((a, b) => {
+  return Array.from(products).sort((a, b) => {
     const lowToHigh = Number(a.dataset.price) - Number(b.dataset.price)
     const highToLow = Number(b.dataset.price) - Number(a.dataset.price)
     return boolean ? lowToHigh : highToLow
   });
 }
 
-const sortByDate = function(product, boolean){
-  return product.sort((a, b) => {
+///////////////////////////////////////////////////////
+
+// Sort by date
+const sortByDate = function(products, boolean){
+  return Array.from(products).sort((a, b) => {
     const oldToNew = new Date(a.dataset.create) - new Date(b.dataset.create);
     const newToOld = new Date(b.dataset.create) - new Date(a.dataset.create);
     return boolean ? oldToNew : newToOld;
   })
-}
-
-///////////////////////////////////////////////////////
-
-// Check active filter
-const checkAcitveFilter = function(){
-  return document.querySelectorAll('.active-filter').length > 0;
 }
