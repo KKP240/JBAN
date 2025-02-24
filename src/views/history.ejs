@@ -27,137 +27,51 @@
         <div class="main-content">
             <div class="topic">ประวัติการสั่งซื้อ</div>
 
-            <!-- repeat แต่ละ order ใน order-card -->
-            <div class="order-card">
-
-                <div class="order-details">
-                    <div>
-                        <span>เลขคำสั่งซื้อ</span><br>
-                        <span class="opacity-color">abc-defg-hij-klmn-opqrs-tuv-wxyz</span>
-                    </div>
-                    <div>
-                        <span>วันที่สั่งซื้อ</span><br>
-                        <span class="opacity-color">00-00-0000</span>
-                    </div>
-                </div>
-
-                <!-- repeat สินค้าที่ซื้อ ใน product-card -->
-                <div class="product-card">
-                    <div class="left">
-                        <div class="product-images">
-                            <img src="images/black-tshirt.jpg" alt="">
-                        </div>
-                        <div>
-                            <div class="product-name">เสื้อยืด - แขนยาว</div>
-                            <div class="opacity-color">สี : ดำ</div>
-                            <div class="opacity-color">ไซส์ : M</div>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div>
-                            <div class="product-price">60 บาท</div>
-                            <div class="opacity-color">1 ชิ้น</div>
-                        </div>
-                        <div class="review">รีวิวสินค้า</div>
-                    </div>
-                </div>
-
-                <!-- repeat สินค้าที่ซื้อ ใน product-card -->
-                <div class="product-card">
-                    <div class="left">
-                        <div class="product-images">
-                            <img src="images/black-tshirt.jpg" alt="">
-                        </div>
-                        <div>
-                            <div class="product-name">เสื้อยืด - แขนยาว</div>
-                            <div class="opacity-color">สี : ดำ</div>
-                            <div class="opacity-color">ไซส์ : M</div>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div>
-                            <div class="sale">
-                                <div class="product-price oldprice">60 บาท</div>
-                                <div class="product-price newprice">40 บาท</div>
+            <% if (orders && orders.length > 0) { %>
+                <% orders.forEach(order => { %>
+                    <div class="order-card">
+                        <div class="order-details">
+                            <div>
+                                <span>เลขคำสั่งซื้อ</span><br>
+                                <span class="opacity-color"><%= order._id %></span>
                             </div>
-                            <div class="opacity-color">1 ชิ้น</div>
+                            <div>
+                                <span>วันที่สั่งซื้อ</span><br>
+                                <span class="opacity-color"><%= new Date(order.createdAt).toLocaleDateString() %></span>
+                            </div>
                         </div>
-                        <div class="review">รีวิวสินค้า</div>
-                    </div>
-                </div>
 
-                <div class="total">
-                    <span class="opacity-color">ราคารวมทั้งหมด</span>
-                    <span class="total-price">100 บาท</span>
-                </div>
-            </div>
+                        <% order.items.forEach(item => { %>
+                            <div class="product-card">
+                                <div class="left">
+                                    <div class="product-images">
+                                        <img src="<%= item.productId.image %>" alt="<%= item.productId.name %>">
+                                    </div>
+                                    <div>
+                                        <div class="product-name"><%= item.productId.name %></div>
+                                        <div class="opacity-color">สี : <%= item.selectedColor %></div>
+                                        <div class="opacity-color">ไซส์ : <%= item.selectedSize %></div>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <div>
+                                        <div class="product-price"><%= (item.quantity * item.productId.price).toFixed(2) %> บาท</div>
+                                        <div class="opacity-color"><%= item.quantity %> ชิ้น</div>
+                                    </div>
+                                    <div class="review">รีวิวสินค้า</div>
+                                </div>
+                            </div>
+                        <% }); %>
 
-            <!-- repeat แต่ละ order ใน order-card -->
-            <div class="order-card">
-
-                <div class="order-details">
-                    <div>
-                        <span>เลขคำสั่งซื้อ</span><br>
-                        <span class="opacity-color">abc-defg-hij-klmn-opqrs-tuv-wxyz</span>
-                    </div>
-                    <div>
-                        <span>วันที่สั่งซื้อ</span><br>
-                        <span class="opacity-color">00-00-0000</span>
-                    </div>
-                </div>
-
-                <!-- repeat สินค้าที่ซื้อ ใน product-card -->
-                <div class="product-card">
-                    <div class="left">
-                        <div class="product-images">
-                            <img src="images/black-tshirt.jpg" alt="">
-                        </div>
-                        <div class="product-details">
-                            <div class="product-name">เสื้อยืด - แขนยาว</div>
-                            <div class="opacity-color">รอบอก : 24 นิ้ว</div>
-                            <div class="opacity-color">ความยาว : 31 นิ้ว</div>
-                            <div class="opacity-color">เนื้อผ้า : cotton 100%</div>
-                            <!-- กรณีมีข้อความเพิ่มเติมถึงร้านค้า -->
-                            <div class="opacity-color">ข้อความเพิ่มเติม : ไม่ใส่ผัก ใส่แต่เนื้อสัตว์ ไม่ใส่ผัก ใส่แต่เนื้อสัตว์ ไม่ใส่ผัก ใส่แต่เนื้อสัตว์ ไม่ใส่ผัก ใส่แต่เนื้อสัตว์</div>
-                            <div class="opacity-color">สี : #000000</div>
+                        <div class="total">
+                            <span class="opacity-color">ราคารวมทั้งหมด</span>
+                            <span class="total-price">฿<%= order.totalPrice.toFixed(2) %></span>
                         </div>
                     </div>
-                    <div class="right">
-                        <div>
-                            <div class="product-price">60 บาท</div>
-                            <div class="opacity-color">10 ชิ้น</div>
-                        </div>
-                        <div class="review">รีวิวสินค้า</div>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="left">
-                        <div class="product-images">
-                            <img src="images/black-tshirt.jpg" alt="">
-                        </div>
-                        <div class="product-details">
-                            <div class="product-name">เสื้อยืด - แขนยาว</div>
-                            <div class="opacity-color">รอบอก : 24 นิ้ว</div>
-                            <div class="opacity-color">ความยาว : 31 นิ้ว</div>
-                            <div class="opacity-color">เนื้อผ้า : cotton 100%</div>
-                            <div class="opacity-color">สี : #000000</div>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div>
-                            <div class="product-price">60 บาท</div>
-                            <div class="opacity-color">5 ชิ้น</div>
-                        </div>
-                        <div class="review">รีวิวสินค้า</div>
-                    </div>
-                </div>
-
-                <div class="total">
-                    <span class="opacity-color">ราคารวมทั้งหมด</span>
-                    <span class="total-price">900 บาท</span>
-                </div>
-            </div>
+                <% }); %>
+            <% } else { %>
+                <p>ไม่มีประวัติการสั่งซื้อ</p>
+            <% } %>
 
         </div>
     </div>

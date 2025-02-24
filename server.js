@@ -30,6 +30,7 @@ const Product = require("./src/models/Product");
 const cookieParser = require('cookie-parser');
 const User = require("./src/models/User");
 const Cart = require('./src/models/Cart');
+const Order = require('./src/models/order');
 
 const app = express();
 connectDB();
@@ -117,9 +118,15 @@ app.get("/women", (req, res) => {
     res.render("women");
 });
 
-app.get("/orderHistory", (req, res) => {
-    res.render("history");
-});
+app.get('/orderHistory', authMiddleware, async (req, res) => {
+    try {
+      const orders = await Order.find({ userId: req.user.id }).populate('items.productId');
+      res.render('history', { orders });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Server error");
+    }
+  });
 
 app.get('/productdetails', async (req, res) => {
     const productId = req.query.id;
