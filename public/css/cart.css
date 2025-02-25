@@ -6,6 +6,9 @@
 
 html {
     font-size: 62.5%;
+    min-height: 100vh;
+    height: 100%;
+    margin: 0;
 }
 
 body {
@@ -14,6 +17,9 @@ body {
     font-size: 1.6rem;
     font-weight: 300;
     line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
 }
 
 div.cart {
@@ -22,6 +28,7 @@ div.cart {
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 5%;
+    flex: 1;
 }
 
 .arrow-left {
