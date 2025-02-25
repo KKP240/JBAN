@@ -67,6 +67,7 @@ html {
     margin-top: 58px;
 }
 
+
 /* .arrow {
     position: absolute;
     top: 50%;
@@ -111,6 +112,7 @@ html {
     transition: color 0.2s;
 }
 
+
 /* .star.active {
     color: #00AAFF;
 } */
@@ -154,7 +156,6 @@ html {
     padding: 4px;
 }
 
-
 .color-buttons {
     display: flex;
     gap: 10px;
@@ -169,26 +170,27 @@ html {
     cursor: pointer;
 }
 
+
 /* .color-button:active{
     border: 1px solid red;
 } */
 
-.color-active{
+.color-active {
     border: 0.2rem solid #0088DD;
 }
 
-.size-active{
+.size-active {
     border: 0.2rem solid #0088DD;
 }
 
-.stock{
+.stock {
     font-size: 14px;
     opacity: 60%;
     text-align: left;
     margin-bottom: 16px;
 }
 
-.stock-amount{
+.stock-amount {
     color: #0088DD;
     font-size: 14px;
 }
@@ -202,7 +204,7 @@ html {
     width: 100px;
 }
 
-.quantity-control .quantity{
+.quantity-control .quantity {
     width: 10px;
 }
 
@@ -215,14 +217,14 @@ html {
     cursor: pointer;
 }
 
-.btn-left{
+.btn-left {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 10px;
 }
 
-.btn-right{
+.btn-right {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -235,7 +237,7 @@ html {
     margin-bottom: 20px;
 }
 
-.price-section span{
+.price-section span {
     font-size: 18px;
 }
 
@@ -253,9 +255,8 @@ html {
     /* ชิดขวา */
 }
 
-.add-to-cart:hover{
+.add-to-cart:hover {
     background-color: #0088DD;
-    
 }
 
 .reviews-section {
@@ -301,7 +302,7 @@ button:not(.add-to-cart, .recommend, .custom):active {
 .selected {
     border: 2px solid #00AAFF;
     outline: none;
-  }
+}
 
 .choose-color {
     position: absolute;
@@ -313,7 +314,6 @@ button:not(.add-to-cart, .recommend, .custom):active {
     font-size: 1.3rem;
     font-weight: 300;
     color: #00AAFF;
-
     img {
         width: 1.4rem;
     }
@@ -321,4 +321,15 @@ button:not(.add-to-cart, .recommend, .custom):active {
 
 .shirt {
     border-radius: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.5s ease;
+    /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+}
+
+a:hover {
+    color: #00AAFF;
 }
