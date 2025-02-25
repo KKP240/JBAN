@@ -10,7 +10,7 @@ html {
     user-select: none;
 }
 
-body{
+body {
     font-size: 16px;
 }
 
@@ -44,6 +44,7 @@ body{
     margin-top: 65px;
 }
 
+
 /* .arrow {
     position: absolute;
     top: 50%;
@@ -54,6 +55,7 @@ body{
     font-size: 24px;
     color: #666;
 } */
+
 
 /* .arrow-left {
     left: -30px;
@@ -104,6 +106,7 @@ body{
     margin-bottom: 20px;
 }
 
+
 /* h3 {
     font-size: 14px;
     margin-bottom: 10px;
@@ -135,16 +138,15 @@ body{
     width: 128px;
 }
 
-.fabric-section{
+.fabric-section {
     margin-bottom: 20px;
     font-size: 18px;
 }
 
-.additional-info-section{
+.additional-info-section {
     margin-bottom: 12px;
     font-size: 18px;
 }
-
 
 .fabric-section input {
     margin-left: 7px;
@@ -284,15 +286,15 @@ body{
     font-size: 16px;
 }
 
-.left{
+.left {
     margin-right: 20px;
 }
 
-.right{
+.right {
     margin-left: 20px;
 }
 
-.quantity{
+.quantity {
     width: 10px;
 }
 
@@ -355,7 +357,7 @@ input {
     /* margin-top: 24px; */
 }
 
-.texticon .left{
+.texticon .left {
     /* height: 10px; */
     display: flex;
     align-items: center;
@@ -366,7 +368,7 @@ input {
     width: 15px;
 }
 
-.left h5{
+.left h5 {
     margin-bottom: 7.5px;
 }
 
@@ -395,23 +397,35 @@ button:active {
     margin-top: 9px;
 }
 
-input[type=text]:focus{
+input[type=text]:focus {
     border: 1px solid #ddd;
 }
 
-textarea:focus{
+textarea:focus {
     outline: none;
     border: 1px solid #ddd;
 }
 
 
 /* ลบแท็บที่เลื่อนเพิ่มหรือลดเลขออก */
+
+
 /* input[type=number] {
     -moz-appearance: textfield;  สำหรับ Firefox 
 } */
 
-input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.5s ease;
+}
+
+a:hover {
+    color: #00AAFF;
 }
