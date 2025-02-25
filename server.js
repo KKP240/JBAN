@@ -164,7 +164,7 @@ app.get('/favourite', authMiddleware, async(req, res) => {
         }
 
         console.log('User found:', user);
-
+        const favourites2 = user.favorites;
         const favourites = user.favorites || [];
         console.log("favourites:", favourites);
 
@@ -188,6 +188,7 @@ app.get('/favourite', authMiddleware, async(req, res) => {
             } else {
 
                 const newProduct = {
+                    id: product.id,
                     name: product.name,
                     imageUrl: product.imageUrl,
                     totalStock: 0
@@ -211,7 +212,7 @@ app.get('/favourite', authMiddleware, async(req, res) => {
         console.log("Grouped products:", groupedProducts);
 
 
-        res.render('favourite', { favourites: groupedProducts });
+        res.render('favourite', { favourites: groupedProducts});
     } catch (error) {
         console.error('Error fetching favourites:', error);
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
