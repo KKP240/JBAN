@@ -86,7 +86,6 @@ document.querySelectorAll('.remove').forEach(removeBtn => {
         item.remove();  // ลบแถวสินค้า
 
         updatePrice(); // อัปเดตราคาหลังจากลบสินค้า
-        alert('สินค้าถูกลบออกจากตะกร้า');
     });
 });
 
@@ -132,7 +131,6 @@ async function handleOrder() {
       });
       const data = await response.json();
       if (response.ok) {
-        alert("สั่งซื้อสินค้าเรียบร้อยแล้ว");
         window.location.href = "/orderHistory";
       } else {
         alert("เกิดข้อผิดพลาด: " + data.message);
@@ -152,7 +150,6 @@ function removeCartItem(element) {
     row.remove();
 
     updatePrice();
-    alert('สินค้าถูกลบออกจากตะกร้า');
 }
 
 async function removeFromCart(cartItemId, element) {
