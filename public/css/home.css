@@ -143,13 +143,13 @@ body {
 .input-check:checked + .check-mark::after {
   content: "";
   position: absolute;
-  left: 6px;
-  top: 2px;
-  width: 4px;
-  height: 8px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -60%) rotate(45deg);
+  width: .4rem;
+  height: .8rem;
   border: solid #fff;
   border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
 }
 
 .menu-colors {
@@ -250,7 +250,7 @@ body {
 
 .product {
   margin-top: 4rem;
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(5, 1fr);
   gap: 3rem;
   position: relative;
@@ -469,7 +469,6 @@ body {
   align-items: center;
   width: 100%;
   height: 30rem;
-  grid-column: 3;
 }
 
 .loader {
@@ -504,10 +503,6 @@ body {
     gap: 2rem;
   }
 
-  .container-loader {
-    grid-column: 2;
-  }
-
 }
 
 
@@ -540,10 +535,6 @@ body {
     margin-top: 0;
     grid-template-columns: repeat(2, 1fr);
     gap: 4rem;
-  }
-
-  .container-loader {
-    grid-column: 1;
   }
 
   /* .aside-menu {

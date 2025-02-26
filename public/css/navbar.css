@@ -333,7 +333,7 @@ div.navpart2 {
   flex-direction: column;
   gap: 2rem;
   align-items: center;
-  padding: 8rem 3rem;
+  padding: 8rem 2rem;
   transform: translateX(100%);
   transition: all .3s ease-in;
 }
@@ -366,7 +366,7 @@ div.navpart2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
   width: 100%;
 }
 
@@ -376,7 +376,6 @@ div.navpart2 {
   }
   
   .nav__item:nth-child(1) {
-    margin-left: 1rem;
     order: 2;
   }
 
@@ -421,7 +420,78 @@ div.navpart2 {
   transform: translateX(0);
 }
 
+@media screen and (max-width: 87.5em){
+  html {
+    font-size: 58%;
+  }
+
+}
+
+@media screen and (max-width: 75em){
+  html {
+    font-size: 55%;
+  }
+
+  .username svg {
+    width: 2.8rem !important;
+    height: 2.8rem !important;
+  }
+
+  .icon-nav {
+    width: 2.8rem !important;
+    height: 2.8rem !important;
+  }
+}
+
+@media screen and (max-width: 56.25em){
+  html {
+    font-size: 52%;
+  }
+  .btn-close-nav {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .username svg {
+    width: 2.4rem !important;
+    height: 2.4rem !important;
+  }
+
+  .icon-nav {
+    width: 2.4rem !important;
+    height: 2.4rem !important;
+  }
+}
+
+@media screen and (max-width: 48em){
+  html {
+    font-size: 49%;
+  }
+
+  .nav-res {
+    padding: 8rem 5rem;
+  }
+
+  .btn-close-nav {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .username svg {
+    width: 2.2rem !important;
+    height: 2.2rem !important;
+  }
+
+  .icon-nav {
+    width: 2.2rem !important;
+    height: 2.2rem !important;
+  }
+}
+
 @media screen and (max-width: 36em){
+  html {
+    font-size: 46%;
+  }
+
   .nav-res {
     width: 100%;
   }

@@ -234,4 +234,5 @@ export const stopSlideShow = function () {
 
 export const removeLoadingElements = function(){
   document.querySelector('.product').innerHTML = ``
+  document.querySelector('.product').style.display = "grid";
 }

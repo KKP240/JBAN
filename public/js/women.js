@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", async function() {
   mainPage.startSlideShow();
   document.querySelector(".menu-detail__list").addEventListener("click", mainPage.openHideMenu);
   const info = await data.fetchProduct()
-  document.querySelector('.aside-menu').addEventListener('click', (event) => filter.filterProduct(event, info));
+  document.querySelector('.aside-menu').addEventListener('click', (event) => filter.activeFilter(event, info));
+  filter.loadUrlFilter(info);
 });
 
 document.addEventListener("visibilitychange", () => {
