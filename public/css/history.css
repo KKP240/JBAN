@@ -17,7 +17,8 @@ body {
 .container{
     display: grid;
     width: 80%;
-    margin: 100px auto;
+    margin: 90px auto;
+    margin-bottom: 0;
 }
 
 .return{
@@ -33,12 +34,13 @@ body {
     justify-content: start;
     text-decoration: none;
     color: #00AAFF;
+    width: 163px;
 }
 
 .return span{
     font-size: 18px;
     margin-left: 8px;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .main-content{
