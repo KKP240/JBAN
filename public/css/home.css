@@ -504,6 +504,10 @@ body {
     gap: 2rem;
   }
 
+  .container-loader {
+    grid-column: 2;
+  }
+
 }
 
 
@@ -533,9 +537,18 @@ body {
   }
 
   .product {
+    margin-top: 0;
     grid-template-columns: repeat(2, 1fr);
     gap: 4rem;
   }
+
+  .container-loader {
+    grid-column: 1;
+  }
+
+  /* .aside-menu {
+    padding-top: 14rem;
+  } */
 }
 
 @media screen and (max-width: 36em){
