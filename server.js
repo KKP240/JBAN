@@ -219,9 +219,15 @@ app.get('/favourite', authMiddleware, async(req, res) => {
     }
 });
 
+app.get('/logout', (req, res) => {
+    res.clearCookie("token");
+    res.redirect('/');
+});
+
 app.get("/addpromotion", (req, res) => {
     res.render("add_promotion");
 });
+
 
 
 const PORT = process.env.PORT || 5000;

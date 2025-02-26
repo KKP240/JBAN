@@ -11,6 +11,7 @@ const searchParent = search.parentNode;
 
 // Fetch user data
 const fetchUserProfile = async function () {
+  console.log("fetching user profile...");
   // const token = localStorage.getItem("token");
   const response = await fetch("http://localhost:5000/api/auth/me", {
     credentials: "include", // เวลาจะใช้ token ทำแบบนี้ 
@@ -19,11 +20,10 @@ const fetchUserProfile = async function () {
   if (response.ok) {
     const user = await response.json();
     insertUiUser(user);
-  }
-
-  if (!response.ok) {
+  } else {
     insertUiBtnLogin();
   }
+
 };
 
 ///////////////////////////////////////////////////////
@@ -56,7 +56,7 @@ const insertUiUser = function (user) {
                                   <ul class="drop-menu__list">
                                       ${user.role === "admin" ? `<li class="drop-menu__item"><a href="/manageProduct" class="drop-menu__link">จัดการสินค้า</a></li>` : ""}
                                       <li class="drop-menu__item"><a href="/orderHistory" class="drop-menu__link">ประวัติคำสั่งซื้อ</a></li>
-                                      <li class="drop-menu__item"><a href="/logout" class="drop-menu__link">ออกจากระบบ</a></li>
+                                      <li class="drop-menu__item"><a href="/logout" class="drop-menu__link" id="logoutBtn">ออกจากระบบ</a></li>
                                   </ul>
                               </div>
                           </div>`;
@@ -70,6 +70,7 @@ const insertUiUser = function (user) {
 // Insert ui btn login
 const insertUiBtnLogin = function () {
   userEl.innerHTML = `<a href="/login" class="btn-login">เข้าสู่ระบบ</a>`;
+  document.querySelector("#logoutBtn")?.removeEventListener('click', logout);
 };
 
 ///////////////////////////////////////////////////////
@@ -220,6 +221,18 @@ const resNav = function () {
   }
 }
 
+// ------------------------ logout ------------------------------
+async function logout() {
+  try {
+      const response = await fetch('/logout', { method: 'GET', credentials: 'include' });
+      if (response.ok) {
+          fetchUserProfile();
+          console.log("Logout");
+      }
+  } catch (error) {
+      console.error("เกิดข้อผิดพลาดในการ Logout:", error);
+  }
+}
 
 ///////////////////////////////////////////////////////
 
@@ -231,5 +244,6 @@ window.addEventListener("DOMContentLoaded", () => {
     .addEventListener("keyup", searchProduct);
   window.addEventListener('resize', resNav);
   document.querySelector('.btn-close-nav').addEventListener('click', closeNavRes);
+  document.getElementById('logoutBtn').addEventListener('click', logout);
   resNav();
 });
