@@ -50,6 +50,14 @@ div.cart {
     font-weight: 600;
 }
 
+.carth1:hover {
+    color: #0088CC;
+}
+
+.carth1:hover .arrow-left {
+    border-right: 20px solid #0088CC;
+}
+
 div.wholeprice {
     display: flex;
 }
@@ -208,6 +216,10 @@ div.discount {
     padding: 1px;
 }
 
+.discount label:focus-within {
+    outline: 1px solid black;
+}
+
 .discount button {
     border: none;
     background: transparent;
@@ -265,7 +277,9 @@ div.message {
 }
 
 .minus:active,
-.plus:active {
+.minus:hover,
+.plus:active,
+.plus:hover {
     outline: 1px solid black;
     border: hidden;
 }
