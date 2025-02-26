@@ -6,9 +6,13 @@ html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Kanit", serif;
-    user-select: none;
+    font-family: "Kanit", sans-serif;
     font-size: 18px;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
 }
 
 .box-add {
@@ -18,78 +22,160 @@ html {
     justify-content: center;
     align-items: center;
     margin-top: 110px;
+    margin-bottom: 60px;
 }
 
 .imgprodu {
-    width: 150px;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.imgprodu:hover {
+    transform: scale(1.05);
 }
 
 table {
     width: 90%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background-color: #fff;
+}
+
+thead {
+    background-color: #f5f5f5;
+}
+
+thead td {
+    font-weight: 600;
+    color: #444;
+    border-bottom: 2px solid #ddd;
+    padding: 15px 10px;
 }
 
 tr {
-    height: 50px;
+    height: auto;
+    transition: background-color 0.2s;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
 }
 
 td {
     width: 150px;
-    padding: 10px;
+    padding: 15px 10px;
     text-align: center;
-    border: 1px solid #000000;
-}
-
-th {
-    border: 1px solid #000000;
+    border-bottom: 1px solid #eaeaea;
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    vertical-align: middle;
 }
 
 .addpro {
     align-self: flex-end;
-    margin-right: 100px;
+    margin-right: 5%;
     border-radius: 50px;
     width: 140px;
-    background-color: #ffffff;
-    border: 0.5px solid #666666;
-    height: 35px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    height: 40px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.addpro:hover {
+    background-color: #388E3C;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .produ {
     align-self: flex-start;
-    margin-left: 100px;
-    font-size: 55px;
-    font-weight: normal;
+    margin-left: 5%;
+    font-size: 3.2rem;
+    font-weight: 600;
     margin-top: -20px;
+    color: #333;
+    position: relative;
+}
+
+.produ:after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: #4CAF50;
+    border-radius: 2px;
 }
 
 .add {
     width: 70px;
     height: 38px;
-    border-radius: 9px;
+    border-radius: 6px;
     border: none;
     background-color: #EE8F03;
     color: #ffffff;
     margin: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(238, 143, 3, 0.2);
+}
+
+.add:hover {
+    background-color: #D97F00;
+    transform: translateY(-2px);
 }
 
 .edit {
-    width: 75px;
+    width: 85px;
     height: 38px;
-    border-radius: 9px;
+    border-radius: 6px;
     border: none;
-    background-color: #FF0000;
+    background-color: #FF3B30;
     color: #ffffff;
     margin: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(255, 59, 48, 0.2);
+}
+
+.edit:hover {
+    background-color: #E0352B;
+    transform: translateY(-2px);
 }
 
 .promochun {
     width: 115px;
     height: 45px;
-    border-radius: 9px;
+    border-radius: 6px;
     border: none;
-    background-color: #0088DD;
+    background-color: #007AFF;
     color: #ffffff;
     margin: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 122, 255, 0.2);
+}
+
+.promochun:hover {
+    background-color: #0066D6;
+    transform: translateY(-2px);
 }
 
 .text01 {
@@ -98,4 +184,29 @@ th {
     font-weight: normal;
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    table {
+        width: 95%;
+    }
+    
+    .produ {
+        font-size: 2.8rem;
+        margin-left: 2.5%;
+    }
+    
+    .addpro {
+        margin-right: 2.5%;
+    }
+    
+    td {
+        padding: 10px 5px;
+        font-size: 16px;
+    }
+    
+    .imgprodu {
+        width: 100px;
+        height: 100px;
+    }
 }
