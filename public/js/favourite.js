@@ -1,5 +1,4 @@
 function removeRow(element) {
-    // Find the <tr> element that contains the <a> and remove it
     var row = element.closest('tr');
     row.remove();
   }
