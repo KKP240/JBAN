@@ -146,6 +146,10 @@ div span {
     cursor: pointer;
 }
 
+.basket button:hover {
+    background-color: #0088CC;
+}
+
 .out_of_stock {
     color: #FF0000;
 }

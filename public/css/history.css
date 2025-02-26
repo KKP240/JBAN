@@ -43,6 +43,14 @@ body {
     font-weight: 400;
 }
 
+.return a:hover > svg > path{
+    fill: #0088CC;
+}
+
+.return a:hover{
+    color: #0088CC;
+}
+
 .main-content{
     margin-left: 88px;
     padding-bottom: 48px;
