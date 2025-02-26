@@ -239,11 +239,11 @@ async function logout() {
 // Window load
 window.addEventListener("DOMContentLoaded", () => {
   fetchUserProfile();
+  resNav();
   document
     .querySelector(".search-bar")
     .addEventListener("keyup", searchProduct);
   window.addEventListener('resize', resNav);
   document.querySelector('.btn-close-nav').addEventListener('click', closeNavRes);
   document.getElementById('logoutBtn').addEventListener('click', logout);
-  resNav();
 });
