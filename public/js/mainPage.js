@@ -48,17 +48,17 @@ export const insertUiProduct = function (d) {
 // Product favourite
 const addToFavorites = async function(productId) {
   try {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
-    if (!token) {
-      alert("กรุณาล็อกอินก่อน");
-      return;
-    }
+    // if (!token) {
+    //   alert("กรุณาล็อกอินก่อน");
+    //   return;
+    // }
     const res = await fetch(`http://localhost:5000/api/user/favorites/${productId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `${token}`
+        credentials: "include"
       }
     });
 
