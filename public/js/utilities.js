@@ -2,6 +2,10 @@
 
 // Selecting element
 const userEl = document.querySelector(".user");
+const navP2 = document.querySelector('.navpart2');
+const navP3 = document.querySelector('.navpart3');
+const search = document.querySelector('.nav__search');
+const searchParent = search.parentNode;
 
 ///////////////////////////////////////////////////////
 
@@ -57,7 +61,7 @@ const insertUiUser = function (user) {
                               </div>
                           </div>`;
 
-  document.querySelector(".username").addEventListener("click", openDropdown);
+  document.querySelector(".username")?.addEventListener("click", openDropdown);
   window.addEventListener("click", closeDropdownWindow);
 };
 
@@ -175,10 +179,57 @@ const notFoundSearchData = function(){
 
 ///////////////////////////////////////////////////////
 
+// Nav res
+const openNavRes = function(e){
+  const curEl = e.target.closest('.btn-nav-res');
+  if(!curEl) return;
+  
+  document.querySelector('.nav-res').classList.add('open-nav-res')
+}
+
+const closeNavRes = function(e){
+  const curEl = e.target.closest('.btn-close-nav');
+  if(!curEl) return;
+
+  document.querySelector('.nav-res').classList.remove('open-nav-res')
+}
+
+const resNav = function () {
+  const widthWindow = window.innerWidth;
+  const navbar = document.querySelector('.navbar');
+  const newParent = document.querySelector('.nav-res');
+
+  const div = document.createElement('div');
+  div.className = "btn-nav-res"
+  div.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#000000" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>`
+
+  if (widthWindow <= 1200) {
+    if (navbar.contains(navP3)) newParent.appendChild(navP3);
+    if (searchParent.contains(search)) newParent.appendChild(search);
+    if (navbar.contains(navP2)) newParent.appendChild(navP2);
+    if (!navbar.contains(document.querySelector('.btn-nav-res'))) {
+      navbar.appendChild(div);
+      div.addEventListener('click', openNavRes);
+    }
+  } else {
+    if (navbar.contains(document.querySelector('.btn-nav-res'))) navbar.removeChild(document.querySelector('.btn-nav-res'));
+    if (newParent.contains(navP2)) navbar.appendChild(navP2);
+    if (newParent.contains(navP3)) navbar.appendChild(navP3);
+    if (newParent.contains(search)) searchParent.appendChild(search);
+    document.querySelector('.nav-res').classList.remove('open-nav-res')
+  }
+}
+
+
+///////////////////////////////////////////////////////
+
 // Window load
 window.addEventListener("DOMContentLoaded", () => {
   fetchUserProfile();
   document
     .querySelector(".search-bar")
     .addEventListener("keyup", searchProduct);
+  window.addEventListener('resize', resNav);
+  document.querySelector('.btn-close-nav').addEventListener('click', closeNavRes);
+  resNav();
 });
