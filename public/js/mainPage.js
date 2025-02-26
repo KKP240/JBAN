@@ -58,6 +58,7 @@ const addToFavorites = async function(productId) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        // "Authorization": `${token}`
         credentials: "include"
       }
     });
@@ -80,17 +81,18 @@ const addToFavorites = async function(productId) {
 
 const removeFromFavorites = async function(productId) {
   try {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
-    if (!token) {
-      alert("กรุณาล็อกอินก่อน");
-      return false;
-    }
+    // if (!token) {
+    //   alert("กรุณาล็อกอินก่อน");
+    //   return false;
+    // }
     const res = await fetch(`http://localhost:5000/api/user/favorites/${productId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `${token}`
+        // "Authorization": `${token}`
+        credentials: "include"
       }
     });
 
