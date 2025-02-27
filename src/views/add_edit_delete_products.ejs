@@ -16,10 +16,11 @@
 </head>
 
 <body>
+    <%- include("nav_res"); %>
     <%- include("navbar"); %>
         <div class="box-add">
             <h1 class="produ">จัดการสินค้า</h1>
-            <button class="addpro">+ เพิ่มสินค้า</button>
+            <button class="addpro" onclick="window.location.href='/add_product'">+ เพิ่มสินค้า</button>
             <table>
                 <thead>
                     <tr>
@@ -36,6 +37,13 @@
                     <!-- Data rows will be inserted dynamically here -->
                 </tbody>
             </table>
+        </div>
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <p class="p-delete">คุณต้องการลบสินค้านี้ใช่หรือไม่?</p>
+                <button id="confirmDelete" class="btn1">ยืนยัน</button>
+                <button id="cancelDelete" class="btn">ยกเลิก</button>
+            </div>
         </div>
 </body>
 

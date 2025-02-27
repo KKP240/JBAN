@@ -2,10 +2,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+}
 
 html {
     font-size: 62.5%;
+    min-height: 100vh;
+    height: 100%;
+    margin: 0;
 }
 
 body {
@@ -14,6 +17,9 @@ body {
     font-size: 1.6rem;
     font-weight: 400;
     line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
 }
 
 div.favouriteinfo {
@@ -22,6 +28,7 @@ div.favouriteinfo {
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 5%;
+    flex: 1;
 }
 
 div.favouriteinfo h1 {
@@ -48,7 +55,9 @@ div.favouritetable th {
     padding-bottom: 1%;
 }
 
-div.favouritetable th:nth-child(1),div.favouritetable th:nth-child(2),div.favouritetable th:nth-child(3)    {
+div.favouritetable th:nth-child(1),
+div.favouritetable th:nth-child(2),
+div.favouritetable th:nth-child(3) {
     width: 25%;
 }
 
@@ -70,7 +79,7 @@ div.favouritetable th:nth-child(3) {
 div.favouritetable th:nth-child(4) {
     visibility: hidden;
     width: 25%;
-} 
+}
 
 .favouritetable td {
     font-size: 20px;
@@ -116,6 +125,10 @@ div span {
     border-radius: 5px;
 }
 
+.basket {
+    white-space: nowrap;
+}
+
 .basket a svg {
     vertical-align: middle;
     margin-left: 5%;
@@ -131,6 +144,10 @@ div span {
     border-radius: 5px;
     background-color: #00AAFF;
     cursor: pointer;
+}
+
+.basket button:hover {
+    background-color: #0088CC;
 }
 
 .out_of_stock {

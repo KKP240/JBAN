@@ -54,8 +54,8 @@ img {
 
 .promotion-name input {
     padding: 6px;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
     font-size: 20px;
     border: 1px solid lightgray;
     border-radius: 4px;
@@ -74,7 +74,7 @@ img {
     gap: 5px;
 }
 
-.original-price input {
+.inside-original-price input {
     padding: 6px;
     padding-left: 5%;
     padding-right: 5%;
@@ -85,8 +85,9 @@ img {
     height: auto;
 }
 
-.original-price input:focus {
+.inside-original-price input:focus {
     border: 1px solid lightgray;
+    outline: none;
 }
 
 .Percent {
@@ -96,7 +97,7 @@ img {
     gap: 5px;
 }
 
-.Percent input {
+.inside-Percent input {
     padding: 6px;
     padding-left: 5%;
     padding-right: 5%;
@@ -107,22 +108,34 @@ img {
     height: auto;
 }
 
-.set-Price {
+.inside-Percent input:hover,
+.inside-Percent input:focus {
+    border: 1px solid black;
+    outline: 1px solid black;
+}
+
+.set-price {
     display: flex;
     flex-direction: column;
     margin-bottom: 16px;
     gap: 5px;
 }
 
-.set-Price input {
+.inside-set-price input {
     padding: 6px;
     padding-left: 5%;
     padding-right: 5%;
-    font-size: 18px;
+    font-size: 20px;
     border: 1px solid lightgray;
     border-radius: 4px;
     width: 150px;
     height: auto;
+}
+
+.inside-set-price input:hover,
+.inside-set-price input:focus {
+    border: 1px solid black;
+    outline: 1px solid black;
 }
 
 label {

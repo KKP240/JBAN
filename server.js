@@ -118,6 +118,22 @@ app.get("/women", (req, res) => {
     res.render("women");
 });
 
+app.get("/manageProduct", (req, res) => {
+    res.render("add_edit_delete_products");
+});
+
+app.get("/add_product", (req, res) => {
+    res.render("add_product");
+});
+
+app.get("/edit_product", (req, res) => {
+    res.render("edit_product");
+});
+
+app.get("/add_promotion", (req, res) => {
+    res.render("add_promotion");
+});
+
 app.get('/orderHistory', authMiddleware, async (req, res) => {
     try {
       const orders = await Order.find({ userId: req.user.id }).populate('items.productId');
@@ -128,9 +144,10 @@ app.get('/orderHistory', authMiddleware, async (req, res) => {
     }
   });
 
-app.get("/custom_page", (req, res) => {
-    res.render("custom_page");
-});
+  app.get("/custom_page", (req, res) => {
+    const productId = req.query.id;
+    res.render("custom_page", { productId });
+  });
 
 
 app.get('/productdetails', async(req, res) => {
@@ -164,7 +181,7 @@ app.get('/favourite', authMiddleware, async(req, res) => {
         }
 
         console.log('User found:', user);
-
+        const favourites2 = user.favorites;
         const favourites = user.favorites || [];
         console.log("favourites:", favourites);
 
@@ -186,8 +203,8 @@ app.get('/favourite', authMiddleware, async(req, res) => {
                     });
                 });
             } else {
-
                 const newProduct = {
+                    id: product.id,
                     name: product.name,
                     imageUrl: product.imageUrl,
                     totalStock: 0
@@ -211,16 +228,22 @@ app.get('/favourite', authMiddleware, async(req, res) => {
         console.log("Grouped products:", groupedProducts);
 
 
-        res.render('favourite', { favourites: groupedProducts });
+        res.render('favourite', { favourites: groupedProducts});
     } catch (error) {
         console.error('Error fetching favourites:', error);
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
     }
 });
 
+app.get('/logout', (req, res) => {
+    res.clearCookie("token");
+    res.redirect('/');
+});
+
 app.get("/addpromotion", (req, res) => {
     res.render("add_promotion");
 });
+
 
 
 const PORT = process.env.PORT || 5000;

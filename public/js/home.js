@@ -8,12 +8,10 @@ import * as filter from "/js/filter.js";
 const showAllProduct = async function () {
   const info = await data.fetchProduct();
 
-  setTimeout(() => {
-    mainPage.removeLoadingElements()
-    info.forEach((d) => {
-      mainPage.insertUiProduct(d);
-    });
-  }, 1000) 
+  mainPage.removeLoadingElements()
+  info.forEach((d) => {
+    mainPage.insertUiProduct(d);
+  });
 };
 
 ///////////////////////////////////////////////////////
@@ -25,7 +23,8 @@ document.addEventListener("DOMContentLoaded", async function() {
   mainPage.startSlideShow();
   document.querySelector(".menu-detail__list").addEventListener("click", mainPage.openHideMenu);
   const info = await data.fetchProduct()
-  document.querySelector('.aside-menu').addEventListener('click', (event) => filter.filterProduct(event, info));
+  document.querySelector('.aside-menu').addEventListener('click', (event) => filter.activeFilter(event, info));
+  filter.loadUrlFilter(info);
 });
 
 document.addEventListener("visibilitychange", () => {

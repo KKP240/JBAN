@@ -86,7 +86,6 @@ document.querySelectorAll('.remove').forEach(removeBtn => {
         item.remove();  // ลบแถวสินค้า
 
         updatePrice(); // อัปเดตราคาหลังจากลบสินค้า
-        alert('สินค้าถูกลบออกจากตะกร้า');
     });
 });
 
@@ -125,16 +124,13 @@ document.getElementById('applyDiscount').addEventListener('click', function () {
 
 async function handleOrder() {
     try {
-      // ส่งคำร้อง POST ไปยัง /api/orders เพื่อสร้าง order จากตะกร้า
       const response = await fetch("http://localhost:5000/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include"  // ส่ง cookie เพื่อระบุผู้ใช้ที่ล็อกอินอยู่
+        credentials: "include"  
       });
       const data = await response.json();
       if (response.ok) {
-        alert("สั่งซื้อสินค้าเรียบร้อยแล้ว");
-        // เปลี่ยนหน้าไปยังหน้าประวัติการสั่งซื้อ หรือหน้าที่ต้องการ
         window.location.href = "/orderHistory";
       } else {
         alert("เกิดข้อผิดพลาด: " + data.message);
@@ -146,3 +142,35 @@ async function handleOrder() {
 
 // เริ่มต้นคำนวณราคาสุทธิเมื่อโหลดหน้า
 updatePrice();
+
+// ----------------------------------- delete ---------------------------------------------
+
+function removeCartItem(element) {
+    var row = element.closest('.cart-item');
+    row.remove();
+
+    updatePrice();
+}
+
+async function removeFromCart(cartItemId, element) {
+    try {
+        const response = await fetch(`/api/cart/item/${cartItemId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include', 
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            removeCartItem(element);
+        } else {
+            alert('เกิดข้อผิดพลาด: ' + data.message);
+        }
+    } catch (error) {
+        console.error("Error removing item:", error);
+        alert('ไม่สามารถลบสินค้าจากตะกร้าได้');
+    }
+}

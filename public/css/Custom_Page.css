@@ -10,6 +10,7 @@ html {
 }
 
 body {
+body {
     font-size: 16px;
 }
 
@@ -44,6 +45,7 @@ body {
 }
 
 
+
 /* .arrow {
     position: absolute;
     top: 50%;
@@ -54,6 +56,7 @@ body {
     font-size: 24px;
     color: #666;
 } */
+
 
 
 /* .arrow-left {
@@ -93,6 +96,10 @@ body {
     z-index: 1;
 }
 
+.recommend:hover{
+    color: #00AAFF;
+}
+
 .custom {
     background-color: #00AAFF;
     color: white;
@@ -104,6 +111,7 @@ body {
 .size-section {
     margin-bottom: 20px;
 }
+
 
 
 /* h3 {
@@ -138,10 +146,12 @@ body {
 }
 
 .fabric-section {
+.fabric-section {
     margin-bottom: 20px;
     font-size: 18px;
 }
 
+.additional-info-section {
 .additional-info-section {
     margin-bottom: 12px;
     font-size: 18px;
@@ -286,13 +296,16 @@ body {
 }
 
 .left {
+.left {
     margin-right: 20px;
 }
 
 .right {
+.right {
     margin-left: 20px;
 }
 
+.quantity {
 .quantity {
     width: 10px;
 }
@@ -357,6 +370,7 @@ input {
 }
 
 .texticon .left {
+.texticon .left {
     /* height: 10px; */
     display: flex;
     align-items: center;
@@ -367,6 +381,7 @@ input {
     width: 15px;
 }
 
+.left h5 {
 .left h5 {
     margin-bottom: 7.5px;
 }
@@ -397,9 +412,11 @@ button:active {
 }
 
 input[type=text]:focus {
+input[type=text]:focus {
     border: 1px solid #ddd;
 }
 
+textarea:focus {
 textarea:focus {
     outline: none;
     border: 1px solid #ddd;
@@ -409,10 +426,13 @@ textarea:focus {
 /* ลบแท็บที่เลื่อนเพิ่มหรือลดเลขออก */
 
 
+
+
 /* input[type=number] {
     -moz-appearance: textfield;  สำหรับ Firefox 
 } */
 
+input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;

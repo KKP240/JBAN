@@ -17,9 +17,10 @@ body {
 
 .content {
   display: flex;
+  justify-content: center;
   align-items: flex-start;
-  gap: 4rem;
   position: relative;
+  margin: 0 auto;
 }
 
 .aside-menu {
@@ -29,7 +30,7 @@ body {
   left: 0;
   display: flex;
   flex-direction: column;
-  width: 30rem;
+  width: 15%;
   gap: 3rem;
   /* border-right: 1px solid rgba(0, 0, 0, 0.2); */
   /* height: 90rem;
@@ -140,13 +141,13 @@ body {
 .input-check:checked + .check-mark::after {
   content: "";
   position: absolute;
-  left: 6px;
-  top: 2px;
-  width: 4px;
-  height: 8px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -60%) rotate(45deg);
+  width: .4rem;
+  height: .8rem;
   border: solid #fff;
   border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
 }
 
 .menu-colors {
@@ -195,7 +196,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 6rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   margin-bottom: 2rem;
   padding: 1rem 0;
@@ -247,9 +247,9 @@ body {
 
 .product {
   margin-top: 4rem;
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(5, 1fr);
-  gap: 4rem;
+  gap: 3rem;
   position: relative;
 }
 
@@ -257,7 +257,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 2rem;
+  padding: 1.5rem;
+  max-width: 40rem;
+  width: 100%;
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
@@ -271,12 +273,14 @@ body {
 
 .product__con-img {
   position: relative;
+  width: 100%;
 }
 
 .product__img {
   border-radius: 5px;
   max-width: 100%;
   height: auto;
+
 }
 
 .percent {
@@ -303,7 +307,9 @@ body {
 .product__content-heading {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
+  margin-bottom: 1rem;
+  line-height: 1.3;
 }
 
 .heading-product {
@@ -312,8 +318,10 @@ body {
 }
 
 .product__fav {
+  margin-left: 1rem;
   width: 2.2rem;
   height: 2.2rem;
+  transform: translateY(10%);
 }
 
 .product__content-price {
@@ -458,7 +466,6 @@ body {
   align-items: center;
   width: 100%;
   height: 30rem;
-  grid-column: 3;
 }
 
 .loader {
@@ -474,4 +481,133 @@ body {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@media screen and (max-width: 87.5em){
+  html {
+    font-size: 58%;
+  }
+
+}
+
+@media screen and (max-width: 75em){
+  html {
+    font-size: 55%;
+  }
+
+  .content {
+    flex-direction: column;
+  }
+
+  .aside-menu {
+    position: relative;
+    padding-bottom: 0;
+    flex-direction: column;
+    gap: 3rem;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .product {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .section-product {
+    padding-top: 4rem;
+    max-width: 190rem;
+    width: 100%;
+  }
+
+
+  .menu-detail{
+    text-align: center;
+  }
+
+  .menu-detail__list {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .menu-detail__icon {
+    margin-left: 3rem;
+  }
+  
+  .menu-detail__item-content {
+    text-align: left;
+  }
+
+  .menu-colors {
+    align-items: start;
+  }
+
+  .menu-filter__heading {
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .menu-filter__list {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+
+@media screen and (max-width: 56.25em){
+  html {
+    font-size: 52%;
+  }
+
+  .product {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 48em){
+  html {
+    font-size: 49%;
+  }
+
+  .hero-promotion {
+    display: none;
+  }
+
+  .product {
+    margin-top: 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+  }
+}
+
+@media screen and (max-width: 36em){
+  html {
+    font-size: 46%;
+  }
+
+  .product {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 4rem;
+  }
+
+  .aside-menu {
+    padding-top: 11rem;
+  }
+
+  .menu-detail {
+    text-align: left;
+  }
+
+  .menu-detail__list {
+    flex-direction: column;
+  }
+
+  .menu-filter__list {
+    flex-direction: column;
+  }
+
+  .menu-filter__heading {
+    justify-content: space-between;
+  }
 }
