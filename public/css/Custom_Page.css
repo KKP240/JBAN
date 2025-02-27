@@ -93,6 +93,10 @@ body {
     z-index: 1;
 }
 
+.recommend:hover{
+    color: #00AAFF;
+}
+
 .custom {
     background-color: #00AAFF;
     color: white;

@@ -47,6 +47,9 @@ html {
     z-index: 1;
 }
 
+.custom:hover{
+    color: #00AAFF;
+}
 .product-container {
     display: flex;
     gap: 40px;
@@ -320,16 +323,6 @@ button:not(.add-to-cart, .recommend, .custom):active {
 
 .shirt {
     border-radius: 5px;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.5s ease;
-}
-
-a:hover {
-    color: #00AAFF;
 }
 
 
