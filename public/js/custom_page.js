@@ -157,3 +157,74 @@ function addnum() {
     index++;
     num.textContent = index;
 }
+
+async function handleAddToCart(event) {
+    event.preventDefault(); // ป้องกันหน้าเว็บรีโหลด
+  
+    // 📌 ดึงค่าแต่ละฟิลด์จากหน้า HTML
+    const chest = Number(document.getElementById("chest").value);
+    const length = Number(document.getElementById("length").value);
+    const fabric = document.getElementById("fabric").value.trim();
+    const additionalInfo = document.getElementById("request").value.trim();
+    const selectedColor = document.getElementById("color").value;
+    const quantity = Number(document.getElementById("num").textContent); // ดึงค่าจาก <span id="num">
+    
+    const baseProductId = document.getElementById("baseProductId").value;
+    const totalPrice = Number(document.getElementById("totalPriceInput").value);
+    const itemType = "custom";
+  
+    // ✅ ตรวจสอบค่าที่ต้องใส่
+    if (!chest || !length || !fabric || !selectedColor || quantity <= 0) {
+      alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+      return;
+    }
+  
+    // 📦 สร้าง JSON object สำหรับส่งไปเซิร์ฟเวอร์
+    const payload = {
+      customProductId: baseProductId,
+      baseProductId: baseProductId,
+        chest: chest,
+        length: length,
+      fabric: fabric,
+      additionalInfo: additionalInfo,
+      selectedColor: selectedColor,
+      quantity: quantity,
+      totalPrice: totalPrice,
+      itemType: itemType
+    };
+    console.log(payload);
+    try {
+        // ตรวจสอบ token สำหรับการตรวจสอบสิทธิ์
+        const token = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("token="))
+          ?.split("=")[1];
+    
+        // ส่งข้อมูลไปยัง API
+        const response = await fetch("http://localhost:5000/api/cart", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          credentials: "include",
+        });
+    
+        const data = await response.json();
+        
+        // เช็คสถานะการตอบกลับ
+        if (response.ok) {
+          alert("เพิ่มลงตะกร้าแล้ว");
+          window.location.href = "/cart";
+        } else {
+          alert("เกิดข้อผิดพลาด: " + data.message);
+        }
+      } catch (error) {
+        console.error("Error adding to cart:", error);
+        alert("เกิดข้อผิดพลาด: ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้");
+      }
+    }
+  
+  
+// =============================
+
+
+  

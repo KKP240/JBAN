@@ -31,6 +31,7 @@ const cookieParser = require('cookie-parser');
 const User = require("./src/models/User");
 const Cart = require('./src/models/Cart');
 const Order = require('./src/models/order');
+const CustomProduct = require('./src/models/CustomProduct');
 
 const app = express();
 connectDB();
@@ -45,6 +46,9 @@ app.use("/api/auth", authRoutes);
 
 const productRoutes = require("./src/routes/productRoutes");
 app.use("/api/products", productRoutes);
+
+const customProductRoutes = require("./src/routes/customProductRoutes");
+app.use("/api/customproduct", customProductRoutes);
 
 const cartRoutes = require("./src/routes/cartRoutes");
 app.use("/api/cart", cartRoutes);
@@ -86,13 +90,17 @@ app.get("/", (req, res) => {
 
 app.get('/cart', authMiddleware, async(req, res) => {
     try {
-        const cart = await Cart.findOne({ userId: req.user.id }).populate('items.productId');
-        res.render('cart', { cart });
+      const cart = await Cart.findOne({ userId: req.user.id })
+        .populate("items.productId");
+        console.log(cart);
+     const customcart = await CustomProduct.findOne({ userId: req.user.id }).populate("items.baseProductId");
+     console.log(JSON.stringify(customcart, null, 2));
+      res.render('cart', { cart, customcart });
     } catch (error) {
-        console.error(error);
-        res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+      console.error(error);
+      res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
     }
-});
+  });
 
 // app.get("/favourite", (req, res) => {
 //     res.render("favourite");
@@ -120,7 +128,9 @@ app.get("/women", (req, res) => {
 
 app.get('/orderHistory', authMiddleware, async (req, res) => {
     try {
-      const orders = await Order.find({ userId: req.user.id }).populate('items.productId');
+        const orders = await Order.find({ userId: req.user.id })
+        .populate("items.productId")
+        .populate({ path: "items.customProductId", strictPopulate: false });
       res.render('history', { orders });
     } catch (error) {
       console.error(error);
@@ -228,7 +238,6 @@ app.get('/logout', (req, res) => {
 app.get("/addpromotion", (req, res) => {
     res.render("add_promotion");
 });
-
 
 
 const PORT = process.env.PORT || 5000;

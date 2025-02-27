@@ -66,6 +66,7 @@ async function handleAddToCart() {
     selectedColor,
     selectedSize,
     quantity,
+    itemType: "normal"
   };
 
   try {

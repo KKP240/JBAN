@@ -174,3 +174,17 @@ async function removeFromCart(cartItemId, element) {
         alert('ไม่สามารถลบสินค้าจากตะกร้าได้');
     }
 }
+
+
+function removeCustomProduct(customProductId, element) {
+    fetch(`/remove-custom-product/${customProductId}`, { method: 'DELETE' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                element.closest('.cart-item').remove();
+            } else {
+                alert('เกิดข้อผิดพลาดในการลบสินค้า');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
