@@ -118,7 +118,7 @@ app.get("/women", (req, res) => {
     res.render("women");
 });
 
-app.get("/add_edit_delete_products", (req, res) => {
+app.get("/manageProduct", (req, res) => {
     res.render("add_edit_delete_products");
 });
 
