@@ -209,6 +209,19 @@ td {
         width: 100px;
         height: 100px;
     }
+
+    .add{
+        width: 30px;
+        font-size: 10px;
+    }
+    .edit{
+        width: 30px;
+        font-size: 10px;
+    }
+    .promochun{
+        width: 30px;
+        font-size: 10px;
+    }
 }
 
 .modal {
@@ -264,3 +277,4 @@ td {
 .p-delete{
     color: #000 !important;
 }
+
