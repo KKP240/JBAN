@@ -128,9 +128,10 @@ app.get('/orderHistory', authMiddleware, async (req, res) => {
     }
   });
 
-app.get("/custom_page", (req, res) => {
-    res.render("custom_page");
-});
+  app.get("/custom_page", (req, res) => {
+    const productId = req.query.id;
+    res.render("custom_page", { productId });
+  });
 
 
 app.get('/productdetails', async(req, res) => {
