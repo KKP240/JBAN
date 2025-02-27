@@ -13,18 +13,21 @@ const fetchProduct = async function() {
 const deleteProduct = async (productId) => {
     if (confirm("คุณต้องการลบสินค้านี้ใช่หรือไม่?")) {
         try {
-            const res = await fetch(`http://localhost:5000/api/products`, {
+            const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
                 method: "DELETE",
             });
 
+            // ตรวจสอบว่า res.ok หรือไม่
             if (res.ok) {
                 alert("ลบสินค้าเรียบร้อยแล้ว!");
                 showeditproduct(); // โหลดสินค้าขึ้นมาใหม่
             } else {
-                alert("เกิดข้อผิดพลาดในการลบสินค้า");
+                const errorData = await res.json();
+                alert(`เกิดข้อผิดพลาดในการลบสินค้า: ${errorData.message || "ไม่ทราบข้อผิดพลาด"}`);
             }
         } catch (err) {
             console.error("Error deleting product:", err);
+            alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
         }
     }
 };
@@ -50,7 +53,7 @@ function showeditproduct() {
                     <td>${product.category}</td>
                     <td>
                         <button class="add">แก้ไข</button>
-                        <button class="edit" data-id="${product.id}">ลบสินค้า</button><br>
+                        <button class="edit" data-id="${product._id}">ลบสินค้า</button><br>
                         <button class="promochun">เพิ่มโปรโมชั่น</button>
                     </td>
                 `;
@@ -67,6 +70,7 @@ function showeditproduct() {
         });
     });
 }
+
 
 // โหลดสินค้าเมื่อหน้าเว็บโหลด
 showeditproduct();
