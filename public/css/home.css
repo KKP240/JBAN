@@ -20,7 +20,6 @@ body {
   justify-content: center;
   align-items: flex-start;
   position: relative;
-  max-width: 190rem;
   margin: 0 auto;
 }
 
@@ -31,8 +30,7 @@ body {
   left: 0;
   display: flex;
   flex-direction: column;
-  max-width: 30rem;
-  width: 100%;
+  width: 15%;
   gap: 3rem;
   /* border-right: 1px solid rgba(0, 0, 0, 0.2); */
   /* height: 90rem;
@@ -198,7 +196,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 6rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   margin-bottom: 2rem;
   padding: 1rem 0;
@@ -498,11 +495,57 @@ body {
     font-size: 55%;
   }
 
+  .content {
+    flex-direction: column;
+  }
+
+  .aside-menu {
+    position: relative;
+    padding-bottom: 0;
+    flex-direction: column;
+    gap: 3rem;
+    justify-content: space-between;
+    width: 100%;
+  }
+
   .product {
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
   }
 
+  .section-product {
+    padding-top: 4rem;
+    max-width: 190rem;
+    width: 100%;
+  }
+
+
+  .menu-detail{
+    text-align: center;
+  }
+
+  .menu-detail__list {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .menu-detail__icon {
+    margin-left: 3rem;
+  }
+  
+  .menu-detail__item-content {
+    text-align: left;
+  }
+
+  .menu-filter__heading {
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .menu-filter__list {
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 
 
@@ -514,11 +557,6 @@ body {
   .product {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-  }
-
-  .aside-menu {
-    max-width: 25rem;
-    width: 80%;
   }
 }
 
@@ -536,19 +574,11 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: 4rem;
   }
-
-  /* .aside-menu {
-    padding-top: 14rem;
-  } */
 }
 
 @media screen and (max-width: 36em){
   html {
     font-size: 46%;
-  }
-
-  .menu-filter__heading {
-    gap: 0;
   }
 
   .product {
@@ -558,8 +588,22 @@ body {
   }
 
   .aside-menu {
-    max-width: none;
-    width: 50%;
+    padding-top: 11rem;
   }
 
+  .menu-detail {
+    text-align: left;
+  }
+
+  .menu-detail__list {
+    flex-direction: column;
+  }
+
+  .menu-filter__list {
+    flex-direction: column;
+  }
+
+  .menu-filter__heading {
+    justify-content: space-between;
+  }
 }

@@ -8,7 +8,6 @@
   top: 0;
   position: fixed;
   width: 100%;
-  max-width: 190rem;
   background-color: white;
   padding: 2rem 3rem;
   z-index: 1100;
@@ -106,7 +105,7 @@
 }
 
 .nav__item a.logo {
-  font-size: 24px;
+  font-size: 2.4rem;
   letter-spacing: 3px;
   font-weight: 300;
 }
