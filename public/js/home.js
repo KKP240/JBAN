@@ -18,7 +18,6 @@ const showAllProduct = async function () {
 
 // Event
 document.addEventListener("DOMContentLoaded", async function() {
-  document.body.style = "block";
   await mainPage.fetchFavorites();
   showAllProduct();
   mainPage.startSlideShow();

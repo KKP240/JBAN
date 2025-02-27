@@ -40,15 +40,63 @@ function initStarRating(containerId) {
     });
 }
 
+
+const addToFavs = async function(){
+    const productId = document.querySelector('.product-container').dataset.id
+    const res = await fetch(`http://localhost:5000/api/user/favorites/${productId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": `${token}`
+          credentials: "include"
+        }
+    });
+
+    if(res.ok){
+        const data = await res.json()
+        console.log(data)
+    }
+
+    if(!res.ok) {
+        console.error("Can't add product to favourite.")
+    }
+}
+
+const removeToFavs = async function(){
+    const productId = document.querySelector('.product-container').dataset.id
+    const res = await fetch(`http://localhost:5000/api/user/favorites/${productId}`, {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": `${token}`
+          credentials: "include"
+        }
+    });
+
+    if(res.ok){
+        const data = await res.json()
+        console.log(data)
+    }
+
+    if(!res.ok) {
+        console.error("Can't remove product to favourite.")
+    }
+}
+
 // Initialize both rating systems and heart toggle
 document.addEventListener('DOMContentLoaded', function() {
     initStarRating('productRating');
     initStarRating('reviewsRating');
 
     const heart = document.getElementById('heartButton');
-    if (heart) {
-        heart.addEventListener('click', function() {
-            this.classList.toggle('active');
-        });
-    }
+    heart.addEventListener('click', function() {
+        if(heart.classList.contains('active')) {
+            removeToFavs();
+        }
+    
+        if(!heart.classList.contains('active')) {
+            addToFavs();
+        }
+        this.classList.toggle('active');
+    });
 });
