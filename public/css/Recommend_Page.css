@@ -455,8 +455,6 @@ button:not(.add-to-cart, .recommend, .custom):active {
   .success-popup .cart-btn:hover {
     background: #2db84e;
   }
-<<<<<<< HEAD
-=======
 
   @media (max-width: 840px) {
     .product-container {
@@ -488,4 +486,3 @@ button:not(.add-to-cart, .recommend, .custom):active {
         margin-top: 20px; /* Add spacing between the product details and reviews section */
     }
 }
->>>>>>> 31d9434d4bd7166de656413cec08501c9cc45b48
