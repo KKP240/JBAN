@@ -93,6 +93,10 @@ body {
     z-index: 1;
 }
 
+.recommend:hover{
+    color: #00AAFF;
+}
+
 .custom {
     background-color: #00AAFF;
     color: white;
@@ -423,9 +427,43 @@ a {
     text-decoration: none;
     color: inherit;
     transition: color 0.5s ease;
+<<<<<<< HEAD
     /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+=======
+>>>>>>> 4052fa9859bbe16328efef956a3c60305c202640
 }
 
 a:hover {
     color: #00AAFF;
+}
+
+@media (max-width: 840px) {
+    .product-container {
+        flex-direction: column; /* Stack the product image and details vertically */
+        align-items: center;    /* Center the items horizontally */
+    }
+
+    .product-image {
+        width: 100%;            /* Make the image take full width */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .product-details {
+        width: 300px;            /* Make the product details take full width */
+        margin-top: 20px;       /* Add some space between the image and details */
+    }
+
+    .quantity-control {
+        justify-content: center; /* Center the quantity control buttons */
+    }
+
+    .price-section {
+        justify-content: center; /* Center the price section */
+    }
+
+    .reviews-section {
+        margin-top: 20px; /* Add spacing between the product details and reviews section */
+    }
 }

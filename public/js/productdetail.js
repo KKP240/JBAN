@@ -214,3 +214,22 @@ function closePopup(redirect = false) {
   }
 }
 
+const isFav = async function(){
+  const res = await fetch("http://localhost:5000/api/auth/me", {
+    credentials: "include",
+  });
+
+  if(res.ok) {
+    const data = await res.json();
+    const favs = data.favorites;
+    if(favs.length !== 0){
+      const curId = document.querySelector('.product-container').dataset.id
+      const checkFav = favs.find(f => f === curId);
+      if(checkFav) {
+        document.querySelector('.heart').classList.add('active');
+      }
+    }
+  }
+}
+
+isFav();

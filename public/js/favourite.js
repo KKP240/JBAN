@@ -35,7 +35,15 @@ function removeRow(element) {
       return false;
     }
   }
-
+  document.querySelectorAll("#btnSelectProduct").forEach(button => {
+    button.addEventListener("click", function() {
+      const productId = this.getAttribute("data-product-id");
+      if (productId) {
+        window.location.href = `/productdetails?id=${productId}`;
+      }
+    });
+  });
+  
 // let userFavorites = []; // เก็บ array ของ fav product IDs
 
 // async function fetchFavorites() {
