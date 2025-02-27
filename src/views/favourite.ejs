@@ -58,7 +58,7 @@
                 </td>
                 <td class="basket">
                   <% if (fav.status === 'มีสินค้า') { %>
-                    <button type="button">เพิ่มไปยังตะกร้า</button>
+                    <button type="button" id="btnSelectProduct" data-product-id="<%= fav.id %>">ไปหน้าเลือกสินค้า</button>
                   <% } %>
                   <a href="javascript:void(0)" onclick="removeFromFavorites('<%= fav.id %>', this)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c" viewBox="0 0 256 256">
