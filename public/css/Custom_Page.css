@@ -427,7 +427,10 @@ a {
     text-decoration: none;
     color: inherit;
     transition: color 0.5s ease;
+<<<<<<< HEAD
     /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+=======
+>>>>>>> 4052fa9859bbe16328efef956a3c60305c202640
 }
 
 a:hover {
