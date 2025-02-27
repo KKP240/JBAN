@@ -537,6 +537,10 @@ body {
     text-align: left;
   }
 
+  .menu-colors {
+    align-items: start;
+  }
+
   .menu-filter__heading {
     justify-content: center;
     gap: 2rem;
