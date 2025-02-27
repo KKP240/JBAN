@@ -323,7 +323,7 @@ div.navpart2 {
   position: fixed;
   top: 0;
   right: 0;
-  width: 45rem;
+  width: 40rem;
   height: 100vh;
   background-color: #fff;
   border-left: 1px solid rgba(0, 0, 0, 0.3);
@@ -332,7 +332,7 @@ div.navpart2 {
   flex-direction: column;
   gap: 2rem;
   align-items: center;
-  padding: 8rem 2rem;
+  padding: 8rem 3rem;
   transform: translateX(100%);
   transition: all .3s ease-in;
 }
@@ -406,7 +406,7 @@ div.navpart2 {
 .btn-close-nav {
   position: absolute;
   top: 2rem;
-  left: 2rem;
+  left: 3rem;
   transition: all .3s;
   cursor: pointer;
 }
@@ -446,6 +446,11 @@ div.navpart2 {
   html {
     font-size: 52%;
   }
+
+  .nav-res {
+    width: 39rem;
+  }
+
   .btn-close-nav {
     width: 2.4rem;
     height: 2.4rem;
@@ -467,7 +472,7 @@ div.navpart2 {
   }
 
   .nav-res {
-    padding: 8rem 5rem;
+    /* padding: 8rem 5rem; */
   }
 
   .btn-close-nav {
