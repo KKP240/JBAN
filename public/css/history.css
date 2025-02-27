@@ -12,6 +12,11 @@ body {
     margin: 0;
     font-family: "Kanit", serif;
     font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    height: 100%;
 }
 
 .container{
@@ -177,4 +182,14 @@ body {
 
 .opacity-color{
     color: #575757;
+}
+
+.not-found{
+    margin-top: 16px;
+    text-align: center;
+    border-top: 2px solid lightgray;
+    border-bottom: 2px solid lightgray;
+    padding: 16px;
+    color: #9E9E9E;
+    font-size: 18px;
 }
