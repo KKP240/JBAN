@@ -118,6 +118,22 @@ app.get("/women", (req, res) => {
     res.render("women");
 });
 
+app.get("/add_edit_delete_products", (req, res) => {
+    res.render("add_edit_delete_products");
+});
+
+app.get("/add_product", (req, res) => {
+    res.render("add_product");
+});
+
+app.get("/edit_product", (req, res) => {
+    res.render("edit_product");
+});
+
+app.get("/add_promotion", (req, res) => {
+    res.render("add_promotion");
+});
+
 app.get('/orderHistory', authMiddleware, async (req, res) => {
     try {
       const orders = await Order.find({ userId: req.user.id }).populate('items.productId');
@@ -187,7 +203,6 @@ app.get('/favourite', authMiddleware, async(req, res) => {
                     });
                 });
             } else {
-
                 const newProduct = {
                     id: product.id,
                     name: product.name,

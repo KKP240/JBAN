@@ -11,7 +11,15 @@ const fetchProduct = async function() {
 
 // ฟังก์ชันสำหรับลบสินค้า
 const deleteProduct = async (productId) => {
-    if (confirm("คุณต้องการลบสินค้านี้ใช่หรือไม่?")) {
+    const modal = document.getElementById("deleteModal");
+    const confirmButton = document.getElementById("confirmDelete");
+    const cancelButton = document.getElementById("cancelDelete");
+
+    // แสดง Modal
+    modal.style.display = "flex";
+
+    // เมื่อกด "ยืนยัน"
+    confirmButton.onclick = async () => {
         try {
             const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
                 method: "DELETE",
@@ -29,9 +37,18 @@ const deleteProduct = async (productId) => {
             console.error("Error deleting product:", err);
             alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
         }
-    }
+
+        // ซ่อน Modal หลังจากการดำเนินการ
+        modal.style.display = "none";
+    };
+
+    // เมื่อกด "ยกเลิก"
+    cancelButton.onclick = () => {
+        modal.style.display = "none"; // ซ่อน Modal เมื่อกดยกเลิก
+    };
 };
 
+// ฟังก์ชันแสดงสินค้า
 function showeditproduct() {
     fetchProduct().then((products) => {
         const tableBody = document.querySelector("table tbody");
@@ -52,9 +69,9 @@ function showeditproduct() {
                     <td>${product.description}</td>
                     <td>${product.category}</td>
                     <td>
-                        <button class="add">แก้ไข</button>
+                        <button class="add" onclick="window.location.href='/edit_product'">แก้ไข</button>
                         <button class="edit" data-id="${product._id}">ลบสินค้า</button><br>
-                        <button class="promochun">เพิ่มโปรโมชั่น</button>
+                        <button class="promochun" onclick="window.location.href='/add_promotion'">เพิ่มโปรโมชั่น</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -70,7 +87,6 @@ function showeditproduct() {
         });
     });
 }
-
 
 // โหลดสินค้าเมื่อหน้าเว็บโหลด
 showeditproduct();
