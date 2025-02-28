@@ -433,7 +433,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-a {
+.recommend a {
     padding: 8px 20px;
     display: inline-block;
     width: 100%;
@@ -442,7 +442,7 @@ a {
     transition: color 0.5s ease;
 }
 
-a:hover {
+.recommend a:hover {
     color: #00AAFF;
 }
 
