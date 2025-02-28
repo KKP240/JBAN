@@ -46,6 +46,11 @@ body {
     font-size: 18px;
     margin-left: 8px;
     font-weight: 400;
+    transition: all .3s;
+}
+
+.return a > svg > path {
+    transition: all .3s;
 }
 
 .return a:hover > svg > path{
@@ -154,6 +159,7 @@ body {
     margin-left: auto;
     justify-self: start;
     margin-top: 4px;
+    transition: all .3s;
 }
 
 .review:hover{
