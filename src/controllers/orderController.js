@@ -152,43 +152,24 @@ const createOrderFromCart = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    // ดึงตะกร้าที่มีทั้ง normal product และ custom product พร้อม populate field ที่เกี่ยวข้อง
-    const cart = await Cart.findOne({ userId })
-      .populate("items.productId")
-      .populate("items.customProductId");
-
+    const cart = await Cart.findOne({ userId });
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({ message: "ตะกร้าสินค้าว่างเปล่า" });
     }
 
     let totalPrice = 0;
 
-    // สร้างรายการสินค้าสำหรับ Order โดยแยกประเภทตาม itemType
     const orderItems = await Promise.all(cart.items.map(async item => {
-      if (item.itemType === "normal" && item.productId) {
-        // สินค้าปกติ
-        const product = item.productId; // ได้รับข้อมูลจาก populate แล้ว
-        const itemPrice = product.price;
-        totalPrice += itemPrice * item.quantity;
-        return {
-          productId: product._id,
-          quantity: item.quantity,
-          selectedColor: item.selectedColor,
-          selectedSize: item.selectedSize,
-          itemType: "normal"
-        };
-      } else if (item.itemType === "custom" && item.customProductId) {
-        // สินค้าสั่งทำเอง (custom product)
-        const customProduct = item.customProductId; // ได้รับข้อมูลจาก populate แล้ว
-        const itemPrice = customProduct.totalPrice;
-        totalPrice += itemPrice * item.quantity;
-        return {
-          customProductId: customProduct._id,
-          quantity: item.quantity,
-          itemType: "custom"
-          // หากต้องการสามารถเพิ่ม field อื่นๆ ที่เกี่ยวกับ custom product ได้
-        };
-      }
+
+      const product = await Product.findById(item.productId);
+      const itemPrice = product.price;
+      totalPrice += itemPrice * item.quantity;
+      return {
+        productId: item.productId,
+        quantity: item.quantity,
+        selectedColor: item.selectedColor,
+        selectedSize: item.selectedSize
+      };
     }));
 
     const newOrder = new Order({
@@ -196,12 +177,10 @@ const createOrderFromCart = async (req, res) => {
       items: orderItems,
       totalPrice,
       status: "pending"
-      // สามารถเพิ่ม field อื่น ๆ เช่น ที่อยู่ หรือข้อมูลการชำระเงินได้ที่นี่
     });
 
     await newOrder.save();
 
-    // หลังจากสร้าง Order เสร็จให้ล้างตะกร้า
     await Cart.findOneAndDelete({ userId });
 
     res.status(201).json({ message: "Order created successfully", order: newOrder });
@@ -211,4 +190,4 @@ const createOrderFromCart = async (req, res) => {
   }
 };
 
-module.exports = { createOrderFromCart };
+module.exports = { createOrderFromCart /*, เดียวเพิ่ม */ };

@@ -32,6 +32,7 @@ const User = require("./src/models/User");
 const Cart = require('./src/models/Cart');
 const Order = require('./src/models/order');
 const CustomProduct = require('./src/models/CustomProduct');
+const CustomOrder = require('./src/models/customorder');
 
 const app = express();
 connectDB();
@@ -55,6 +56,9 @@ app.use("/api/cart", cartRoutes);
 
 const orderRoutes = require("./src/routes/orderRoutes");
 app.use("/api/orders", orderRoutes);
+
+const customorderRoutes = require("./src/routes/CTOroutes");
+app.use("/api/customorders", customorderRoutes);
 
 const userRoutes = require("./src/routes/userRoutes");
 app.use("/api/user", userRoutes);
@@ -145,9 +149,11 @@ app.get("/add_promotion", (req, res) => {
 app.get('/orderHistory', authMiddleware, async (req, res) => {
     try {
         const orders = await Order.find({ userId: req.user.id })
-        .populate("items.productId")
-        .populate({ path: "items.customProductId", strictPopulate: false });
-      res.render('history', { orders });
+        .populate("items.productId");
+        const customorders = await CustomOrder.find({ userId: req.user.id });
+        console.log(customorders);
+        console.log(JSON.stringify(customorders, null, 2));
+      res.render('history', { orders , customorders});
     } catch (error) {
       console.error(error);
       res.status(500).send("Server error");

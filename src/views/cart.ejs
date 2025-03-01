@@ -339,6 +339,11 @@
         </div>
     </div>
     <%- include("footer"); %>
+    <script>
+        // เช็คว่ามีสินค้าในตะกร้าไหม เวลากดสั่ง
+        const customCartItemCount = <%= customcart && customcart.items ? customcart.items.length : 0 %>;
+        const normalCartItemCount = <%= cart && cart.items ? cart.items.length : 0 %>;
+      </script>
     <script src="js/utilities.js"></script>
     <script src="js/cart.js"></script>
 </body>
