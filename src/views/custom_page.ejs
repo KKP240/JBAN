@@ -39,7 +39,7 @@
                             <div class="text-size">ขนาดเสื้อ (นิ้ว)</div>
                             <div class="left">
                                 <img src="/icon/warning-circle.svg" alt="">
-                                <div class="text2">ตารางขนาดพื้นฐาน</div>
+                                <div class="text2" onclick="openSizeChart()">ตารางขนาดพื้นฐาน</div>
                             </div>
                         </div>
                         <div class="size-inputs">
@@ -97,6 +97,24 @@
         </div>
     </div>
     <%- include("footer"); %>
+
+    <% if (productType == "เสื้อ") { %>
+        <div class="size-chart">
+            <div class="size-chart-content">
+                <div class="close-btn" onclick="closeSizeChart()">ปิด</div>
+                    <img src="images/tshirt-size-chart.png" alt="">
+            </div>
+        </div>
+    <% } else if (productType == "กางเกง"){ %>
+        <div class="size-chart">
+            <div class="size-chart-content">
+                <div class="close-btn" onclick="closeSizeChart()">ปิด</div>
+                    <img src="images/pant-size-chart.png" alt="">
+            </div>
+        </div>
+    <% } else { %>
+        <div class="size-chart" style="display: none;"></div>
+    <% } %>
     <script>
         // ฟังก์ชันอัปเดตจำนวนสินค้าใน input ซ่อน
         function updateQuantityHidden() {
@@ -147,6 +165,21 @@
                 console.error("Error:", error);
             }
         });
+
+        function openSizeChart(){
+            document.querySelector('.size-chart').style.visibility = 'visible';
+        }
+
+        function closeSizeChart() {
+            document.querySelector('.size-chart').style.visibility = 'hidden';
+        }
+
+        document.querySelector('.size-chart').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSizeChart();
+            }
+        });
+
     </script>
 </body>
 

@@ -6,10 +6,6 @@ import * as disProduct from "/js/displayProduct.js";
 let productItems;
 let check = true;
 
-let productFilter = [];
-let productColor = [];
-let productSize = [];
-
 //////////////////////////////////////////////////////
 
 // Active filter
@@ -29,7 +25,11 @@ export const activeFilter = async function(e, info){
 
 // Filter product
 const filterProduct = function(info){
-  const activeEl = Array.from(document.querySelectorAll('.active-filter'));
+  const activeProEl = document.querySelector('[data-filter="promotion"].active-filter');
+  const activeTypeEls = Array.from(document.querySelectorAll('[data-filter="type"].active-filter')).map(d => d.dataset.value);
+  const activeColorEls = Array.from(document.querySelectorAll('[data-filter="color"].active-filter')).map(d => d.dataset.value.toLowerCase());
+  const activeSizeEls = Array.from(document.querySelectorAll('[data-filter="size"].active-filter')).map(d => d.dataset.value.toUpperCase());
+  const activeSortEl = document.querySelector('[data-filter="sort"].active-filter')
 
   if(check){
     productItems = document.querySelectorAll('.product__item')
@@ -39,31 +39,17 @@ const filterProduct = function(info){
   let productEls = productItems;
   disProduct.clearUiProduct(document.querySelector('.product'));
 
-  activeEl.forEach(el => {
-    switch (el.dataset.filter) {
-      case "promotion":
-        productEls = filterPromotion(productEls)
-        break;
-      case "type":
-        productEls = filterType(productEls, el)
-        break;
-      case "color":
-        productEls = filterColor(productEls, el, info)
-        break;
-      case "size":
-        productEls = filterSize(productEls, el, info)
-        break;
-      case "sort":
-        productEls = sortProducts(el.dataset.value, productEls)
-        break;
-    }
-  })
+  if(activeProEl) productEls = filterPromotion(productEls);
+
+  if(activeTypeEls.length > 0) productEls = filterType(productEls, activeTypeEls)
+  
+  if(activeColorEls.length > 0) productEls = filterColor(productEls, activeColorEls, info)
+
+  if(activeSizeEls.length > 0) productEls = filterSize(productEls, activeSizeEls, info)
+
+  if(activeSortEl) productEls = sortProducts(activeSortEl.dataset.value, productEls)
   
   productEls.forEach(p => document.querySelector('.product').appendChild(p));
-  productFilter = [];
-  productColor = [];
-  productSize = [];
-
   urlFilter();
 }
 
@@ -161,36 +147,35 @@ const filterPromotion = function(productItems){
 ///////////////////////////////////////////////////////
 
 // Filter type
-const filterType = function(productItems, el){
-  Array.from(productItems).forEach(p => {
-    if(el.dataset.value === p.dataset.type) productFilter.push(p)
-  })
-  return productFilter;
+const filterType = function(productItems, activeTypeEls){
+  return Array.from(productItems).filter(p => activeTypeEls.includes(p.dataset.type))
 }
 
 ///////////////////////////////////////////////////////
 
 // Filter color
-const filterColor = function(productItems, el, info){
-  Array.from(productItems).forEach(p => {
+const filterColor = function(productItems, activeColorEls, info){
+  return Array.from(productItems).filter(p => {
     const curData = info.find(i => i._id === p.dataset.id)
-    const curcolors = curData.variants.some(c => c.color === el.dataset.value)
-    if(curcolors) productColor.push(p)
+    const curcolors = curData.variants.some(c => activeColorEls.includes(c.color.toLowerCase()))
+    if(curcolors) {
+      return p;
+    }
   })
-  return productColor;
 }
 
 ///////////////////////////////////////////////////////
 
 // Filter size
-const filterSize = function(productItems, el, info){
-  Array.from(productItems).forEach(p => {
+const filterSize = function(productItems, activeSizeEls, info){
+  return Array.from(productItems).filter(p => {
     const curData = info.find(i => i._id === p.dataset.id)
     const curcolors = curData.variants.map(v => v.sizes)
-    const curSizes = curcolors.some(c => c.find(a => a.size === el.dataset.value));
-    if(curSizes) productSize.push(p)
+    const curSizes = curcolors.some(c => c.find(a => activeSizeEls.includes(a.size)));
+    if(curSizes){
+      return p;
+    }
   })
-  return productSize;
 }
 
 ///////////////////////////////////////////////////////

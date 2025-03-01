@@ -10,7 +10,7 @@ router.post('/', authMiddleware, adminMiddleware, createProduct); // เพิ�
 router.put('/:id', authMiddleware, adminMiddleware, updateProduct); // แก้ไข
 router.delete('/:id', authMiddleware, adminMiddleware, deleteProduct); // ลบ
 router.put('/:id/set-promotion', authMiddleware, adminMiddleware, setPromotion);
-router.put('/:id/remove-promotion', authMiddleware, adminMiddleware, removePromotion);
+router.delete('/:id/remove-promotion', authMiddleware, adminMiddleware, removePromotion);
 
 // ✅ API สำหรับ User (ไม่ต้องใช้ Token)
 router.get('/', getProducts);

@@ -31,45 +31,45 @@
                 <form id="edit-form">
                     <div class="product-name">
                         <label for="pName">ชื่อสินค้า</label>
-                        <input type="text" name="name" id="pName" placeholder="เปลี่ยนชื่อสินค้า">
+                        <input type="text" name="name" id="pName" placeholder="เปลี่ยนชื่อสินค้า" required>
                     </div>
                     <div class="category-gender">
-                        <div>เพศ</div>
-                        <input type="radio" name="category" id="male" value="men"><label for="male">ชาย</label>
+                        <div class="gender">เพศ</div>
+                        <input type="radio" name="category" id="male" value="men" checked><label for="male" >ชาย</label>
                         <input type="radio" name="category" id="female" value="women"><label for="female">หญิง</label>
                     </div>
                     <div class="category-type">
                         <label for="pType">ประเภท</label><br>
-                        <input type="text" name="type" id="pType" placeholder="เปลี่ยนประเภทของสินค้า">
+                        <input type="text" name="type" id="pType" placeholder="เปลี่ยนประเภทของสินค้า" required>
                     </div>
                     <div class="describe">
                         <label for="pDescribe">คำอธิบาย</label>
-                        <textarea name="description" id="pDescribe" placeholder="เปลี่ยนคำอธิบายของสินค้า"></textarea>
+                        <textarea name="description" id="pDescribe" placeholder="เปลี่ยนคำอธิบายของสินค้า" required></textarea>
                     </div>
                     <div class="price">
                         <label for="pPrice">ราคา</label>
-                        <input type="number" name="price" id="pPrice" min="0" placeholder="เปลี่ยนราคาของสินค้า">
+                        <input type="number" name="price" id="pPrice" min="0" placeholder="เปลี่ยนราคาของสินค้า" required>
                     </div>
                     
                     <div class="details-container">
                         <% product.variants.forEach((v, i) => { %>
                             <div class="repeated-details">
                                 <div class="color">
-                                    <label for="<%= v.color%>">สี (สีเก่า <%= v.color %>)</label>
-                                    <input type="text" name="variants" data-value="<%= v.color%>" id="<%= v.color%>" placeholder="ใส่สีใหม่">
+                                    <label for="<%= v.color%>">สี <span style="color: #00aaff;">(สีเก่า <%= v.color %>)</span></label>
+                                    <input type="text" name="variants" data-value="<%= v.color%>" id="<%= v.color%>" placeholder="ใส่สีใหม่" required>
                                 </div>
                                 <div class="size">
                                     <% v.sizes.forEach(s => { %>
                                         <div class="size-details">
                                             <label for="<%= v.color%>-<%= s.size %>"><%= s.size %></label>
-                                            <input type="text" id="<%= v.color%>-<%= s.size %>" name="sizes" data-value="<%= s.size %>" data-color="<%= v.color %>" placeholder="ใส่จำนวนสินค้า">
+                                            <input type="text" id="<%= v.color%>-<%= s.size %>" name="sizes" data-value="<%= s.size %>" data-color="<%= v.color %>" placeholder="ใส่จำนวนสินค้า" required>
                                         </div>
                                     <% }) %>
                                 </div>
                             </div>
                         <% }) %>
                         </div>
-                    <button class="submit-edit" type="submit">Edit Product</button>
+                    <button class="submit-edit" type="submit">แก้ไขสินค้า</button>
                     </div>
                 </form>
         </div>

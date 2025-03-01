@@ -46,42 +46,22 @@ const deleteProduct = async (productId) => {
         modal.style.display = "none"; // ซ่อน Modal เมื่อกดยกเลิก
     };
 };
-//add
-const addroduct = async (productId) => {
-    const modal = document.getElementById("deleteModal");
-    const confirmButton = document.getElementById("confirmDelete");
-    const cancelButton = document.getElementById("cancelDelete");
+const deletePromotion = async (productId) => {
+    try {
+        const res = await fetch(`http://localhost:5000/api/products/${productId}/remove-promotion`, {
+            method: "DELETE",
+        });
 
-    // แสดง Modal
-    modal.style.display = "flex";
-
-    // เมื่อกด "ยืนยัน"
-    confirmButton.onclick = async () => {
-        try {
-            const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
-                method: "DELETE",
-            });
-
-            // ตรวจสอบว่า res.ok หรือไม่
-            if (res.ok) {
-                showeditproduct(); // โหลดสินค้าขึ้นมาใหม่
-            } else {
-                const errorData = await res.json();
-                alert(`เกิดข้อผิดพลาดในการลบสินค้า: ${errorData.message || "ไม่ทราบข้อผิดพลาด"}`);
-            }
-        } catch (err) {
-            console.error("Error deleting product:", err);
-            alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
+        if (res.ok) {
+            showeditproduct(); // โหลดข้อมูลใหม่
+        } else {
+            const errorData = await res.json();
+            alert(`เกิดข้อผิดพลาดในการลบโปรโมชั่น: ${errorData.message || "ไม่ทราบข้อผิดพลาด"}`);
         }
-
-        // ซ่อน Modal หลังจากการดำเนินการ
-        modal.style.display = "none";
-    };
-
-    // เมื่อกด "ยกเลิก"
-    cancelButton.onclick = () => {
-        modal.style.display = "none"; // ซ่อน Modal เมื่อกดยกเลิก
-    };
+    } catch (err) {
+        console.error("Error deleting promotion:", err);
+        alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
+    }
 };
 
 // ฟังก์ชันแสดงสินค้า
@@ -103,6 +83,8 @@ function showeditproduct() {
                     price: product.price,
                     description: product.description,
                     category: product.category,
+                    isPromotion: product.isPromotion,
+                    originalPrice: product.originalPrice,
                     variants: []
                 });
             }
@@ -171,6 +153,48 @@ function showeditproduct() {
             const shortDescription = product.description.length > 50 ? 
                 product.description.substring(0, 50) + '...' : product.description;
             
+            // สร้าง HTML สำหรับแสดงราคา (ปกติหรือโปรโมชั่น)
+            let priceHTML = '';
+            if (product.isPromotion && product.originalPrice) {
+                // แสดงทั้งราคาโปรโมชั่นและราคาเดิม
+                priceHTML = `
+                    <div style="font-weight: 600; color: #E91E63; font-size: 20px;">
+                        ${product.price} บาท
+                        <span style="text-decoration: line-through; color: #757575; font-size: 16px; margin-left: 5px;">
+                            ${product.originalPrice} บาท
+                        </span>
+                    </div>
+                    <div style="background-color: #FCE4EC; color: #E91E63; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-top: 4px; font-size: 14px;">
+                        โปรโมชั่น
+                    </div>
+                `;
+            } else {
+                // แสดงเฉพาะราคาปกติ
+                priceHTML = `
+                    <div style="font-weight: 600; color: #333; font-size: 20px;">${product.price} บาท</div>
+                `;
+            }
+            
+            // สร้างปุ่มโปรโมชั่นตามสถานะ
+            let promotionButtonHTML = '';
+            if (product.isPromotion) {
+                // ถ้ามีโปรโมชั่นแล้ว แสดงปุ่ม "ลบโปรโมชั่น" สีแดง
+                promotionButtonHTML = `
+                    <button class="promochun" 
+        onclick="deletePromotion('${product._id}')"
+        style="background-color:rgb(38, 0, 255); color: white; border-color: #D32F2F;">
+    ลบโปรโมชั่น
+</button>
+                `;
+            } else {
+                // ถ้ายังไม่มีโปรโมชั่น แสดงปุ่ม "เพิ่มโปรโมชั่น" ตามปกติ
+                promotionButtonHTML = `
+                    <button class="promochun" onclick="window.location.href='/add_promotion?id=${product._id}'">
+                        เพิ่มโปรโมชั่น
+                    </button>
+                `;
+            }
+            
             row.innerHTML = `
                 <td><img src="/images/${product.image}" alt="${product.name}" class="imgprodu"></td>
                 <td>
@@ -182,7 +206,7 @@ function showeditproduct() {
                     </div>
                 </td>
                 <td>
-                    <div style="font-weight: 600; color: #E91E63; font-size: 20px;">${product.price} บาท</div>
+                    ${priceHTML}
                 </td>
                 <td title="${product.description}" style="text-align: left; max-width: 150px;">
                     <div style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
@@ -197,7 +221,7 @@ function showeditproduct() {
                 <td>
                     <button class="add" onclick="window.location.href='/edit_product?id=${product._id}'">แก้ไข</button>
                     <button class="edit" data-id="${product._id}">ลบสินค้า</button><br>
-                    <button class="promochun" onclick="window.location.href='/add_promotion'">เพิ่มโปรโมชั่น</button>
+                    ${promotionButtonHTML}
                 </td>
             `;
             tableBody.appendChild(row);
