@@ -19,6 +19,9 @@ body{
     padding: 20%;
     padding-top: 24px;
     padding-bottom: 0;
+    display: flex;
+    flex-direction: column ;
+    gap: 20px;
 }
 
 .topic{
@@ -254,4 +257,19 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.add-product{
+    margin-left: auto;
+    margin-right: 150px;
+    background-color: #00AAFF;
+    border: none;
+    color: #ffffff;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+}
+.add-product:hover{
+    background-color: #0088DD;
 }
