@@ -132,7 +132,7 @@ document.querySelector(".add-product").addEventListener("click", async function(
     }
     
     const productCategory = genderMale && genderFemale ? "ทั้งชายและหญิง" : 
-                           genderMale ? "ชาย" : "หญิง";
+                           genderMale ? "men" : "women";
     
     // ตรวจสอบค่าว่าง
     if (!productName) {
@@ -225,18 +225,5 @@ document.querySelector(".add-product").addEventListener("click", async function(
     } catch (err) {
         console.error(err);
         alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
-    }
-});
-
-document.getElementById("addImage").addEventListener("change", function(event) {
-    const file = event.target.files[0]; // ดึงไฟล์ที่เลือก
-    const imgPreview = document.getElementById("previewImage");
-
-    if (file && file.type.startsWith("image/")) {
-        imgPreview.src = URL.createObjectURL(file); // อัปเดตรูปภาพ
-        imgPreview.alt = file.name;
-    } else {
-        imgPreview.src = "";
-        imgPreview.alt = "Invalid image";
     }
 });

@@ -71,37 +71,8 @@ function showeditproduct() {
         const tableBody = document.querySelector("table tbody");
         tableBody.innerHTML = ""; // เคลียร์ข้อมูลเก่าก่อนโหลดใหม่
 
-        // สร้าง Map เพื่อจัดกลุ่มสินค้าตามชื่อ
-        const productMap = new Map();
-        
-        // จัดกลุ่มสินค้าตามชื่อ
+        // แสดงสินค้าแยกตาม ID (ไม่รวมกลุ่มตามชื่อ)
         products.forEach(product => {
-            if (!productMap.has(product.name)) {
-                productMap.set(product.name, {
-                    _id: product._id,
-                    type: product.type,
-                    name: product.name,
-                    image: product.image,
-                    price: product.price,
-                    description: product.description,
-                    category: product.category,
-                    isPromotion: product.isPromotion,
-                    originalPrice: product.originalPrice,
-                    variants: []
-                });
-            }
-            
-            // เพิ่ม variants ของสินค้านี้เข้าไปในกลุ่ม
-            product.variants.forEach(variant => {
-                productMap.get(product.name).variants.push({
-                    color: variant.color,
-                    sizes: variant.sizes
-                });
-            });
-        });
-        
-        // แสดงสินค้าที่จัดกลุ่มแล้ว
-        productMap.forEach(product => {
             const row = document.createElement("tr");
             
             // สร้าง HTML สำหรับแสดงสีและจำนวนสินค้าแต่ละสี
