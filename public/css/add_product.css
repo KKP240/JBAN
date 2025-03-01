@@ -246,6 +246,7 @@ body{
     font-size: 14px;
     color: #00AAFF;
     cursor: pointer;
+    margin-top: 15px;
 }
 
 /* ลบแท็บที่เลื่อนเพิ่มหรือลดเลขออก */

@@ -94,7 +94,6 @@ document.querySelector(".add-more-details").addEventListener("click", function()
                 <label>XL</label>
                 <input type="text" class="size-xl" placeholder="ใส่จำนวนสินค้า">
             </div>
-            <div class="add-size">+</div>
         </div>
     `;
 
