@@ -27,7 +27,43 @@ const deleteProduct = async (productId) => {
 
             // ตรวจสอบว่า res.ok หรือไม่
             if (res.ok) {
-                alert("ลบสินค้าเรียบร้อยแล้ว!");
+                showeditproduct(); // โหลดสินค้าขึ้นมาใหม่
+            } else {
+                const errorData = await res.json();
+                alert(`เกิดข้อผิดพลาดในการลบสินค้า: ${errorData.message || "ไม่ทราบข้อผิดพลาด"}`);
+            }
+        } catch (err) {
+            console.error("Error deleting product:", err);
+            alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
+        }
+
+        // ซ่อน Modal หลังจากการดำเนินการ
+        modal.style.display = "none";
+    };
+
+    // เมื่อกด "ยกเลิก"
+    cancelButton.onclick = () => {
+        modal.style.display = "none"; // ซ่อน Modal เมื่อกดยกเลิก
+    };
+};
+//add
+const addroduct = async (productId) => {
+    const modal = document.getElementById("deleteModal");
+    const confirmButton = document.getElementById("confirmDelete");
+    const cancelButton = document.getElementById("cancelDelete");
+
+    // แสดง Modal
+    modal.style.display = "flex";
+
+    // เมื่อกด "ยืนยัน"
+    confirmButton.onclick = async () => {
+        try {
+            const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
+                method: "DELETE",
+            });
+
+            // ตรวจสอบว่า res.ok หรือไม่
+            if (res.ok) {
                 showeditproduct(); // โหลดสินค้าขึ้นมาใหม่
             } else {
                 const errorData = await res.json();
