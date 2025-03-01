@@ -123,15 +123,11 @@ document.getElementById('applyDiscount').addEventListener('click', function () {
 });
 
 async function handleOrder() {
-    // เช็คก่อนว่ามีสินค้าในตะกร้าหรือไม่
     if (customCartItemCount === 0 && normalCartItemCount === 0) {
       alert("ตะกร้าสินค้าของคุณว่างเปล่า");
-      return; // ไม่ดำเนินการต่อหากไม่มีสินค้า
+      return;
     }
-  
     try {
-      // ถ้ามีสินค้าอยู่ในตะกร้า สามารถเรียกใช้ fetch สำหรับแต่ละ endpoint ได้
-      // ตัวอย่าง: ถ้ามีสินค้า normal ให้ส่งคำขอไปที่ /api/orders
       let response, data;
       if (normalCartItemCount > 0) {
         response = await fetch("http://localhost:5000/api/orders", {
@@ -142,7 +138,6 @@ async function handleOrder() {
         data = await response.json();
       }
       
-      // ถ้ามีสินค้า custom ให้ส่งคำขอไปที่ /api/customorders
       let response2, data2;
       if (customCartItemCount > 0) {
         response2 = await fetch("http://localhost:5000/api/customorders", {
@@ -153,38 +148,22 @@ async function handleOrder() {
         data2 = await response2.json();
       }
       
-      // เช็คผลลัพธ์ ถ้า fetch สำเร็จทั้งหมดแล้ว
-      if ((normalCartItemCount === 0 || response.ok) && (customCartItemCount === 0 || response2.ok)) {
+      const normalSuccess = normalCartItemCount === 0 || (response && response.ok);
+      const customSuccess = customCartItemCount === 0 || (response2 && response2.ok);
+  
+      if (normalSuccess && customSuccess) {
         window.location.href = "/orderHistory";
       } else {
-        // รวม error message จากแต่ละการเรียกใช้ (ถ้ามี)
         const errMsg1 = data && data.message ? data.message : "";
         const errMsg2 = data2 && data2.message ? data2.message : "";
         alert("เกิดข้อผิดพลาด: " + errMsg1 + " " + errMsg2);
       }
     } catch (error) {
       console.error("Error creating order:", error);
+      alert("เกิดข้อผิดพลาดในการสั่งสินค้า");
     }
   }
   
-
-async function handlecustomOrder() {
-    try {
-      const response2 = await fetch("http://localhost:5000/api/customorders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include"  
-      });
-      const data2 = await response2.json();
-      if (response.ok) {
-        window.location.href = "/orderHistory";
-      } else {
-        alert("เกิดข้อผิดพลาด: " + data2.message);
-      }
-    } catch (error) {
-      console.error("Error creating order:", error);
-    }
-  }
 
 // เริ่มต้นคำนวณราคาสุทธิเมื่อโหลดหน้า
 updatePrice();
