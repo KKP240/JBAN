@@ -37,4 +37,27 @@ const addtocustomcart = async (req, res) => {
   }
 };
 
-module.exports = { addtocustomcart };
+const removecustomCartItemById = async (req, res) => {
+  try {
+
+    const cartItemId = req.params.itemId;
+    const userId = req.user._id;
+
+    // หา cart ของผู้ใช้
+    const cart = await CustomCart.findOne({ userId });
+    if (!cart) {
+      return res.status(404).json({ message: "Customproduct not found" });
+    }
+
+    // ลบรายการที่มี _id ตรงกับ cartItemId
+    cart.items = cart.items.filter(item => item._id.toString() !== cartItemId);
+    await cart.save();
+
+    res.status(200).json({ message: "Product removed from customcart", cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+module.exports = { addtocustomcart, removecustomCartItemById };

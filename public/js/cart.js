@@ -176,15 +176,37 @@ async function removeFromCart(cartItemId, element) {
 }
 
 
-function removeCustomProduct(customProductId, element) {
-    fetch(`/remove-custom-product/${customProductId}`, { method: 'DELETE' })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                element.closest('.cart-item').remove();
-            } else {
-                alert('เกิดข้อผิดพลาดในการลบสินค้า');
-            }
-        })
-        .catch(error => console.error('Error:', error));
+async function removeCustomProduct(customProductId, element) {
+
+    try {
+        const response = await fetch(`/api/customproduct/item/${customProductId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include', 
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            removeCartItem(element);
+        } else {
+            alert('เกิดข้อผิดพลาด: ' + data.message);
+        }
+    } catch (error) {
+        console.error("Error removing item:", error);
+        alert('ไม่สามารถลบสินค้าจากตะกร้าได้');
+    }
+
+    // fetch(`/remove-custom-product/${customProductId}`, { method: 'DELETE' })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data.success) {
+    //             element.closest('.cart-item').remove();
+    //         } else {
+    //             alert('เกิดข้อผิดพลาดในการลบสินค้า');
+    //         }
+    //     })
+    //     .catch(error => console.error('Error:', error));
 }
