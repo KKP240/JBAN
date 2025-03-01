@@ -24,7 +24,7 @@ export const insertUiProduct = function (d) {
         <img src="${heartSrc}" alt="heart" class="product__fav" data-state="${heartState}">
       </div>
       <div class="product__content-price ${d.isPromotion ? "has-promotion" : ""}">
-        ${d.isPromotion ? d.originalPrice : d.price} บาท <span class="discount">${d.originalPrice ? d.price : "&nbsp;"}</span>
+        ${d.isPromotion ? d.originalPrice : d.price} บาท <span class="discount">${d.originalPrice ? `${d.price} บาท` : "&nbsp;"}</span>
       </div>
       <div class="product__content-rating">
         <div class="rating">

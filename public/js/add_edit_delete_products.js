@@ -46,6 +46,7 @@ const deleteProduct = async (productId) => {
         modal.style.display = "none"; // ซ่อน Modal เมื่อกดยกเลิก
     };
 };
+
 const deletePromotion = async (productId) => {
     try {
         const res = await fetch(`http://localhost:5000/api/products/${productId}/remove-promotion`, {
@@ -78,6 +79,7 @@ function showeditproduct() {
             if (!productMap.has(product.name)) {
                 productMap.set(product.name, {
                     _id: product._id,
+                    type: product.type,
                     name: product.name,
                     image: product.image,
                     price: product.price,
@@ -181,10 +183,10 @@ function showeditproduct() {
                 // ถ้ามีโปรโมชั่นแล้ว แสดงปุ่ม "ลบโปรโมชั่น" สีแดง
                 promotionButtonHTML = `
                     <button class="promochun" 
-        onclick="deletePromotion('${product._id}')"
-        style="background-color:rgb(38, 0, 255); color: white; border-color: #D32F2F;">
-    ลบโปรโมชั่น
-</button>
+                        onclick="deletePromotion('${product._id}')"
+                        style="background-color:rgb(38, 0, 255); color: white; border-color: #D32F2F;">
+                        ลบโปรโมชั่น
+                    </button>
                 `;
             } else {
                 // ถ้ายังไม่มีโปรโมชั่น แสดงปุ่ม "เพิ่มโปรโมชั่น" ตามปกติ
@@ -194,6 +196,13 @@ function showeditproduct() {
                     </button>
                 `;
             }
+            
+            // สร้าง HTML สำหรับแสดง type
+            const typeHTML = `
+                <span style="background-color: #E3F2FD; color: #1565C0; padding: 4px 10px; border-radius: 4px; font-size: 16px;">
+                    ${product.type || 'ไม่ระบุ'}
+                </span>
+            `;
             
             row.innerHTML = `
                 <td><img src="/images/${product.image}" alt="${product.name}" class="imgprodu"></td>
@@ -217,6 +226,9 @@ function showeditproduct() {
                     <span style="background-color: #E8F5E9; color: #2E7D32; padding: 4px 10px; border-radius: 4px; font-size: 16px;">
                         ${product.category}
                     </span>
+                </td>
+                <td>
+                    ${typeHTML}
                 </td>
                 <td>
                     <button class="add" onclick="window.location.href='/edit_product?id=${product._id}'">แก้ไข</button>

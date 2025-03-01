@@ -218,12 +218,25 @@ document.querySelector(".add-product").addEventListener("click", async function(
         const result = await response.json();
         if (response.ok) {
             alert("เพิ่มสินค้าสำเร็จ!");
-            window.location.href = "/";
+            window.location.href = "/manageProduct";
         } else {
             alert("เกิดข้อผิดพลาด: " + result.message);
         }
     } catch (err) {
         console.error(err);
         alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
+    }
+});
+
+document.getElementById("addImage").addEventListener("change", function(event) {
+    const file = event.target.files[0]; // ดึงไฟล์ที่เลือก
+    const imgPreview = document.getElementById("previewImage");
+
+    if (file && file.type.startsWith("image/")) {
+        imgPreview.src = URL.createObjectURL(file); // อัปเดตรูปภาพ
+        imgPreview.alt = file.name;
+    } else {
+        imgPreview.src = "";
+        imgPreview.alt = "Invalid image";
     }
 });
