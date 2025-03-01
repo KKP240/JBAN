@@ -33,6 +33,7 @@ const Cart = require('./src/models/Cart');
 const Order = require('./src/models/order');
 const CustomProduct = require('./src/models/CustomProduct');
 const CustomOrder = require('./src/models/customorder');
+const Review = require('./src/models/review');
 
 const app = express();
 connectDB();
@@ -59,6 +60,9 @@ app.use("/api/orders", orderRoutes);
 
 const customorderRoutes = require("./src/routes/CTOroutes");
 app.use("/api/customorders", customorderRoutes);
+
+const reviewRoutes = require('./src/routes/reviewRoutes');
+app.use('/api/review', reviewRoutes);
 
 const userRoutes = require("./src/routes/userRoutes");
 app.use("/api/user", userRoutes);
@@ -188,10 +192,12 @@ app.get('/productdetails', async(req, res) => {
 
     try {
         const product = await Product.findById(productId);
+        const reviews = await Review.find({ productId: productId }).populate('userId', 'name');
+        console.log(reviews);
         if (!product) {
             return res.status(404).send('ไม่พบสินค้า');
         }
-        res.render('productDetail', { product });
+        res.render('productDetail', { product, reviews });
     } catch (error) {
         console.error(error);
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
@@ -263,6 +269,13 @@ app.get('/favourite', authMiddleware, async(req, res) => {
         console.error('Error fetching favourites:', error);
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
     }
+});
+
+app.get('/review', authMiddleware, async(req, res) => {
+    const { orderId, productId } = req.query;
+    const orders = await Order.findOne({ userId: req.user.id, _id: orderId }).populate("items.productId");
+    console.log(JSON.stringify(orders, null, 2));
+    res.render('review', { orders, orderId, productId});
 });
 
 app.get('/logout', (req, res) => {
