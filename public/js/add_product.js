@@ -218,7 +218,7 @@ document.querySelector(".add-product").addEventListener("click", async function(
         const result = await response.json();
         if (response.ok) {
             alert("เพิ่มสินค้าสำเร็จ!");
-            window.location.href = "/";
+            window.location.href = "/manageProduct";
         } else {
             alert("เกิดข้อผิดพลาด: " + result.message);
         }
