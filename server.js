@@ -174,9 +174,14 @@ app.get('/orderHistory', authMiddleware, async (req, res) => {
     }
   });
 
-  app.get("/custom_page", (req, res) => {
+  app.get("/custom_page", async (req, res) => {
     const productId = req.query.id;
-    res.render("custom_page", { productId });
+    const productResponse = await fetch(`http://localhost:5000/api/products/${productId}`);
+    const productData = await productResponse.json();
+    const productType = productData.type;
+
+    // console.log(productData.type);
+    res.render("custom_page", { productId, productType });
   });
 
 
