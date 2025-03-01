@@ -59,9 +59,21 @@ const addToFavorites = async function(productId) {
       headers: {
         "Content-Type": "application/json",
         // "Authorization": `${token}`
-        credentials: "include"
-      }
+      },
+      credentials: "include"
     });
+
+    if (res.status === 401) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณาล็อกอินก่อน',
+        text: 'คุณต้องเข้าสู่ระบบเพื่อดำเนินการนี้',
+        confirmButtonText: 'ตกลง'
+      }).then(() => {
+        
+      });
+      return false;
+    }
 
     const data = await res.json();
 
