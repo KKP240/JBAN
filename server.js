@@ -61,6 +61,7 @@ app.use("/api/user", userRoutes);
 
 const path = require("path");
 const authMiddleware = require("./src/middlewares/authMiddleware");
+const adminMiddleware = require("./src/middlewares/adminMiddleware");
 
 app.use(express.static(path.join(__dirname, "public")));
 // app.use(express.static(path.join(__dirname, "public/css")));
@@ -126,7 +127,7 @@ app.get("/women", (req, res) => {
     res.render("women");
 });
 
-app.get("/manageProduct", (req, res) => {
+app.get("/manageProduct", authMiddleware, adminMiddleware, (req, res) => {
     res.render("add_edit_delete_products");
 });
 
@@ -134,8 +135,21 @@ app.get("/add_product", (req, res) => {
     res.render("add_product");
 });
 
-app.get("/edit_product", (req, res) => {
-    res.render("edit_product");
+app.get("/edit_product", authMiddleware, adminMiddleware, async (req, res) => {
+    const productId = req.query.id;
+    if (!productId) {
+        return res.redirect('/');
+    }
+    try {
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).send('ไม่พบสินค้า');
+        }
+        res.render('edit_product', { product });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+    }
 });
 
 app.get("/add_promotion", (req, res) => {

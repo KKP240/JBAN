@@ -195,7 +195,7 @@ function showeditproduct() {
                     </span>
                 </td>
                 <td>
-                    <button class="add" onclick="window.location.href='/edit_product'">แก้ไข</button>
+                    <button class="add" onclick="window.location.href='/edit_product?id=${product._id}'">แก้ไข</button>
                     <button class="edit" data-id="${product._id}">ลบสินค้า</button><br>
                     <button class="promochun" onclick="window.location.href='/add_promotion'">เพิ่มโปรโมชั่น</button>
                 </td>
