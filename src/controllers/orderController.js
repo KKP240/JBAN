@@ -164,8 +164,12 @@ const createOrderFromCart = async (req, res) => {
       const product = await Product.findById(item.productId);
       const itemPrice = product.price;
       totalPrice += itemPrice * item.quantity;
+      const productImage = product.image ? product.image : "black-tshirt.jpg"; 
       return {
         productId: item.productId,
+        productName: product.name,
+        productImage: productImage,
+        productPrice: product.price,
         quantity: item.quantity,
         selectedColor: item.selectedColor,
         selectedSize: item.selectedSize

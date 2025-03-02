@@ -49,17 +49,17 @@
               <div class="product-card">
                 <div class="left">
                   <div class="product-images">
-                    <img src="<%= item.productId.image %>" alt="<%= item.productId.name %>">
+                    <img src="<%= item.productImage %>" alt="<%= item.productName %>">
                   </div>
                   <div class="product-info">
-                    <div class="product-name"><%= item.productId.name %></div>
+                    <div class="product-name"><%= item.productName %></div>
                     <div class="opacity-color">สี : <%= item.selectedColor %></div>
                     <div class="opacity-color">ไซส์ : <%= item.selectedSize %></div>
                   </div>
                 </div>
                 <div class="right">
                   <div>
-                    <div class="product-price">฿<%= (item.quantity * item.productId.price).toFixed(2) %></div>
+                    <div class="product-price">฿<%= (item.quantity * item.productPrice).toFixed(2) %></div>
                     <div class="opacity-color"><%= item.quantity %> ชิ้น</div>
                   </div>
                   <div class="review" onclick="window.location.href='/review?orderId=<%= order._id %>&productId=<%= item.productId._id %>'">รีวิวสินค้า</div>

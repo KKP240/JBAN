@@ -168,9 +168,10 @@ app.get('/orderHistory', authMiddleware, async (req, res) => {
     try {
         const orders = await Order.find({ userId: req.user.id })
         .populate("items.productId");
+        console.log(JSON.stringify(orders, null, 2));
         const customorders = await CustomOrder.find({ userId: req.user.id });
-        console.log(customorders);
-        console.log(JSON.stringify(customorders, null, 2));
+        // console.log(customorders);
+        // console.log(JSON.stringify(customorders, null, 2));
       res.render('history', { orders , customorders});
     } catch (error) {
       console.error(error);
