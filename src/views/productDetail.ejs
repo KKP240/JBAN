@@ -22,7 +22,7 @@
             <div class="product-container" data-id="<%= product._id %>">
                 <div class="product-image">
                     <!-- <button class="arrow arrow-left">←</button> -->
-                    <img src="/images/black-tshirt.jpg" alt="เสื้อยืด" class="shirt" />
+                    <img src="<%=product.image?.split('public').at(-1)%>" alt="img-prouct" class="shirt" />
                     <!-- <button class="arrow arrow-right">→</button> -->
                 </div>
 
