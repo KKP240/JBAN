@@ -140,7 +140,7 @@ document.querySelector(".add-product").addEventListener("click", async function(
     const genderFemale = document.getElementById("female").checked;
     
     if (!genderMale && !genderFemale) {
-        return alert("กรุณาเลือกเพศของสินค้า (ชาย, หญิง หรือทั้งสองเพศ)");
+        return alert("กรุณาเลือกเพศของสินค้า (ชาย, หญิง)");
     }
     
     const productCategory = genderMale && genderFemale ? "ทั้งชายและหญิง" : genderMale ? "ชาย" : "หญิง";
