@@ -128,9 +128,28 @@ document.getElementById("addImage").addEventListener("change", function(event) {
     }
 });
 
-// Update the add product event listener with gender validation
+// Update the add product event listener with image validation
 document.querySelector(".add-product").addEventListener("click", async function() {
-    // ดึงข้อมูลจากฟิลด์ต่าง ๆ เหมือนเดิม
+    // ตรวจสอบว่ามีการอัปโหลดรูปภาพหรือไม่
+    const fileInput = document.getElementById("addImage");
+    if (!fileInput.files[0]) {
+        return alert("กรุณาอัปโหลดรูปภาพสินค้าก่อนเพิ่มสินค้า");
+    }
+
+    // ตรวจสอบประเภทของไฟล์
+    const file = fileInput.files[0];
+    const validImageTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    if (!validImageTypes.includes(file.type)) {
+        return alert("กรุณาอัปโหลดไฟล์รูปภาพที่มีนามสกุล .jpg, .png, .gif หรือ .webp เท่านั้น");
+    }
+
+    // ตรวจสอบขนาดไฟล์ (จำกัดไว้ที่ 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+        return alert("ขนาดรูปภาพต้องไม่เกิน 5MB");
+    }
+    
+    // ดึงข้อมูลจากฟิลด์ต่าง ๆ
     const productName = document.getElementById("pName").value.trim();
     const productPrice = parseFloat(document.getElementById("pPrice").value.trim()) || 0;
     const productType = document.getElementById("pType").value.trim();
@@ -157,7 +176,7 @@ document.querySelector(".add-product").addEventListener("click", async function(
         return alert("กรุณากรอกราคาสินค้าให้ถูกต้อง");
     }
 
-    // ดึงข้อมูลสีและไซส์ตามที่มีอยู่ (ตัวอย่างที่มีอยู่แล้ว)
+    // ดึงข้อมูลสีและไซส์
     const variantSections = document.querySelectorAll(".repeated-details");
     const variants = [];
     let hasErrors = false;
@@ -206,16 +225,13 @@ document.querySelector(".add-product").addEventListener("click", async function(
     const formData = new FormData();
     formData.append('name', productName);
     formData.append('type', productType);
-    formData.append('description', productDescription); // description ที่ปรับปรุงแล้ว (เป็น "ไม่มี" ถ้าไม่ได้กรอก)
+    formData.append('description', productDescription);
     formData.append('price', productPrice);
     formData.append('category', productCategory);
     formData.append('variants', JSON.stringify(variants));
 
-    // แนบไฟล์รูปภาพถ้ามีเลือก
-    const fileInput = document.getElementById("addImage");
-    if (fileInput.files[0]) {
-        formData.append('productImage', fileInput.files[0]);
-    }
+    // แนบไฟล์รูปภาพ
+    formData.append('productImage', file);
 
     try {
         const response = await fetch("http://localhost:5000/api/products", {
