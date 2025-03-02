@@ -22,7 +22,13 @@
         <div class="product-container">
             <div class="product-image">
                 <!-- <button class="arrow arrow-left">←</button> -->
-                <img src="/images/black-tshirt.jpg" alt="เสื้อยืด">
+                <% if (productType == "เสื้อ") { %>
+                    <img src="/images/custom-tshirt.jpg" alt="custom-tshirt">
+                <% } else if (productType == "กางเกง"){ %>
+                    <img src="/images/custom-pants.jpg" alt="custom-pants">
+                <% } else { %>
+                    <img src="/images/custom.jpg" alt="custom-products">
+                <% } %>
                 <!-- <button class="arrow arrow-right">→</button> -->
             </div>
             <div class="product-details">
