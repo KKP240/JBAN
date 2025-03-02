@@ -48,6 +48,10 @@
   position: relative;
 }
 
+.search-data .product__img {
+  width: 5rem;
+}
+
 .search-result {
   position: absolute;
   bottom: 0;
