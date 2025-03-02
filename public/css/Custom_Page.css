@@ -293,7 +293,10 @@ body {
     border-radius: 4px;
     font-size: 16px;
 }
-
+textarea:focus {
+    border: 2px solid blue;
+    background-color: lightyellow;
+  }
 .left {
     margin-right: 20px;
 }
@@ -313,7 +316,10 @@ body {
     font-size: 18px;
     margin-top: 20px;
 }
-
+input:focus {
+    border: 2px solid blue;
+    background-color: lightyellow;
+  }
 .add-to-cart {
     width: 130px;
     padding: 8px;
@@ -325,6 +331,10 @@ body {
     display: block;
     margin-left: auto;
     margin-top: 10px;
+}
+
+.add-to-cart:hover{
+    background-color: #0077ff;
 }
 
 .info-icon {
@@ -509,3 +519,4 @@ a:hover {
     cursor: pointer;
     color: black;
 }
+
