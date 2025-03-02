@@ -29,9 +29,7 @@
 
     <div class="main-content">
       <div class="topic">ประวัติการสั่งซื้อ</div>
-
-      <!-- ส่วนประวัติการสั่งซื้อ (ปกติ) -->
-      <h2>ประวัติการสั่งซื้อ (ปกติ)</h2>
+      <h2>ประวัติการสั่งซื้อ (สินค้าปกติ)</h2>
       <% if (orders && orders.length > 0) { %>
         <% orders.forEach(order => { %>
           <div class="order-card">
@@ -74,11 +72,11 @@
         <% }); %>
       <% } else { %>
         <div class="not-found">
-          <div>ไม่มีประวัติการสั่งซื้อปกติ</div>
+          <div>ไม่มีประวัติการสั่งซื้อสินค้าปกติ</div>
         </div>
       <% } %>
 
-      <h2>ประวัติการสั่งซื้อ (สั่งทำพิเศษ)</h2>
+      <h2>ประวัติการสั่งซื้อ (สินค้าสั่งทำพิเศษ)</h2>
       <% if (customorders && customorders.length > 0) { %>
         <% customorders.forEach(customorder => { %>
           <div class="order-card">
@@ -127,7 +125,7 @@
         <% }); %>
       <% } else { %>
         <div class="not-found">
-          <div>ไม่มีประวัติการสั่งซื้อสั่งทำพิเศษ</div>
+          <div>ไม่มีประวัติการสั่งซื้อสินค้าสั่งทำพิเศษ</div>
         </div>
       <% } %>
 
