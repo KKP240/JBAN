@@ -167,9 +167,12 @@ div.product-info span {
 
 
 .pricenremove {
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-items: center;
-    padding-left: 50px;
+    padding-left: 10%;
+    margin-left: 10%;
     gap: 50px;
     font-size: 22px !important;
     font-weight: 400;
@@ -617,7 +620,7 @@ div.discount {
     .pricenremove {
         height: 100px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-items: center;
         margin-top: 40px;
@@ -765,7 +768,7 @@ div.discount {
     .pricenremove {
         height: 100px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-items: center;
         margin-top: 40px;
@@ -908,7 +911,7 @@ div.discount {
     .pricenremove {
         height: 90px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-items: center;
         margin-top: 30px;
