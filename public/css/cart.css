@@ -204,9 +204,10 @@ div.message {
 
 .cartaction {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 3%;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-top: 5%;
 }
 
 div.discount {
@@ -631,7 +632,6 @@ div.discount {
         flex-direction: column;
         justify-content: flex-end;
         align-items: flex-end; 
-        gap: 16px; 
     }
 
     .order-button {
@@ -780,7 +780,6 @@ div.discount {
         flex-direction: column;
         justify-content: flex-end;
         align-items: flex-end; 
-        gap: 14px; 
     }
 
     .order-button {
@@ -924,7 +923,6 @@ div.discount {
         flex-direction: column;
         justify-content: flex-end;
         align-items: flex-end; 
-        gap: 12px; 
     }
 
     .order-button {
