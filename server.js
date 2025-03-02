@@ -226,7 +226,7 @@ app.get('/favourite', authMiddleware, async(req, res) => {
         const favourites2 = user.favorites;
         const favourites = user.favorites || [];
         console.log("favourites:", favourites);
-
+        console.log(JSON.stringify(favourites, null, 2));
         const products = await Product.find({ '_id': { $in: favourites } });
 
         const groupedProducts = [];
@@ -248,7 +248,7 @@ app.get('/favourite', authMiddleware, async(req, res) => {
                 const newProduct = {
                     id: product.id,
                     name: product.name,
-                    imageUrl: product.imageUrl,
+                    image: product.image,
                     totalStock: 0
                 };
 
