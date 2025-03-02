@@ -273,14 +273,15 @@ body {
 
 .product__con-img {
   position: relative;
+  height: 30rem;
   width: 100%;
 }
 
 .product__img {
   border-radius: 5px;
-  max-width: 100%;
-  height: auto;
-
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .percent {

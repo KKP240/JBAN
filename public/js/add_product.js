@@ -12,44 +12,64 @@ const fetchProduct = async function() {
 function isColorAlreadySelected(color, exceptSelect) {
     const allColorSelects = document.querySelectorAll('.details-container select');
     for (let select of allColorSelects) {
-        if (select !== exceptSelect && select.value === color && color !== "") {
-            return true;
-        }
+      if (select !== exceptSelect && select.value === color && color !== "") {
+        return true;
+      }
     }
     return false;
 }
-
-// Function to update available colors in all dropdowns
+  
 function updateAvailableColors() {
     const allColorSelects = document.querySelectorAll('.details-container select');
     
-    // Get all currently selected colors
     const selectedColors = new Set();
     allColorSelects.forEach(select => {
-        if (select.value !== "") {
-            selectedColors.add(select.value);
-        }
+      if (select.value !== "") {
+        selectedColors.add(select.value);
+      }
     });
     
-    // Update each dropdown
     allColorSelects.forEach(select => {
-        const currentValue = select.value;
+      const currentValue = select.value;
+      
+      Array.from(select.options).forEach(option => {
+        const optionValue = option.value;
         
-        // For each option in the dropdown
-        Array.from(select.options).forEach(option => {
-            const optionValue = option.value;
-            
-            // Skip the empty/default option
-            if (optionValue === "") return;
-            
-            // If this color is selected elsewhere and not by this dropdown, disable it
-            if (selectedColors.has(optionValue) && optionValue !== currentValue) {
-                option.disabled = true;
-            } else {
-                option.disabled = false;
-            }
-        });
+        if (optionValue === "") return;
+        
+        if (selectedColors.has(optionValue) && optionValue !== currentValue) {
+          option.disabled = true;
+        } else {
+          option.disabled = false;
+        }
+      });
     });
+    
+    updateAddMoreDetailsButton();
+}
+
+function updateAddMoreDetailsButton() {
+    const addMoreBtn = document.querySelector('.add-more-details');
+    const allColorSelects = document.querySelectorAll('.details-container select');
+    
+    let hasEmptySelect = false;
+    const totalAvailableColors = 4;
+    const selectedColorsCount = new Set(Array.from(allColorSelects).map(select => select.value).filter(val => val !== "")).size;
+    
+    for (let select of allColorSelects) {
+      if (select.value === "") {
+        hasEmptySelect = true;
+        break;
+      }
+    }
+
+    if (hasEmptySelect || selectedColorsCount >= totalAvailableColors) {
+      addMoreBtn.style.pointerEvents = 'none';
+      addMoreBtn.style.opacity = '0.4';
+    } else {
+      addMoreBtn.style.pointerEvents = 'auto';
+      addMoreBtn.style.opacity = '1';
+    }
 }
 
 // Add event listener to the initial color dropdown
@@ -140,7 +160,7 @@ document.querySelector(".add-product").addEventListener("click", async function(
     const genderFemale = document.getElementById("female").checked;
     
     if (!genderMale && !genderFemale) {
-        return alert("กรุณาเลือกเพศของสินค้า (ชาย, หญิง หรือทั้งสองเพศ)");
+        return alert("กรุณาเลือกเพศของสินค้า (ชาย, หญิง)");
     }
     
     const productCategory = genderMale && genderFemale ? "ทั้งชายและหญิง" : genderMale ? "ชาย" : "หญิง";

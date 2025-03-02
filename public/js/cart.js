@@ -58,6 +58,48 @@ function updatePrice() {
     // }
 }
 
+// ฟังก์ชันในการอัปเดตจำนวนสินค้า
+function updateQuantity(btn, delta) {
+    const row = btn.closest('.cart-item');
+    const quantityEl = row.querySelector('.amount');
+    let currentQuantity = parseInt(quantityEl.innerText);
+    
+    const stock = parseInt(row.getAttribute('data-stock'));
+
+    let newQuantity = currentQuantity + delta;
+
+    if (newQuantity < 1) {
+        newQuantity = 1;
+    }
+    if (newQuantity > stock) {
+        newQuantity = stock;
+        alert(`Stock มีไม่พอ (มี ${stock} ชิ้น)`);
+        return;
+    }
+
+    quantityEl.innerText = newQuantity;
+
+    updatePrice();
+}
+    
+function checkInitialQuantities() {
+    const cartItems = document.querySelectorAll('.cart-item');
+    cartItems.forEach(item => {
+        const quantityEl = item.querySelector('.amount');
+        const stock = parseInt(item.getAttribute('data-stock'), 10);
+        let quantity = parseInt(quantityEl.textContent, 10);
+        
+        if (quantity > stock) {
+            quantityEl.textContent = stock;
+        }
+    });
+}
+
+checkInitialQuantities();
+
+updatePrice();
+
+
 document.querySelectorAll('.remove').forEach(removeBtn => {
     removeBtn.addEventListener('click', function (e) {
         e.preventDefault();

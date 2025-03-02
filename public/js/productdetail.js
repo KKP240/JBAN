@@ -1,10 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
   let selectedColor = null;
   let selectedSize = null;
+  let currentStock = 0;
 
   const colorButtons = document.querySelectorAll(".color-button");
   const sizeButtons = document.querySelectorAll(".size-button");
   const stockDisplay = document.querySelector(".stock-amount");
+  const quantityDisplay = document.getElementById("num");
+  const increaseBtn = document.querySelector(".btn-right");
+  const decreaseBtn = document.querySelector(".btn-left");
 
   function updateSizeButtons() {
     sizeButtons.forEach(btn => {
@@ -13,14 +17,51 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector(".size-active")?.classList.remove("size-active");
     selectedSize = null;
     stockDisplay.textContent = "0";
+    currentStock = 0;
+    updateQuantityControls();
   }
 
   function updateStock() {
     if (selectedColor && selectedSize) {
-      const selectedStock = [...sizeButtons].find(
+      const selectedButton = [...sizeButtons].find(
         btn => btn.dataset.color === selectedColor && btn.dataset.size === selectedSize
-      )?.dataset.stock || "0";
-      stockDisplay.textContent = selectedStock;
+      );
+      
+      if (selectedButton) {
+        currentStock = parseInt(selectedButton.dataset.stock) || 0;
+        stockDisplay.textContent = currentStock;
+        
+        // Reset quantity to 1 when changing size/color
+        quantityDisplay.textContent = "1";
+        
+        // Update controls based on new stock
+        updateQuantityControls();
+      } else {
+        currentStock = 0;
+        stockDisplay.textContent = "0";
+      }
+    }
+  }
+
+  function updateQuantityControls() {
+    const currentQuantity = parseInt(quantityDisplay.textContent);
+    
+    // Disable increase button if we're at max stock
+    if (currentQuantity >= currentStock) {
+      increaseBtn.classList.add("disabled");
+      increaseBtn.disabled = true;
+    } else {
+      increaseBtn.classList.remove("disabled");
+      increaseBtn.disabled = false;
+    }
+    
+    // Disable decrease button if we're at minimum (1)
+    if (currentQuantity <= 1) {
+      decreaseBtn.classList.add("disabled");
+      decreaseBtn.disabled = true;
+    } else {
+      decreaseBtn.classList.remove("disabled");
+      decreaseBtn.disabled = false;
     }
   }
 
@@ -43,21 +84,47 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // Override the existing addnum and deletenum functions
+  window.addnum = function() {
+    const currentQuantity = parseInt(quantityDisplay.textContent);
+    if (currentQuantity < currentStock) {
+      quantityDisplay.textContent = currentQuantity + 1;
+      updateQuantityControls();
+    }
+  };
+
+  window.deletenum = function() {
+    const currentQuantity = parseInt(quantityDisplay.textContent);
+    if (currentQuantity > 1) {
+      quantityDisplay.textContent = currentQuantity - 1;
+      updateQuantityControls();
+    }
+  };
+
   const colorSize = document.querySelector('.color-button').dataset.sizes;
   document.querySelectorAll('.size-button').forEach((b, index) => index + 1 > colorSize ? b.style.display = "none" : b.style.display = "inline-block");
-  document.querySelector('.size-buttons').insertAdjacentHTML('beforeend', `<div class="choose-color"><img src="/icon/warning-circle.svg"> กรุณาเลือกสี<div>`);
+  document.querySelector('.size-buttons').insertAdjacentHTML('beforeend', `<div class="choose-color">กรุณาเลือกสี <img src="/icon/warning-circle.svg"><div>`);
 
   const avgRating = Number(document.querySelector('.avg-star').dataset.avgRating);
   document.querySelectorAll('.star').forEach(s => Number(s.dataset.rating) <= avgRating ? s.style.color = "#00AAFF" : s.style.color = "#ddd");
+  
+  // Initialize quantity controls
+  updateQuantityControls();
 });
 
 async function handleAddToCart() {
   const selectedColor = document.querySelector(".color-active")?.dataset.color;
   const selectedSize = document.querySelector(".size-active")?.dataset.size;
   const quantity = Number(document.getElementById("num").textContent);
+  const currentStock = parseInt(document.querySelector(".stock-amount").textContent);
 
   if (!selectedColor || !selectedSize) {
     showErrorPopup("กรุณาเลือกสีและขนาดก่อน");
+    return;
+  }
+
+  if (quantity > currentStock) {
+    showErrorPopup(`จำนวนสินค้าในสต๊อกมีไม่เพียงพอ (มี ${currentStock} ชิ้น)`);
     return;
   }
 
@@ -66,7 +133,6 @@ async function handleAddToCart() {
     selectedColor,
     selectedSize,
     quantity,
-    itemType: "normal"
   };
 
   try {
@@ -111,12 +177,6 @@ function showErrorPopup(message, callback) {
     </div>
   `;
 
-  // Disable the "Add to Cart" button
-  const addToCartButton = document.querySelector("#add-to-cart-btn");
-  if (addToCartButton) {
-    addToCartButton.disabled = true;
-  }
-
   document.body.appendChild(popup);
 
   // Add event listener to the close button
@@ -136,52 +196,9 @@ function showSuccessPopup(message, callback) {
     <div class="popup-content">
         <div class="popup-icon">✅</div>
         <p class="p-popup">${message}</p>
-        <div class="popup-buttons">
-          <button id="popup-continue-btn" class="continue-btn">ดูสินค้าต่อ</button>
-          <button id="popup-cart-btn" class="cart-btn">ไปที่ตะกร้า</button>
-        </div>
-    </div>
-  `;
-
-  // Disable the "Add to Cart" button
-  const addToCartButton = document.querySelector("#add-to-cart-btn");
-  if (addToCartButton) {
-    addToCartButton.disabled = true;
-  }
-
-  document.body.appendChild(popup);
-
-  // Add event listeners to the buttons
-  document.getElementById("popup-continue-btn").addEventListener("click", function() {
-    closePopup(false);
-  });
-  
-  document.getElementById("popup-cart-btn").addEventListener("click", function() {
-    closePopup(true);
-  });
-}
-
-// General popup function (can be used for other notifications)
-// Success popup for adding to cart
-function showSuccessPopup(message, callback) {
-  // Check if there's already an open popup
-  if (document.querySelector(".popup")) return;
-  
-  const popup = document.createElement("div");
-  popup.classList.add("popup", "success-popup");
-  popup.innerHTML = `
-    <div class="popup-content">
-        <div class="popup-icon">✅</div>
-        <p class="p-popup">${message}</p>
         <button id="popup-cart-btn" class="cart-btn">ไปที่ตะกร้า</button>
     </div>
   `;
-
-  // Disable the "Add to Cart" button
-  const addToCartButton = document.querySelector("#add-to-cart-btn");
-  if (addToCartButton) {
-    addToCartButton.disabled = true;
-  }
 
   document.body.appendChild(popup);
 
@@ -190,6 +207,7 @@ function showSuccessPopup(message, callback) {
     closePopup(true);
   });
 }
+
 // Updated closePopup function with animation
 function closePopup(redirect = false) {
   const popup = document.querySelector(".popup");
@@ -200,12 +218,6 @@ function closePopup(redirect = false) {
     // Wait for animation to complete before removing
     setTimeout(() => {
       popup.remove();
-      
-      // Re-enable the "Add to Cart" button
-      const addToCartButton = document.querySelector("#add-to-cart-btn");
-      if (addToCartButton) {
-        addToCartButton.disabled = false;
-      }
       
       if (redirect) {
         window.location.href = "/cart";

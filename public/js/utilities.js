@@ -157,7 +157,7 @@ const searchProduct = async function (e) {
 const insertUiSearchData = function(data){
   const html = `
             <div class="search-data" data-product-id="${data._id}">
-              <img src="/images/black-tshirt.jpg" alt="img-product" class="product__img">
+              <img src="${data.image.split('public').at(-1)}" alt="img-product" class="product__img">
               <div class="product__detail">
                 <div class="heading-product">${data.name}</div>
                 <div class="product__price">${data.price} บาท</div>

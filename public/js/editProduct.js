@@ -18,12 +18,25 @@ const sendFormEditProduct = async function(e) {
     
     Array.from(document.querySelectorAll('[name="variants"]')).map(v => {
         sizesEl.filter(s => s.dataset.color === v.dataset.value).forEach(s => sizes.push({"size" : s.dataset.value, "stock" : Number(s.value), "price": Number(document.querySelector('[name=price]').value)}))
-        variants.push({"color" : v.value, "sizes": sizes})
+        variants.push({"color" : v.value.at(0).toUpperCase() + v.value.slice(1).toLowerCase(), "sizes": sizes})
         sizes = []
     })
     
     sendData.variants = variants;
     console.log(sendData)
+
+    if(sendData.price <= 0) {
+        alert('ราคาต้องมากกว่า 0 บาท');
+        return;
+    }
+
+    const colorValues = sendData.variants.map(v => v.color.toLowerCase());
+    const colorValueSet = new Set(colorValues);
+
+    if(colorValues.length !== colorValueSet.size) {
+        alert('สีต้องไม่เหมือนกัน')
+        return;
+    }
 
     const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
         method: 'PUT',
