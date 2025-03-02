@@ -9,7 +9,7 @@ const createProduct = async (req, res) => {
             variants = JSON.parse(variants);
         }
 
-        const productImage = req.file ? req.file.path : image;
+        const productImage = req.file ? `public/uploads/${req.file.filename}` : image;
 
         const product = new Product({ name, type, description, price, image: productImage, category, variants, isPromotion , originalPrice , averageRating, numReviews  });
         await product.save();
