@@ -134,7 +134,12 @@ document.querySelector(".add-product").addEventListener("click", async function(
     const productName = document.getElementById("pName").value.trim();
     const productPrice = parseFloat(document.getElementById("pPrice").value.trim()) || 0;
     const productType = document.getElementById("pType").value.trim();
-    const productDescription = document.getElementById("pDescribe").value.trim();
+    
+    // ตรวจสอบว่ามีการใส่คำอธิบายหรือไม่ ถ้าไม่มีให้แสดงเป็น "ไม่มี"
+    let productDescription = document.getElementById("pDescribe").value.trim();
+    if (!productDescription) {
+        productDescription = "ไม่มี";
+    }
 
     const genderMale = document.getElementById("male").checked;
     const genderFemale = document.getElementById("female").checked;
@@ -201,7 +206,7 @@ document.querySelector(".add-product").addEventListener("click", async function(
     const formData = new FormData();
     formData.append('name', productName);
     formData.append('type', productType);
-    formData.append('description', productDescription);
+    formData.append('description', productDescription); // description ที่ปรับปรุงแล้ว (เป็น "ไม่มี" ถ้าไม่ได้กรอก)
     formData.append('price', productPrice);
     formData.append('category', productCategory);
     formData.append('variants', JSON.stringify(variants));
