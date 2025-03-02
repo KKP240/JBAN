@@ -220,7 +220,7 @@
                                         <tr class="cart-item" data-product-id="<%= cartItem.baseProductId._id %>">
                                             <td>
                                                 <div class="goods">
-                                                    <img src="public/images/question-mark-icon.jpg" class="product-img" />
+                                                    <img src="/images/question-mark-icon.jpg" class="product-img" />
                                                     <div class="product-info">
                                                         <span class="product-name">สินค้าสั่งทำพิเศษ</span>
                                                         <span>สี:
@@ -298,7 +298,7 @@
                                   <tr class="cart-item" data-product-id="<%= item.productId._id %>" data-stock="<%= sizeStock %>">
                                     <td>
                                       <div class="goods">
-                                        <img src="<%= item.productId.image %>" class="product-img" />
+                                        <img src="<%= item.productId.image?.split('public').at(-1) %>" class="product-img" />
                                         <div class="product-info">
                                           <span class="product-name"><%= item.productId.name %></span>
                                           <span>สี: <%= item.selectedColor %></span>
