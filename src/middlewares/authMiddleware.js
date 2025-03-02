@@ -25,7 +25,28 @@ const authMiddleware = async (req, res, next) => {
         const token = req.cookies.token;
         // console.log('Token received from cookie:', token);
         if (!token) {
-            return res.status(401).json({ message: 'Access denied. No token provided.' });
+            // อันเดิม
+            // return res.status(401).json({ message: 'Access denied. No token provided.' });
+            return res.status(401).send(`
+                <!DOCTYPE html>
+                <html>
+                  <head>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                  </head>
+                  <body>
+                    <script>
+                      Swal.fire({
+                        icon: 'warning',
+                        title: 'กรุณา Login ก่อน',
+                        text: 'คุณต้องเข้าสู่ระบบเพื่อเข้าถึงหน้าดังกล่าว',
+                        confirmButtonText: 'OK'
+                      }).then(() => {
+                        window.location.href = '/home';
+                      });
+                    </script>
+                  </body>
+                </html>
+              `);
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);

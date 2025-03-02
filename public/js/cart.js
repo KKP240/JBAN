@@ -123,22 +123,47 @@ document.getElementById('applyDiscount').addEventListener('click', function () {
 });
 
 async function handleOrder() {
+    if (customCartItemCount === 0 && normalCartItemCount === 0) {
+      alert("ตะกร้าสินค้าของคุณว่างเปล่า");
+      return;
+    }
     try {
-      const response = await fetch("http://localhost:5000/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include"  
-      });
-      const data = await response.json();
-      if (response.ok) {
+      let response, data;
+      if (normalCartItemCount > 0) {
+        response = await fetch("http://localhost:5000/api/orders", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include"
+        });
+        data = await response.json();
+      }
+      
+      let response2, data2;
+      if (customCartItemCount > 0) {
+        response2 = await fetch("http://localhost:5000/api/customorders", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include"
+        });
+        data2 = await response2.json();
+      }
+      
+      const normalSuccess = normalCartItemCount === 0 || (response && response.ok);
+      const customSuccess = customCartItemCount === 0 || (response2 && response2.ok);
+  
+      if (normalSuccess && customSuccess) {
         window.location.href = "/orderHistory";
       } else {
-        alert("เกิดข้อผิดพลาด: " + data.message);
+        const errMsg1 = data && data.message ? data.message : "";
+        const errMsg2 = data2 && data2.message ? data2.message : "";
+        alert("เกิดข้อผิดพลาด: " + errMsg1 + " " + errMsg2);
       }
     } catch (error) {
       console.error("Error creating order:", error);
+      alert("เกิดข้อผิดพลาดในการสั่งสินค้า");
     }
   }
+  
 
 // เริ่มต้นคำนวณราคาสุทธิเมื่อโหลดหน้า
 updatePrice();
@@ -173,4 +198,40 @@ async function removeFromCart(cartItemId, element) {
         console.error("Error removing item:", error);
         alert('ไม่สามารถลบสินค้าจากตะกร้าได้');
     }
+}
+
+
+async function removeCustomProduct(customProductId, element) {
+
+    try {
+        const response = await fetch(`/api/customproduct/item/${customProductId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include', 
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            removeCartItem(element);
+        } else {
+            alert('เกิดข้อผิดพลาด: ' + data.message);
+        }
+    } catch (error) {
+        console.error("Error removing item:", error);
+        alert('ไม่สามารถลบสินค้าจากตะกร้าได้');
+    }
+
+    // fetch(`/remove-custom-product/${customProductId}`, { method: 'DELETE' })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data.success) {
+    //             element.closest('.cart-item').remove();
+    //         } else {
+    //             alert('เกิดข้อผิดพลาดในการลบสินค้า');
+    //         }
+    //     })
+    //     .catch(error => console.error('Error:', error));
 }

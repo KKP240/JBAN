@@ -77,7 +77,6 @@ body {
 }
 
 .button-group button {
-    padding: 8px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -95,6 +94,12 @@ body {
 
 .recommend:hover{
     color: #00AAFF;
+}
+
+.recommend a {
+    padding: 8px 20px;
+    display: inline-block;
+    width: 100%;
 }
 
 .custom {
@@ -288,7 +293,6 @@ body {
     border-radius: 4px;
     font-size: 16px;
 }
-
 .left {
     margin-right: 20px;
 }
@@ -308,7 +312,6 @@ body {
     font-size: 18px;
     margin-top: 20px;
 }
-
 .add-to-cart {
     width: 130px;
     padding: 8px;
@@ -320,7 +323,12 @@ body {
     display: block;
     margin-left: auto;
     margin-top: 10px;
-}
+    transition: background-color 0.3s ease; /* Add smooth transition */
+  }
+  
+  .add-to-cart:hover {
+    background-color: #0077ff;
+  }
 
 .info-icon {
     color: #00AAFF;
@@ -365,6 +373,7 @@ input {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 0;
 }
 
 .texticon img {
@@ -387,9 +396,10 @@ input {
 }
 
 .text2 {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: normal;
     color: #afafaf;
+    cursor: pointer;
 }
 
 button:active {
@@ -401,15 +411,12 @@ button:active {
 }
 
 input[type=text]:focus {
-    border: 1px solid #ddd;
+    border: 2px solid #000000;
 }
 
 textarea:focus {
-    outline: none;
-    border: 1px solid #ddd;
+    border: 2px solid rgb(0, 0, 0);
 }
-
-
 /* ลบแท็บที่เลื่อนเพิ่มหรือลดเลขออก */
 
 
@@ -427,9 +434,79 @@ a {
     text-decoration: none;
     color: inherit;
     transition: color 0.5s ease;
-    /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
 }
 
 a:hover {
     color: #00AAFF;
 }
+
+@media (max-width: 840px) {
+    .product-container {
+        flex-direction: column; /* Stack the product image and details vertically */
+        align-items: center;    /* Center the items horizontally */
+    }
+
+    .product-image {
+        width: 100%;            /* Make the image take full width */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .product-details {
+        width: 300px;            /* Make the product details take full width */
+        margin-top: 20px;       /* Add some space between the image and details */
+    }
+
+    .quantity-control {
+        justify-content: center; /* Center the quantity control buttons */
+    }
+
+    .price-section {
+        justify-content: center; /* Center the price section */
+    }
+
+    .reviews-section {
+        margin-top: 20px; /* Add spacing between the product details and reviews section */
+    }
+}
+
+.size-chart {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    visibility: hidden;
+}
+
+.size-chart-content {
+    position: relative;
+    background-color: white;
+    padding: 32px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.size-chart img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    padding-top: 16px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+}
+

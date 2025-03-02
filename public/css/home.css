@@ -188,7 +188,7 @@ body {
   border: 2px solid #5a5a5a;
 }
 
-.navyBlue {
+.navy {
   background-color: navy;
 }
 
@@ -325,15 +325,18 @@ body {
 }
 
 .product__content-price {
+  display: flex;
+  gap: 1rem;
+  align-content: center;
   font-weight: 300;
   color: #5a5a5a;
   position: relative;
 }
 
 .discount {
-  position: absolute;
+  /* position: absolute;
   top: 0;
-  left: 7rem;
+  left: 7rem; */
   color: #00aaff;
 }
 
@@ -495,6 +498,10 @@ body {
     font-size: 55%;
   }
 
+  .hero-promotion {
+    display: none;
+  }
+
   .content {
     flex-direction: column;
   }
@@ -510,7 +517,8 @@ body {
 
   .product {
     grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    column-gap: 2rem;
+    row-gap: 4rem;
   }
 
   .section-product {
@@ -559,8 +567,8 @@ body {
   }
 
   .product {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    column-gap: 2rem;
+    row-gap: 4rem;
   }
 }
 
@@ -569,14 +577,11 @@ body {
     font-size: 49%;
   }
 
-  .hero-promotion {
-    display: none;
-  }
-
   .product {
     margin-top: 0;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4rem;
+    /* grid-template-columns: repeat(2, 1fr); */
+    column-gap: 2rem;
+    row-gap: 4rem;
   }
 }
 
@@ -586,9 +591,10 @@ body {
   }
 
   .product {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     justify-items: center;
-    gap: 4rem;
+    column-gap: 2rem;
+    row-gap: 4rem;
   }
 
   .aside-menu {

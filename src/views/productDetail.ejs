@@ -116,46 +116,37 @@
                     <span class="star" data-rating="3">★</span>
                     <span class="star" data-rating="4">★</span>
                     <span class="star" data-rating="5">★</span>
-                    <span style="color: #00aaff; font-size: 12px; margin-left: 10px" data-avg-rating="<%=product.averageRating %>" class="avg-star">(<%=product.numReviews %> ratings)</span
-          >
-        </div>
+                    <span style="color: #00aaff; font-size: 12px; margin-left: 10px" data-avg-rating="<%= product.averageRating %>" class="avg-star">
+                        (<%= product.numReviews %> ratings)
+                    </span>
+                </div>
 
-        <div class="review">
-          <div class="review-header">
-            <div class="reviewer-avatar">
-              <img src="icon/user-circle.svg" alt="">
-            </div>
-            <div>
-              <div style="font-size: 15px">Nutthawat</div>
-            </div>
-        </div>
-          <div class="rating">
-            <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star" style="color: #ddd">★</span>
-                </div>
-                <h3 class="text1">อาหารอร่อย หาที่จอดรถง่าย</h3>
-            </div>
-
-            <div class="review">
-                <div class="review-header">
-                    <div class="reviewer-avatar">
-                        <img src="icon/user-circle.svg" alt="">
-                    </div>
-                    <div>
-                        <div style="font-size: 15px">Nutthawat</div>
-                    </div>
-                </div>
-                <div class="rating">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star" style="color: #ddd">★</span>
-                </div>
-                <h3 class="text1">อาหารอร่อย หาที่จอดรถง่าย</h3>
+                <% if (reviews && reviews.length > 0) { %>
+                    <% reviews.forEach(review => { %>
+                        <div class="review">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">
+                                    <img src="icon/user-circle.svg" alt="">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px"><%= review.userId.name %></div>
+                                </div>
+                            </div>
+                            <div class="rating">
+                                <% for(let i = 1; i <= 5; i++) { %>
+                                    <% if(i <= review.rating) { %>
+                                        <span class="star-blue" style="color: rgb(0, 170, 255);">★</span>
+                                    <% } else { %>
+                                        <span class="star" style="color: #ddd">★</span>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                            <h3 class="text1"><%= review.comment %></h3>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>สินค้านี้ไม่มี review</p>
+                <% } %>
             </div>
 
         </div>

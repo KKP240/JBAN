@@ -29,30 +29,34 @@
             
         <div class="main-content">
             <div class="topic">รีวิวสินค้า</div>
-            <div class="order-card">
+            <div class="order-card" data-product-id="<%= orders.items[0].productId._id %>">
+                <% if (orders) { %>
+                        <div class="order-details">
+                            <div class="order-number">
+                                <div>เลขคำสั่งซื้อ</div>
+                                <div class="opacity-color"><%= orders._id %></div>
+                            </div>
+                            <div class="order-date">
+                                <div>วันที่สั่งซื้อ</div>
+                                <div class="opacity-color"><%= new Date(orders.createdAt).toLocaleDateString() %></div>
+                            </div>
+                        </div>
+                        <% orders.items.forEach(item => { %>
+                            <div class="products">
+                                <div class="product-image">
+                                    <img src="<%= orders.image %>" alt="<%= item.productId.name %>">
+                                </div>
+                                <div class="product-details">
+                                    <div class="product-name"><%= item.productId.name %></div>
+                                    <div class="opacity-color">สี : <%= item.selectedColor %></div>
+                                    <div class="opacity-color">ไซส์ : <%= item.selectedSize %></div>
+                                </div>
+                            </div>
+                        <% }) %>
 
-                <div class="order-details">
-                    <div class="order-number">
-                        <div>เลขคำสั่งซื้อ</div>
-                        <div class="opacity-color">67bded6b7461268a4c4ab6ff</div>
-                    </div>
-                    <div class="order-date">
-                        <div>วันที่สั่งซื้อ</div>
-                        <div class="opacity-color">00/00/0000</div>
-                    </div>
-                </div>
-
-                <div class="products">
-                    <div class="product-image">
-                        <img src="images/black-tshirt.jpg" alt="">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-name">เสื้อยืด-แขนยาว</div>
-                        <div class="opacity-color">สี : เขียว</div>
-                        <div class="opacity-color">ไซส์ : M</div>
-                    </div>
-                </div>
-
+                <% } else { %>
+                    <p>ไม่มีคำสั่งซื้อที่สามารถรีวิวได้</p>
+                <% } %>
             </div>
 
             <div class="review-content">

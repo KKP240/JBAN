@@ -45,6 +45,7 @@ html {
     width: 50%;
     margin-left: -4px;
     z-index: 1;
+    transition: all .3s;
 }
 
 .custom:hover{
@@ -109,6 +110,13 @@ html {
 
 .star {
     color: #ddd;
+    /* cursor: pointer; */
+    font-size: 20px;
+    transition: color 0.2s;
+}
+
+.star-blue {
+    color:rgb(0, 170, 255);
     /* cursor: pointer; */
     font-size: 20px;
     transition: color 0.2s;
@@ -271,7 +279,7 @@ html {
     /* background-color: lightgray; */
     border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border-radius: 8px;
 }
 
@@ -312,10 +320,10 @@ button:not(.add-to-cart, .recommend, .custom):active {
     right: 0;
     display: flex;
     gap: .5rem;
-    transform: translateY(-110%);
-    font-size: 1.3rem;
+    transform: translateY(-135%);
+    font-size: 1rem;
     font-weight: 300;
-    color: #00AAFF;
+    color: #afafaf;
     img {
         width: 1.4rem;
     }
@@ -455,3 +463,34 @@ button:not(.add-to-cart, .recommend, .custom):active {
   .success-popup .cart-btn:hover {
     background: #2db84e;
   }
+
+  @media (max-width: 840px) {
+    .product-container {
+        flex-direction: column; /* Stack the product image and details vertically */
+        align-items: center;    /* Center the items horizontally */
+    }
+
+    .product-image {
+        width: 100%;            /* Make the image take full width */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .product-details {
+        width: 300px;            /* Make the product details take full width */
+        margin-top: 20px;       /* Add some space between the image and details */
+    }
+
+    .quantity-control {
+        justify-content: center; /* Center the quantity control buttons */
+    }
+
+    .price-section {
+        justify-content: center; /* Center the price section */
+    }
+
+    .reviews-section {
+        margin-top: 20px; /* Add spacing between the product details and reviews section */
+    }
+}

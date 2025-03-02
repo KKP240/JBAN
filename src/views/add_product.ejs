@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/css/add_product.css">
-    <script defer src="/js/add_edit_delete_products.js"></script>
+    <script defer src="/js/add_product.js"></script>
 </head>
 <body>
     <%- include("nav_res"); %>
@@ -35,8 +35,8 @@
                 </div>
                 <div class="category-gender">
                     <div>เพศ</div>
-                    <input type="checkbox" name="male" id="male"><label for="male">ชาย</label>
-                    <input type="checkbox" name="female" id="female"><label for="female">หญิง</label>
+                    <input type="radio" name="sex" id="male" value="male"><label for="male">ชาย</label>
+                    <input type="radio" name="sex" id="female" value="female"><label for="female">หญิง</label>
                 </div>
                 <div class="category-type">
                     <label for="pType">ประเภท</label><br>
@@ -48,17 +48,19 @@
                 </div>
                 <div class="price">
                     <label for="pPrice">ราคา</label>
-                    <input type="number" name="" id="pPrice" min="0">
+                    <input type="number" name="Price" id="pPrice" min="0">
                 </div>
                 
                 <div class="details-container">
                     <div class="repeated-details">
                         <div class="color">
                             <label for="pColor">เลือกสี</label>
-                            <select name="" id="pColor">
+                            <select name="name" id="pColor">
                                 <option value="" selected style="color: gray;">-- เลือกสี --</option>
-                                <option value="#000000">สีดำ</option>
-                                <option value="#ffffff">สีขาว</option>
+                                <option value="Black">สีดำ</option>
+                                <option value="White">สีขาว</option>
+                                <option value="Gray">สีเทา</option>
+                                <option value="Blue">สีน้ำเงิน</option>
                             </select>
                         </div>
                         <div class="size">
@@ -77,9 +79,6 @@
                             <div class="size-details">
                                 <label for="size-xl">XL</label>
                                 <input type="text" id="size-xl" placeholder="ใส่จำนวนสินค้า">
-                            </div>
-                            <div class="add-size">
-                                +
                             </div>
                         </div>
                     </div>
@@ -123,58 +122,8 @@
                 </div>
             </div>
         </div>
+        <button class="add-product" type="submit">เพิ่มสินค้า</button>
     </div>
-    <script>
-        document.getElementById("addImage").addEventListener("change", function(event) {
-            const file = event.target.files[0]; // ดึงไฟล์ที่เลือก
-            const imgPreview = document.getElementById("previewImage");
-        
-            if (file && file.type.startsWith("image/")) {
-                imgPreview.src = URL.createObjectURL(file); // อัปเดตรูปภาพ
-                imgPreview.alt = file.name;
-            } else {
-                imgPreview.src = "";
-                imgPreview.alt = "Invalid image";
-            }
-        });
 
-        document.querySelector(".add-more-details").addEventListener("click", function() {
-        const detailsContainer = document.querySelector(".details-container");
-
-        const newDetails = `
-            <div class="repeated-details">
-                <div class="color">
-                    <label>เลือกสี</label>
-                    <select>
-                        <option value="" selected style="color: gray;">-- เลือกสี --</option>
-                        <option value="#000000">สีดำ</option>
-                        <option value="#ffffff">สีขาว</option>
-                    </select>
-                </div>
-                <div class="size">
-                    <div class="size-details">
-                        <label>S</label>
-                        <input type="text" placeholder="ใส่จำนวนสินค้า">
-                    </div>
-                    <div class="size-details">
-                        <label>M</label>
-                        <input type="text" placeholder="ใส่จำนวนสินค้า">
-                    </div>
-                    <div class="size-details">
-                        <label>L</label>
-                        <input type="text" placeholder="ใส่จำนวนสินค้า">
-                    </div>
-                    <div class="size-details">
-                        <label>XL</label>
-                        <input type="text" placeholder="ใส่จำนวนสินค้า">
-                    </div>
-                    <div class="add-size">+</div>
-                </div>
-            </div>
-        `;
-
-        detailsContainer.innerHTML += newDetails; // เพิ่ม HTML เข้าไปใน div
-    });
-    </script>
 </body>
 </html>

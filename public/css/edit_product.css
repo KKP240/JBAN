@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-size: 20px;
 }
 
 html {
@@ -11,50 +10,46 @@ html {
 
 body{
     font-family: "Kanit", serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.7;
 }
 
 .container{
-    margin-top: 100px;
-    font-size: 36px;
-    padding: 20%;
-    padding-top: 24px;
-    padding-bottom: 0;
+    width: 90rem;
+    margin: 14rem auto 10rem auto;
 }
 
 .topic{
-    font-size: 40px;
+    font-size: 3.6rem;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .add-container{
     /* padding: 100px; */
-    padding-top: 24px;
+    padding-top: 2.4rem;
     display: flex;
     justify-content: center;
     align-items: start;
-    gap: 48px;
+    gap: 8rem;
 }
 
-.left{
-    margin-top: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 2px dashed lightgray;
-    width: 300px;
-    height: 450px;
-    padding: 16px;
+.add-container .left{
+    width: 30rem;
+    height: 45rem;
 }
 
-.left img{
-    width: 250px;
-    height: 350px;
-    margin-bottom: 12px;
+.add-container .left img{
+    max-width: 100%;
+    height: auto;
     object-fit: cover;
+    border-radius: 5px;
+    border-right: 5px solid #00AAFF;
 }
 
 .btn-editimage{
-    font-size: 16px;
+    font-size: 1.6rem;
     width: 100px;
     text-align: center;
     padding: 8px;
@@ -64,31 +59,28 @@ body{
     background-color: #00AAFF;
 }
 
-.right{
+.add-container .right{
     display: flex;
     flex-direction: column;
     width: auto;
-    padding-right: 50px;
-    margin-left: 10%;
+    padding-right: 5rem;
     height: 600px;
-    /* overflow-y: scroll; */
-    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-.right input{
-    padding: 4px;
-    padding-left: 0;
-    font-size: 14px;
+.add-container .right input{
+    margin-top: 1rem;
+    padding: .5rem 0;
+    font-size: 1.6rem;
     border: 1px solid lightgray;
-    border-radius: 4px;
+    border-radius: 5px;
     height: auto;
+    font-family: "Kanit", serif;
+    transition: all .3s;
 }
 
-.right input:focus{
-    padding: 4px;
-    padding-left: 0;
-    border: 1px solid lightgray;
-    border-radius: 4px;
+.add-container .right input:focus{
+    border: 1px solid #00aaff;
 }
 
 .product-name{
@@ -106,28 +98,35 @@ body{
     height: auto;
 }
 
-.product-name input:focus{
+/* .product-name input:focus{
     padding: 4px;
     padding-left: 0;
     font-size: 14px;
     border: 1px solid lightgray;
     border-radius: 4px;
     height: auto;
-}
+} */
 
 .category-gender{
     margin-bottom: 16px;
 }
 
-.category-gender input{
-    margin-left: 16px;
+.gender {
+    font-size: 1.8rem;
+    font-weight: 400;
 }
 
 .category-gender label{
     padding-left: 8px;
-    margin-right: 4px;
-    color: #0088DD;
-    opacity: 70%;
+    margin-right: 10px;
+    color: #00aaff;
+}
+
+label{
+    margin-top: 1rem;
+    font-size: 1.8rem;
+    font-weight: 400;
+    font-family: "Kanit", serif;
 }
 
 .category-type{
@@ -148,13 +147,15 @@ body{
     height: 100px;
     width: 300px;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1.6rem;
     font-family: "Kanit", serif;
     padding: 8px;
+    transition: all .3s;
 }
 
 .describe textarea:focus{
     padding-left: 8px;
+    border: 1px solid #00aaff;
 }
 
 .price{
@@ -181,8 +182,7 @@ body{
 .color{
     display: flex;
     flex-direction: column;
-    margin-bottom: 16px;
-    margin-top: 16px;
+    margin: 1rem 0;
 }
 
 .color select{
@@ -202,6 +202,15 @@ body{
 
 .color select:focus{
     border: 1px solid lightgray;
+}
+
+input::placeholder, textarea::placeholder {
+    opacity: 0.4;
+}
+
+
+#pPrice {
+    padding: .5rem 1rem;
 }
 
 .size-details{
@@ -254,4 +263,23 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.submit-edit {
+    margin-top: 4rem;
+    margin-left: auto;
+    padding: 1.5rem 2rem;
+    align-self: flex-start;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #00aaff;
+    cursor: pointer;
+    transition: all .3s;
+    font-size: 1.6rem;
+    font-family: "Kanit", serif;
+}
+
+.submit-edit:hover {
+    background-color: #0092db;
 }

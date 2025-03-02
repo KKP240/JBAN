@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const colorSize = document.querySelector('.color-button').dataset.sizes;
   document.querySelectorAll('.size-button').forEach((b, index) => index + 1 > colorSize ? b.style.display = "none" : b.style.display = "inline-block");
-  document.querySelector('.size-buttons').insertAdjacentHTML('beforeend', `<div class="choose-color">กรุณาเลือกสี <img src="/icon/warning-circle.svg"><div>`);
+  document.querySelector('.size-buttons').insertAdjacentHTML('beforeend', `<div class="choose-color"><img src="/icon/warning-circle.svg"> กรุณาเลือกสี<div>`);
 
   const avgRating = Number(document.querySelector('.avg-star').dataset.avgRating);
   document.querySelectorAll('.star').forEach(s => Number(s.dataset.rating) <= avgRating ? s.style.color = "#00AAFF" : s.style.color = "#ddd");
@@ -66,6 +66,7 @@ async function handleAddToCart() {
     selectedColor,
     selectedSize,
     quantity,
+    itemType: "normal"
   };
 
   try {

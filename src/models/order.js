@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const orderItemSchema = new mongoose.Schema({
   productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
   quantity: { type: Number, required: true },
-  selectedColor: { type: String, required: true }, // **เพิ่ม**
-  selectedSize: { type: String, required: true }     // **เพิ่ม**
+  selectedColor: { type: String, required: true },
+  selectedSize: { type: String, required: true }
 });
 
 const orderSchema = new mongoose.Schema({

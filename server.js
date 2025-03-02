@@ -31,6 +31,9 @@ const cookieParser = require('cookie-parser');
 const User = require("./src/models/User");
 const Cart = require('./src/models/Cart');
 const Order = require('./src/models/order');
+const CustomProduct = require('./src/models/CustomProduct');
+const CustomOrder = require('./src/models/customorder');
+const Review = require('./src/models/review');
 
 const app = express();
 connectDB();
@@ -46,17 +49,27 @@ app.use("/api/auth", authRoutes);
 const productRoutes = require("./src/routes/productRoutes");
 app.use("/api/products", productRoutes);
 
+const customProductRoutes = require("./src/routes/customProductRoutes");
+app.use("/api/customproduct", customProductRoutes);
+
 const cartRoutes = require("./src/routes/cartRoutes");
 app.use("/api/cart", cartRoutes);
 
 const orderRoutes = require("./src/routes/orderRoutes");
 app.use("/api/orders", orderRoutes);
 
+const customorderRoutes = require("./src/routes/CTOroutes");
+app.use("/api/customorders", customorderRoutes);
+
+const reviewRoutes = require('./src/routes/reviewRoutes');
+app.use('/api/review', reviewRoutes);
+
 const userRoutes = require("./src/routes/userRoutes");
 app.use("/api/user", userRoutes);
 
 const path = require("path");
 const authMiddleware = require("./src/middlewares/authMiddleware");
+const adminMiddleware = require("./src/middlewares/adminMiddleware");
 
 app.use(express.static(path.join(__dirname, "public")));
 // app.use(express.static(path.join(__dirname, "public/css")));
@@ -86,13 +99,17 @@ app.get("/", (req, res) => {
 
 app.get('/cart', authMiddleware, async(req, res) => {
     try {
-        const cart = await Cart.findOne({ userId: req.user.id }).populate('items.productId');
-        res.render('cart', { cart });
+      const cart = await Cart.findOne({ userId: req.user.id })
+        .populate("items.productId");
+        console.log(cart);
+     const customcart = await CustomProduct.findOne({ userId: req.user.id }).populate("items.baseProductId");
+     console.log(JSON.stringify(customcart, null, 2));
+      res.render('cart', { cart, customcart });
     } catch (error) {
-        console.error(error);
-        res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+      console.error(error);
+      res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
     }
-});
+  });
 
 // app.get("/favourite", (req, res) => {
 //     res.render("favourite");
@@ -118,7 +135,7 @@ app.get("/women", (req, res) => {
     res.render("women");
 });
 
-app.get("/manageProduct", (req, res) => {
+app.get("/manageProduct", authMiddleware, adminMiddleware, (req, res) => {
     res.render("add_edit_delete_products");
 });
 
@@ -126,8 +143,21 @@ app.get("/add_product", (req, res) => {
     res.render("add_product");
 });
 
-app.get("/edit_product", (req, res) => {
-    res.render("edit_product");
+app.get("/edit_product", authMiddleware, adminMiddleware, async (req, res) => {
+    const productId = req.query.id;
+    if (!productId) {
+        return res.redirect('/');
+    }
+    try {
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).send('ไม่พบสินค้า');
+        }
+        res.render('edit_product', { product });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+    }
 });
 
 app.get("/add_promotion", (req, res) => {
@@ -136,17 +166,26 @@ app.get("/add_promotion", (req, res) => {
 
 app.get('/orderHistory', authMiddleware, async (req, res) => {
     try {
-      const orders = await Order.find({ userId: req.user.id }).populate('items.productId');
-      res.render('history', { orders });
+        const orders = await Order.find({ userId: req.user.id })
+        .populate("items.productId");
+        const customorders = await CustomOrder.find({ userId: req.user.id });
+        console.log(customorders);
+        console.log(JSON.stringify(customorders, null, 2));
+      res.render('history', { orders , customorders});
     } catch (error) {
       console.error(error);
       res.status(500).send("Server error");
     }
   });
 
-  app.get("/custom_page", (req, res) => {
+  app.get("/custom_page", async (req, res) => {
     const productId = req.query.id;
-    res.render("custom_page", { productId });
+    const productResponse = await fetch(`http://localhost:5000/api/products/${productId}`);
+    const productData = await productResponse.json();
+    const productType = productData.type;
+
+    // console.log(productData.type);
+    res.render("custom_page", { productId, productType });
   });
 
 
@@ -158,10 +197,12 @@ app.get('/productdetails', async(req, res) => {
 
     try {
         const product = await Product.findById(productId);
+        const reviews = await Review.find({ productId: productId }).populate('userId', 'name');
+        console.log(reviews);
         if (!product) {
             return res.status(404).send('ไม่พบสินค้า');
         }
-        res.render('productDetail', { product });
+        res.render('productDetail', { product, reviews });
     } catch (error) {
         console.error(error);
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
@@ -235,6 +276,13 @@ app.get('/favourite', authMiddleware, async(req, res) => {
     }
 });
 
+app.get('/review', authMiddleware, async(req, res) => {
+    const { orderId, productId } = req.query;
+    const orders = await Order.findOne({ userId: req.user.id, _id: orderId }).populate("items.productId");
+    console.log(JSON.stringify(orders, null, 2));
+    res.render('review', { orders, orderId, productId});
+});
+
 app.get('/logout', (req, res) => {
     res.clearCookie("token");
     res.redirect('/');
@@ -243,7 +291,6 @@ app.get('/logout', (req, res) => {
 app.get("/addpromotion", (req, res) => {
     res.render("add_promotion");
 });
-
 
 
 const PORT = process.env.PORT || 5000;
