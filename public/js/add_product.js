@@ -115,34 +115,44 @@ document.addEventListener("DOMContentLoaded", function() {
     updateAvailableColors();
 });
 
+document.getElementById("addImage").addEventListener("change", function(event) {
+    const file = event.target.files[0]; // ดึงไฟล์ที่เลือก
+    const imgPreview = document.getElementById("previewImage");
+
+    if (file && file.type.startsWith("image/")) {
+        imgPreview.src = URL.createObjectURL(file); // อัปเดตรูปภาพ preview
+        imgPreview.alt = file.name;
+    } else {
+        imgPreview.src = "";
+        imgPreview.alt = "Invalid image";
+    }
+});
+
 // Update the add product event listener with gender validation
 document.querySelector(".add-product").addEventListener("click", async function() {
+    // ดึงข้อมูลจากฟิลด์ต่าง ๆ เหมือนเดิม
     const productName = document.getElementById("pName").value.trim();
     const productPrice = parseFloat(document.getElementById("pPrice").value.trim()) || 0;
     const productType = document.getElementById("pType").value.trim();
     const productDescription = document.getElementById("pDescribe").value.trim();
-    
-    // ดึงค่าจาก checkbox เพศ
+
     const genderMale = document.getElementById("male").checked;
     const genderFemale = document.getElementById("female").checked;
     
-    // ตรวจสอบว่าเลือกเพศหรือไม่
     if (!genderMale && !genderFemale) {
         return alert("กรุณาเลือกเพศของสินค้า (ชาย, หญิง หรือทั้งสองเพศ)");
     }
     
-    const productCategory = genderMale && genderFemale ? "ทั้งชายและหญิง" : 
-                           genderMale ? "men" : "women";
+    const productCategory = genderMale && genderFemale ? "ทั้งชายและหญิง" : genderMale ? "ชาย" : "หญิง";
     
-    // ตรวจสอบค่าว่าง
     if (!productName) {
         return alert("กรุณากรอกชื่อสินค้า");
     }
     if (!productPrice || isNaN(productPrice) || Number(productPrice) <= 0) {
         return alert("กรุณากรอกราคาสินค้าให้ถูกต้อง");
     }
-    
-    // ดึงข้อมูลสีและไซส์ทั้งหมด
+
+    // ดึงข้อมูลสีและไซส์ตามที่มีอยู่ (ตัวอย่างที่มีอยู่แล้ว)
     const variantSections = document.querySelectorAll(".repeated-details");
     const variants = [];
     let hasErrors = false;
@@ -150,8 +160,6 @@ document.querySelector(".add-product").addEventListener("click", async function(
     variantSections.forEach((section, index) => {
         const colorSelect = section.querySelector("select");
         const color = colorSelect.value;
-        
-        // ตรวจสอบว่าได้เลือกสีหรือไม่
         if (!color) {
             alert(`กรุณาเลือกสีในรายการที่ ${index + 1}`);
             hasErrors = true;
@@ -160,12 +168,10 @@ document.querySelector(".add-product").addEventListener("click", async function(
         
         const sizeInputs = section.querySelectorAll(".size input");
         const sizes = [];
+        const sizeLabels = ["S", "M", "L", "XL"];
         
-        // เพิ่มข้อมูลแต่ละไซส์
         sizeInputs.forEach((input, idx) => {
-            const sizeLabels = ["S", "M", "L", "XL"];
             const stock = parseInt(input.value) || 0;
-            
             if (stock > 0) {
                 sizes.push({
                     size: sizeLabels[idx],
@@ -175,44 +181,41 @@ document.querySelector(".add-product").addEventListener("click", async function(
             }
         });
         
-        // ตรวจสอบว่ามีการเลือกอย่างน้อยหนึ่งไซส์หรือไม่
         if (sizes.length === 0) {
-            alert(`กรุณาระบุจำนวนสินค้าอย่างน้อย 1 ไซส์ สำหรับสี${color} (รายการที่ ${index + 1})`);
+            alert(`กรุณาระบุจำนวนสินค้าอย่างน้อย 1 ไซส์ สำหรับสี ${color} (รายการที่ ${index + 1})`);
             hasErrors = true;
             return;
         }
         
-        // เพิ่มข้อมูลสีและไซส์ที่มีในวงรอบนี้
         variants.push({
             color: color,
             sizes: sizes
         });
     });
     
-    // หากมีข้อผิดพลาด ให้ยกเลิกการส่งข้อมูล
-    if (hasErrors) {
-        return;
-    }
-    
-    // ตรวจสอบว่ามีข้อมูลสีและไซส์อย่างน้อย 1 รายการ
-    if (variants.length === 0) {
+    if (hasErrors || variants.length === 0) {
         return alert("กรุณาเลือกสีและระบุจำนวนสินค้าอย่างน้อย 1 รายการ");
     }
 
-    const productData = {
-        name: productName,
-        type: productType,
-        description: productDescription,
-        price: Number(productPrice),
-        category: productCategory,
-        variants: variants
-    };
+    // สร้าง FormData และแนบข้อมูลสินค้า
+    const formData = new FormData();
+    formData.append('name', productName);
+    formData.append('type', productType);
+    formData.append('description', productDescription);
+    formData.append('price', productPrice);
+    formData.append('category', productCategory);
+    formData.append('variants', JSON.stringify(variants));
+
+    // แนบไฟล์รูปภาพถ้ามีเลือก
+    const fileInput = document.getElementById("addImage");
+    if (fileInput.files[0]) {
+        formData.append('productImage', fileInput.files[0]);
+    }
 
     try {
         const response = await fetch("http://localhost:5000/api/products", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(productData),
+            body: formData
         });
 
         const result = await response.json();
