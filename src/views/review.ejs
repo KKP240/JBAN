@@ -29,8 +29,10 @@
             
         <div class="main-content">
             <div class="topic">รีวิวสินค้า</div>
-            <div class="order-card" data-product-id="<%= orders.items[0].productId._id %>">
-                <% if (orders) { %>
+            <% if (orders) { 
+                const orderItem = orders.items.find(item => item.productId._id.toString() === productId.toString());
+                if (orderItem) { %>
+                    <div class="order-card" data-product-id="<%= productId %>">
                         <div class="order-details">
                             <div class="order-number">
                                 <div>เลขคำสั่งซื้อ</div>
@@ -41,23 +43,23 @@
                                 <div class="opacity-color"><%= new Date(orders.createdAt).toLocaleDateString() %></div>
                             </div>
                         </div>
-                        <% orders.items.forEach(item => { %>
-                            <div class="products">
-                                <div class="product-image">
-                                    <img src="<%= item.productImage?.split('public').at(-1) %>" alt="<%= item.productId.name %>">
-                                </div>
-                                <div class="product-details">
-                                    <div class="product-name"><%= item.productId.name %></div>
-                                    <div class="opacity-color">สี : <%= item.selectedColor %></div>
-                                    <div class="opacity-color">ไซส์ : <%= item.selectedSize %></div>
-                                </div>
+                        <div class="products">
+                            <div class="product-image">
+                                <img src="<%= orderItem.productImage?.split('public').at(-1) %>" alt="<%= orderItem.productId.name %>">
                             </div>
-                        <% }) %>
-
-                <% } else { %>
-                    <p>ไม่มีคำสั่งซื้อที่สามารถรีวิวได้</p>
-                <% } %>
-            </div>
+                            <div class="product-details">
+                                <div class="product-name"><%= orderItem.productId.name %></div>
+                                <div class="opacity-color">สี : <%= orderItem.selectedColor %></div>
+                                <div class="opacity-color">ไซส์ : <%= orderItem.selectedSize %></div>
+                            </div>
+                        </div>
+                    </div>
+            <%   } else { %>
+                    <p>ไม่พบสินค้าที่จะรีวิว</p>
+            <%   } 
+            } else { %>
+                <p>ไม่มีคำสั่งซื้อที่สามารถรีวิวได้</p>
+            <% } %>
 
             <div class="review-content">
                 <div class="ratings">
