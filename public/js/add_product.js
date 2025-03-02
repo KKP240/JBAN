@@ -12,44 +12,64 @@ const fetchProduct = async function() {
 function isColorAlreadySelected(color, exceptSelect) {
     const allColorSelects = document.querySelectorAll('.details-container select');
     for (let select of allColorSelects) {
-        if (select !== exceptSelect && select.value === color && color !== "") {
-            return true;
-        }
+      if (select !== exceptSelect && select.value === color && color !== "") {
+        return true;
+      }
     }
     return false;
 }
-
-// Function to update available colors in all dropdowns
+  
 function updateAvailableColors() {
     const allColorSelects = document.querySelectorAll('.details-container select');
     
-    // Get all currently selected colors
     const selectedColors = new Set();
     allColorSelects.forEach(select => {
-        if (select.value !== "") {
-            selectedColors.add(select.value);
-        }
+      if (select.value !== "") {
+        selectedColors.add(select.value);
+      }
     });
     
-    // Update each dropdown
     allColorSelects.forEach(select => {
-        const currentValue = select.value;
+      const currentValue = select.value;
+      
+      Array.from(select.options).forEach(option => {
+        const optionValue = option.value;
         
-        // For each option in the dropdown
-        Array.from(select.options).forEach(option => {
-            const optionValue = option.value;
-            
-            // Skip the empty/default option
-            if (optionValue === "") return;
-            
-            // If this color is selected elsewhere and not by this dropdown, disable it
-            if (selectedColors.has(optionValue) && optionValue !== currentValue) {
-                option.disabled = true;
-            } else {
-                option.disabled = false;
-            }
-        });
+        if (optionValue === "") return;
+        
+        if (selectedColors.has(optionValue) && optionValue !== currentValue) {
+          option.disabled = true;
+        } else {
+          option.disabled = false;
+        }
+      });
     });
+    
+    updateAddMoreDetailsButton();
+}
+
+function updateAddMoreDetailsButton() {
+    const addMoreBtn = document.querySelector('.add-more-details');
+    const allColorSelects = document.querySelectorAll('.details-container select');
+    
+    let hasEmptySelect = false;
+    const totalAvailableColors = 4;
+    const selectedColorsCount = new Set(Array.from(allColorSelects).map(select => select.value).filter(val => val !== "")).size;
+    
+    for (let select of allColorSelects) {
+      if (select.value === "") {
+        hasEmptySelect = true;
+        break;
+      }
+    }
+
+    if (hasEmptySelect || selectedColorsCount >= totalAvailableColors) {
+      addMoreBtn.style.pointerEvents = 'none';
+      addMoreBtn.style.opacity = '0.4';
+    } else {
+      addMoreBtn.style.pointerEvents = 'auto';
+      addMoreBtn.style.opacity = '1';
+    }
 }
 
 // Add event listener to the initial color dropdown
@@ -128,37 +148,13 @@ document.getElementById("addImage").addEventListener("change", function(event) {
     }
 });
 
-// Update the add product event listener with image validation
+// Update the add product event listener with gender validation
 document.querySelector(".add-product").addEventListener("click", async function() {
-    // ตรวจสอบว่ามีการอัปโหลดรูปภาพหรือไม่
-    const fileInput = document.getElementById("addImage");
-    if (!fileInput.files[0]) {
-        return alert("กรุณาอัปโหลดรูปภาพสินค้าก่อนเพิ่มสินค้า");
-    }
-
-    // ตรวจสอบประเภทของไฟล์
-    const file = fileInput.files[0];
-    const validImageTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
-    if (!validImageTypes.includes(file.type)) {
-        return alert("กรุณาอัปโหลดไฟล์รูปภาพที่มีนามสกุล .jpg, .png, .gif หรือ .webp เท่านั้น");
-    }
-
-    // ตรวจสอบขนาดไฟล์ (จำกัดไว้ที่ 5MB)
-    const maxSize = 5 * 1024 * 1024; // 5MB
-    if (file.size > maxSize) {
-        return alert("ขนาดรูปภาพต้องไม่เกิน 5MB");
-    }
-    
-    // ดึงข้อมูลจากฟิลด์ต่าง ๆ
+    // ดึงข้อมูลจากฟิลด์ต่าง ๆ เหมือนเดิม
     const productName = document.getElementById("pName").value.trim();
     const productPrice = parseFloat(document.getElementById("pPrice").value.trim()) || 0;
     const productType = document.getElementById("pType").value.trim();
-    
-    // ตรวจสอบว่ามีการใส่คำอธิบายหรือไม่ ถ้าไม่มีให้แสดงเป็น "ไม่มี"
-    let productDescription = document.getElementById("pDescribe").value.trim();
-    if (!productDescription) {
-        productDescription = "ไม่มี";
-    }
+    const productDescription = document.getElementById("pDescribe").value.trim();
 
     const genderMale = document.getElementById("male").checked;
     const genderFemale = document.getElementById("female").checked;
@@ -176,7 +172,7 @@ document.querySelector(".add-product").addEventListener("click", async function(
         return alert("กรุณากรอกราคาสินค้าให้ถูกต้อง");
     }
 
-    // ดึงข้อมูลสีและไซส์
+    // ดึงข้อมูลสีและไซส์ตามที่มีอยู่ (ตัวอย่างที่มีอยู่แล้ว)
     const variantSections = document.querySelectorAll(".repeated-details");
     const variants = [];
     let hasErrors = false;
@@ -230,8 +226,11 @@ document.querySelector(".add-product").addEventListener("click", async function(
     formData.append('category', productCategory);
     formData.append('variants', JSON.stringify(variants));
 
-    // แนบไฟล์รูปภาพ
-    formData.append('productImage', file);
+    // แนบไฟล์รูปภาพถ้ามีเลือก
+    const fileInput = document.getElementById("addImage");
+    if (fileInput.files[0]) {
+        formData.append('productImage', fileInput.files[0]);
+    }
 
     try {
         const response = await fetch("http://localhost:5000/api/products", {
