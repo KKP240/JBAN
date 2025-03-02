@@ -133,6 +133,7 @@ document.querySelector(".add-more-details").addEventListener("click", function()
 // Initial update when page loads
 document.addEventListener("DOMContentLoaded", function() {
     updateAvailableColors();
+    updateAddProductButton(); // เพิ่มการเรียกใช้ฟังก์ชันเมื่อโหลดหน้า
 });
 
 document.getElementById("addImage").addEventListener("change", function(event) {
@@ -142,14 +143,40 @@ document.getElementById("addImage").addEventListener("change", function(event) {
     if (file && file.type.startsWith("image/")) {
         imgPreview.src = URL.createObjectURL(file); // อัปเดตรูปภาพ preview
         imgPreview.alt = file.name;
+        updateAddProductButton(); // เรียกใช้ฟังก์ชันเพื่ออัปเดตปุ่มเมื่อมีการเลือกรูปภาพ
     } else {
         imgPreview.src = "";
         imgPreview.alt = "Invalid image";
+        updateAddProductButton();
     }
 });
 
+// เพิ่มฟังก์ชันใหม่เพื่อปรับสถานะของปุ่ม "เพิ่มสินค้า"
+function updateAddProductButton() {
+    const fileInput = document.getElementById("addImage");
+    const addProductBtn = document.querySelector(".add-product");
+    
+    if (!fileInput.files[0]) {
+        // ถ้าไม่มีไฟล์รูปภาพ ให้ปิดการใช้งานปุ่ม
+        addProductBtn.style.pointerEvents = 'none';
+        addProductBtn.style.opacity = '0.4';
+        addProductBtn.title = "กรุณาอัปโหลดรูปภาพสินค้าก่อน";
+    } else {
+        // ถ้ามีไฟล์รูปภาพ ให้เปิดใช้งานปุ่ม
+        addProductBtn.style.pointerEvents = 'auto';
+        addProductBtn.style.opacity = '1';
+        addProductBtn.title = "";
+    }
+}
+
 // Update the add product event listener with gender validation
 document.querySelector(".add-product").addEventListener("click", async function() {
+    // ตรวจสอบว่ามีการอัปโหลดรูปภาพหรือไม่
+    const fileInput = document.getElementById("addImage");
+    if (!fileInput.files[0]) {
+        return alert("กรุณาอัปโหลดรูปภาพสินค้าก่อน");
+    }
+
     // ดึงข้อมูลจากฟิลด์ต่าง ๆ เหมือนเดิม
     const productName = document.getElementById("pName").value.trim();
     const productPrice = parseFloat(document.getElementById("pPrice").value.trim()) || 0;
@@ -227,7 +254,6 @@ document.querySelector(".add-product").addEventListener("click", async function(
     formData.append('variants', JSON.stringify(variants));
 
     // แนบไฟล์รูปภาพถ้ามีเลือก
-    const fileInput = document.getElementById("addImage");
     if (fileInput.files[0]) {
         formData.append('productImage', fileInput.files[0]);
     }
