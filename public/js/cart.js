@@ -8,7 +8,7 @@ let totalPrice = 0;
 
 function updatePrice() {
     const cartItems = document.querySelectorAll('.cart-item');
-    totalPrice = 0; // เริ่มต้นราคาที่ 0
+    totalPrice = 0;
     originalPrice = 0;
 
     cartItems.forEach(item => {
@@ -56,20 +56,6 @@ function updatePrice() {
     //     discountMessage.classList.remove('success');
     //     discountMessage.classList.add('error');
     // }
-}
-
-// ฟังก์ชันในการอัปเดตจำนวนสินค้า
-function updateQuantity(button, amountChange) {
-    const item = button.closest('.cart-item'); 
-    const amountElement = item.querySelector('.amount');
-    let currentAmount = parseInt(amountElement.textContent, 10);
-
-    currentAmount += amountChange;
-    if (currentAmount < 1) currentAmount = 1; 
-
-    amountElement.textContent = currentAmount;
-
-    updatePrice();
 }
 
 document.querySelectorAll('.remove').forEach(removeBtn => {

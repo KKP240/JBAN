@@ -101,9 +101,9 @@ app.get('/cart', authMiddleware, async(req, res) => {
     try {
       const cart = await Cart.findOne({ userId: req.user.id })
         .populate("items.productId");
-        console.log(cart);
+        console.log(JSON.stringify(cart, null, 2));
      const customcart = await CustomProduct.findOne({ userId: req.user.id }).populate("items.baseProductId");
-     console.log(JSON.stringify(customcart, null, 2));
+    //  console.log(JSON.stringify(customcart, null, 2));
       res.render('cart', { cart, customcart });
     } catch (error) {
       console.error(error);

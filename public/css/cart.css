@@ -133,6 +133,7 @@ div.product-info span {
     width: 120px;
     height: auto;
     border-radius: 5px;
+    object-fit: cover;
 }
 
 .quantity {
@@ -166,6 +167,15 @@ div.product-info span {
     margin-left: 10px;
 }
 
+.price {
+    font-size: 22px !important;
+    font-weight: 400;
+}
+
+.customprice {
+    font-size: 16px !important;
+    font-weight: 400;
+}
 
 .pricenremove {
     display: flex;
@@ -174,8 +184,6 @@ div.product-info span {
     justify-content: space-between;
     padding-left: 10%;
     margin-left: 10%;
-    font-size: 22px !important;
-    font-weight: 400;
 }
 
 .price {
@@ -384,12 +392,21 @@ div.discount {
         font-size: 22px !important;
     }
 
+    .price {
+        font-size: 20px !important;
+        font-weight: 400;
+    }
+    
+    .customprice {
+        font-size: 14px !important;
+        font-weight: 400;
+    }
+
     .pricenremove {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        font-size: 20px !important;
     }
 
     .price {
@@ -511,12 +528,21 @@ div.discount {
         font-size: 20px !important;
     }
 
+    .price {
+        font-size: 18px !important;
+        font-weight: 400;
+    }
+    
+    .customprice {
+        font-size: 12px !important;
+        font-weight: 400;
+    }
+
     .pricenremove {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        font-size: 18px !important;
     }
 
     .price {
@@ -655,12 +681,21 @@ div.discount {
         height: 24px;
     }
 
+    .price {
+        font-size: 16px !important;
+        font-weight: 400;
+    }
+    
+    .customprice {
+        font-size: 10px !important;
+        font-weight: 400;
+    }
+
     .pricenremove {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        font-size: 16px !important;
     }
 
     .cartaction {
@@ -802,12 +837,21 @@ div.discount {
         height: 22px;
     }
 
+    .price {
+        font-size: 14px !important;
+        font-weight: 400;
+    }
+    
+    .customprice {
+        font-size: 8px !important;
+        font-weight: 400;
+    }
+
     .pricenremove {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        font-size: 14px !important;
     }
 
     .price {
@@ -941,12 +985,21 @@ div.discount {
         height: 18px;
     }
 
+    .price {
+        font-size: 12px !important;
+        font-weight: 400;
+    }
+    
+    .customprice {
+        font-size: 6px !important;
+        font-weight: 400;
+    }
+
     .pricenremove {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        font-size: 10px !important;
     }
 
     .price {
