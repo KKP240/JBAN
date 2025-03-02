@@ -44,7 +44,7 @@
                         <% orders.items.forEach(item => { %>
                             <div class="products">
                                 <div class="product-image">
-                                    <img src="<%= orders.image %>" alt="<%= item.productId.name %>">
+                                    <img src="<%= item.productImage?.split('public').at(-1) %>" alt="<%= item.productId.name %>">
                                 </div>
                                 <div class="product-details">
                                     <div class="product-name"><%= item.productId.name %></div>
