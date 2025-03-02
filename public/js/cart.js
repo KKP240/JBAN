@@ -59,18 +59,46 @@ function updatePrice() {
 }
 
 // ฟังก์ชันในการอัปเดตจำนวนสินค้า
-function updateQuantity(button, amountChange) {
-    const item = button.closest('.cart-item'); 
-    const amountElement = item.querySelector('.amount');
-    let currentAmount = parseInt(amountElement.textContent, 10);
+function updateQuantity(btn, delta) {
+    const row = btn.closest('.cart-item');
+    const quantityEl = row.querySelector('.amount');
+    let currentQuantity = parseInt(quantityEl.innerText);
+    
+    const stock = parseInt(row.getAttribute('data-stock'));
 
-    currentAmount += amountChange;
-    if (currentAmount < 1) currentAmount = 1; 
+    let newQuantity = currentQuantity + delta;
 
-    amountElement.textContent = currentAmount;
+    if (newQuantity < 1) {
+        newQuantity = 1;
+    }
+    if (newQuantity > stock) {
+        newQuantity = stock;
+        alert(`Stock มีไม่พอ (มี ${stock} ชิ้น)`);
+        return;
+    }
+
+    quantityEl.innerText = newQuantity;
 
     updatePrice();
 }
+    
+function checkInitialQuantities() {
+    const cartItems = document.querySelectorAll('.cart-item');
+    cartItems.forEach(item => {
+        const quantityEl = item.querySelector('.amount');
+        const stock = parseInt(item.getAttribute('data-stock'), 10);
+        let quantity = parseInt(quantityEl.textContent, 10);
+        
+        if (quantity > stock) {
+            quantityEl.textContent = stock;
+        }
+    });
+}
+
+checkInitialQuantities();
+
+updatePrice();
+
 
 document.querySelectorAll('.remove').forEach(removeBtn => {
     removeBtn.addEventListener('click', function (e) {
