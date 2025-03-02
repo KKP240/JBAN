@@ -136,12 +136,13 @@ div.product-info span {
 }
 
 .quantity {
-    text-align: right;
-    width: 25%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .amount {
-    display: inline-block;
     min-width: 40px;
     text-align: center;
     font-size: 26px !important;
@@ -157,7 +158,7 @@ div.product-info span {
     pointer-events: auto;
 }
 
-.minus{
+.minus {
     margin-right: 10px;
 }
 
@@ -170,12 +171,20 @@ div.product-info span {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-items: center;
+    justify-content: space-between;
     padding-left: 10%;
     margin-left: 10%;
-    gap: 50px;
     font-size: 22px !important;
     font-weight: 400;
+}
+
+.price {
+    flex-grow: 1;
+    white-space: nowrap;
+}
+
+.remove {
+    float: right;
 }
 
 div.message {
@@ -289,7 +298,7 @@ div.discount {
     border: hidden;
 }
 
-.order-button:hover{
+.order-button:hover {
     background-color: #0088cc;
 }
 
@@ -302,7 +311,7 @@ div.discount {
 
 #discountMessage.success {
     color: green;
-    
+
 }
 
 #discountMessage.error {
@@ -353,20 +362,20 @@ div.discount {
         height: 30px;
     }
 
-    .minus{
+    .minus {
         margin-right: 5px;
     }
-    
+
     .plus {
         margin-left: 5px;
     }
 
-    .minus > svg {
+    .minus>svg {
         width: 18px;
         height: 18px;
     }
 
-    .plus > svg {
+    .plus>svg {
         width: 18px;
         height: 18px;
     }
@@ -376,10 +385,19 @@ div.discount {
     }
 
     .pricenremove {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         font-size: 20px !important;
     }
 
-    .remove > a > svg {
+    .price {
+        flex-grow: 1;
+        white-space: nowrap;
+    }
+
+    .remove>a>svg {
         width: 28px;
         height: 28px;
     }
@@ -395,12 +413,12 @@ div.discount {
         border-radius: 7px;
         cursor: pointer;
     }
-    
+
     .original-price {
         font-size: 26px !important;
     }
 
-    
+
     .discount input[type="text"] {
         font-family: "Kanit", serif;
         width: 100%;
@@ -410,7 +428,7 @@ div.discount {
         text-indent: 10px;
         font-size: 14px;
     }
-    
+
     .discount input::placeholder {
         font-size: 14px;
     }
@@ -470,16 +488,21 @@ div.discount {
         height: 25px;
     }
 
-    .minus, .plus{
-        margin: 0;
+    .minus {
+        margin-right: 5px;
     }
 
-    .minus > svg {
+    .plus {
+        margin-left: 5px;
+    }
+
+
+    .minus>svg {
         width: 16px;
         height: 16px;
     }
 
-    .plus > svg {
+    .plus>svg {
         width: 16px;
         height: 16px;
     }
@@ -489,10 +512,19 @@ div.discount {
     }
 
     .pricenremove {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         font-size: 18px !important;
     }
 
-    .remove > a > svg {
+    .price {
+        flex-grow: 1;
+        white-space: nowrap;
+    }
+
+    .remove>a>svg {
         width: 26px;
         height: 26px;
     }
@@ -510,12 +542,12 @@ div.discount {
         border-radius: 7px;
         cursor: pointer;
     }
-    
+
     .original-price {
         font-size: 22px !important;
     }
 
-    
+
     .discount input[type="text"] {
         font-family: "Kanit", serif;
         width: 100%;
@@ -525,7 +557,7 @@ div.discount {
         text-indent: 10px;
         font-size: 12px;
     }
-    
+
     .discount input::placeholder {
         font-size: 12px;
     }
@@ -559,11 +591,6 @@ div.discount {
         font-weight: 500;
     }
 
-    tr {
-        display: flex;
-        flex-direction: row;
-    }
-
     div.cartinfo span {
         font-size: 26px;
     }
@@ -591,50 +618,56 @@ div.discount {
 
     .quantity {
         display: flex;
-        flex-direction: column; 
+        flex-direction: row;
         align-items: center;
-        justify-content: center; 
-        gap: 10px;
+        justify-content: center;
     }
+
+
 
     .quantity button {
         width: 28px;
         height: 23px;
     }
 
-    .minus > svg,
-    .plus > svg {
+    .minus {
+        margin-right: 3px;
+    }
+
+    .plus {
+        margin-left: 3px;
+    }
+
+    .minus>svg,
+    .plus>svg {
         width: 14px;
         height: 14px;
     }
 
     .amount {
+        min-width: 30px;
+        text-align: center;
         font-size: 18px !important;
     }
 
-    .remove > a > svg {
+    .remove>a>svg {
         width: 24px;
         height: 24px;
     }
 
     .pricenremove {
-        height: 100px;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-items: center;
-        margin-top: 40px;
-        padding-left: 40px;
-        gap: 10px;
+        justify-content: space-between;
         font-size: 16px !important;
-        font-weight: 400;
     }
 
     .cartaction {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        align-items: flex-end; 
+        align-items: flex-end;
     }
 
     .order-button {
@@ -648,7 +681,7 @@ div.discount {
         border-radius: 7px;
         cursor: pointer;
     }
-    
+
     .original-price {
         font-size: 18px !important;
     }
@@ -662,7 +695,7 @@ div.discount {
         justify-content: right;
         width: 100%;
     }
-    
+
     .discount input[type="text"] {
         font-family: "Kanit", serif;
         width: 100%;
@@ -672,7 +705,7 @@ div.discount {
         text-indent: 10px;
         font-size: 12px;
     }
-    
+
     .discount input::placeholder {
         font-size: 12px;
     }
@@ -707,11 +740,6 @@ div.discount {
         font-weight: 500;
     }
 
-    tr {
-        display: flex;
-        flex-direction: row;
-    }
-
     div.cartinfo span {
         font-size: 22px;
     }
@@ -739,10 +767,9 @@ div.discount {
 
     .quantity {
         display: flex;
-        flex-direction: column; 
+        flex-direction: row;
         align-items: center;
-        justify-content: center; 
-        gap: 10px;
+        justify-content: center;
     }
 
     .quantity button {
@@ -750,39 +777,49 @@ div.discount {
         height: 18px;
     }
 
-    .minus > svg,
-    .plus > svg {
+    .minus {
+        margin-right: 2px;
+    }
+
+    .plus {
+        margin-left: 2px;
+    }
+
+    .minus>svg,
+    .plus>svg {
         width: 12px;
         height: 12px;
     }
 
     .amount {
+        min-width: 25px;
+        text-align: center;
         font-size: 16px !important;
     }
 
-    .remove > a > svg {
+    .remove>a>svg {
         width: 22px;
         height: 22px;
     }
 
     .pricenremove {
-        height: 100px;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-items: center;
-        margin-top: 40px;
-        padding-left: 40px;
-        gap: 10px;
+        justify-content: space-between;
         font-size: 14px !important;
-        font-weight: 400;
+    }
+
+    .price {
+        flex-grow: 1;
+        white-space: nowrap;
     }
 
     .cartaction {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        align-items: flex-end; 
+        align-items: flex-end;
     }
 
     .order-button {
@@ -796,7 +833,7 @@ div.discount {
         border-radius: 7px;
         cursor: pointer;
     }
-    
+
     .original-price {
         font-size: 16px !important;
     }
@@ -810,7 +847,7 @@ div.discount {
         justify-content: right;
         width: 100%;
     }
-    
+
     .discount input[type="text"] {
         font-family: "Kanit", serif;
         width: 100%;
@@ -820,7 +857,7 @@ div.discount {
         text-indent: 10px;
         font-size: 10px;
     }
-    
+
     .discount input::placeholder {
         font-size: 10px;
     }
@@ -850,11 +887,6 @@ div.discount {
         font-weight: 500;
     }
 
-    tr {
-        display: flex;
-        flex-direction: row;
-    }
-
     div.cartinfo span {
         font-size: 14px;
     }
@@ -882,10 +914,9 @@ div.discount {
 
     .quantity {
         display: flex;
-        flex-direction: column; 
+        flex-direction: row;
         align-items: center;
-        justify-content: center; 
-        gap: 5px;
+        justify-content: center;
     }
 
     .quantity button {
@@ -893,39 +924,41 @@ div.discount {
         height: 16px;
     }
 
-    .minus > svg,
-    .plus > svg {
+    .minus>svg,
+    .plus>svg {
         width: 10px;
         height: 10px;
     }
 
     .amount {
+        min-width: 20px;
+        text-align: center;
         font-size: 12px !important;
     }
 
-    .remove > a > svg {
+    .remove>a>svg {
         width: 18px;
         height: 18px;
     }
 
     .pricenremove {
-        height: 90px;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-items: center;
-        margin-top: 30px;
-        padding-left: 30px;
-        gap: 8px;
+        justify-content: space-between;
         font-size: 10px !important;
-        font-weight: 400;
+    }
+
+    .price {
+        flex-grow: 1;
+        white-space: nowrap;
     }
 
     .cartaction {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        align-items: flex-end; 
+        align-items: flex-end;
     }
 
     .order-button {
@@ -953,7 +986,7 @@ div.discount {
         justify-content: right;
         width: 100%;
     }
-    
+
     .discount input[type="text"] {
         font-family: "Kanit", serif;
         width: 100%;
@@ -963,7 +996,7 @@ div.discount {
         text-indent: 5px;
         font-size: 6px;
     }
-    
+
     .discount input::placeholder {
         font-size: 6px;
     }

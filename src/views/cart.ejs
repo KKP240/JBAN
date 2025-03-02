@@ -259,100 +259,105 @@
                                                 <div class="pricenremove">
                                                     ฿ ราคาสินค้าจะต้องรอการประเมินจากผู้ขาย
 
-                                                        
-                                                        </div>
+
+                                                </div>
+                    </div>
+                    </td>
+                    <td>
+                        <div class="remove">
+                            <a href="javascript:void(0)" onclick="removeCustomProduct('<%= cartItem._id %>', this)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c"
+                                    viewBox="0 0 256 256">
+                                    <path
+                                        d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </td>
+                    </tr>
+                    <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="4" class="no-items">ไม่มีสินค้าสั่งทำพิเศษในตะกร้า</td>
+                            </tr>
+                            <% } %>
+
+
+                                <% if (cart && cart.items && cart.items.length> 0) { %>
+                                    <% cart.items.forEach(item=> { %>
+                                        <tr class="cart-item" data-product-id="<%= item.productId._id %>">
+                                            <td>
+                                                <div class="goods">
+                                                    <img src="<%= item.productId.image %>" class="product-img" />
+                                                    <div class="product-info">
+                                                        <span class="product-name">
+                                                            <%= item.productId.name %>
+                                                        </span>
+                                                        <span>สี: <%= item.selectedColor %></span>
+                                                        <span>ไซส์: <%= item.selectedSize %></span>
+                                                    </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="remove">
-                                                    <a href="javascript:void(0)" onclick="removeCustomProduct('<%= cartItem._id %>', this)">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#eb000c" viewBox="0 0 256 256">
-                                                            <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path>
+                                                <div class="quantity">
+                                                    <button class="minus" type="button"
+                                                        onclick="updateQuantity(this, -1)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                            fill="#0d0d0d" viewBox="0 0 256 256">
+                                                            <path
+                                                                d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z">
+                                                            </path>
                                                         </svg>
-                                                    </a>
+                                                    </button>
+                                                    <span class="amount">
+                                                        <%= item.quantity %>
+                                                    </span>
+                                                    <button class="plus" type="button"
+                                                        onclick="updateQuantity(this, 1)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                            fill="#0d0d0d" viewBox="0 0 256 256">
+                                                            <path
+                                                                d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="pricenremove">
+                                                    <div class="price">
+                                                        ฿<%= (item.productId.price).toFixed(2) %>
+                                                    </div>
+
+                                                    <div class="remove">
+                                                        <a href="javascript:void(0)"
+                                                            onclick="removeFromCart('<%= item._id %>', this)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="32"
+                                                                height="32" fill="#eb000c" viewBox="0 0 256 256">
+                                                                <path
+                                                                    d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
+                                                                </path>
+                                                            </svg>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
                                         <% }) %>
                                             <% } else { %>
                                                 <tr>
-                                                    <td colspan="4" class="no-items">ไม่มีสินค้าสั่งทำพิเศษในตะกร้า</td>
+                                                    <td colspan="4" class="no-items">
+                                                        ไม่มีสินค้าแบบแนะนำในตะกร้า</td>
                                                 </tr>
                                                 <% } %>
+                                                    </tbody>
+                                                    </table>
+                </div>
 
+                <div class="cartaction">
 
-                                                    <% if (cart && cart.items && cart.items.length> 0) { %>
-                                                        <% cart.items.forEach(item=> { %>
-                                                            <tr class="cart-item"
-                                                                data-product-id="<%= item.productId._id %>">
-                                                                <td class="goods">
-                                                                    <img src="<%= item.productId.image %>"
-                                                                        class="product-img" />
-                                                                    <div class="product-info">
-                                                                        <span class="product-name">
-                                                                            <%= item.productId.name %>
-                                                                        </span>
-                                                                        <span>สี: <%= item.selectedColor %></span>
-                                                                        <span>ไซส์: <%= item.selectedSize %></span>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="quantity">
-                                                                    <button class="minus" type="button"
-                                                                        onclick="updateQuantity(this, -1)">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="20" height="20" fill="#0d0d0d"
-                                                                            viewBox="0 0 256 256">
-                                                                            <path
-                                                                                d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z">
-                                                                            </path>
-                                                                        </svg>
-                                                                    </button>
-                                                                    <span class="amount">
-                                                                        <%= item.quantity %>
-                                                                    </span>
-                                                                    <button class="plus" type="button"
-                                                                        onclick="updateQuantity(this, 1)">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="20" height="20" fill="#0d0d0d"
-                                                                            viewBox="0 0 256 256">
-                                                                            <path
-                                                                                d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z">
-                                                                            </path>
-                                                                        </svg>
-                                                                    </button>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="pricenremove">
-                                                                        ฿<%= (item.productId.price).toFixed(2) %>
-
-                                                                        <div class="remove">
-                                                                            <a href="javascript:void(0)"
-                                                                                onclick="removeFromCart('<%= item._id %>', this)">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                                                    height="32" fill="#eb000c" viewBox="0 0 256 256">
-                                                                                    <path
-                                                                                        d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
-                                                                                    </path>
-                                                                                </svg>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <% }) %>
-                                                                <% } else { %>
-                                                                    <tr>
-                                                                        <td colspan="4" class="no-items">
-                                                                            ไม่มีสินค้าแบบแนะนำในตะกร้า</td>
-                                                                    </tr>
-                                                                    <% } %>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="cartaction">
-
-                        <!-- <div class="discount">
+                    <!-- <div class="discount">
                                     <label>
                                         <input type="text" id="discountCode" placeholder="กรอกโค้ดส่วนลด (ถ้ามี)">
                                         <button id="applyDiscount">
@@ -371,11 +376,11 @@
                                     </label>
                              </div> -->
 
-                             <div class="order">
-                                <button class="order-button" onclick="handleOrder()">สั่งซื้อสินค้า</button>
-                            </div>
+                    <div class="order">
+                        <button class="order-button" onclick="handleOrder()">สั่งซื้อสินค้า</button>
                     </div>
                 </div>
+            </div>
             </div>
             <%- include("footer"); %>
                 <script>
