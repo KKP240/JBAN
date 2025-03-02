@@ -3,9 +3,15 @@ const Product = require('../models/Product');
 // ✅ เพิ่มสินค้าใหม่ (Admin)
 const createProduct = async (req, res) => {
     try {
-        const { name, type, description, price, image, category, variants, isPromotion , originalPrice , averageRating, numReviews  } = req.body;
+        let { name, type, description, price, image, category, variants, isPromotion , originalPrice , averageRating, numReviews  } = req.body;
 
-        const product = new Product({ name, type, description, price, image, category, variants, isPromotion , originalPrice , averageRating, numReviews  });
+        if (typeof variants === 'string') {
+            variants = JSON.parse(variants);
+        }
+
+        const productImage = req.file ? `public/uploads/${req.file.filename}` : image;
+
+        const product = new Product({ name, type, description, price, image: productImage, category, variants, isPromotion , originalPrice , averageRating, numReviews  });
         await product.save();
 
         res.status(201).json({ message: "Product created successfully", product });

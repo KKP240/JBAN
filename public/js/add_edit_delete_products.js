@@ -176,7 +176,7 @@ function showeditproduct() {
             `;
             
             row.innerHTML = `
-                <td><img src="/images/${product.image}" alt="${product.name}" class="imgprodu"></td>
+                <td><img src="${product.image?.split('public').at(-1)}" alt="${product.name}" class="imgprodu"></td>
                 <td>
                     <div style="font-weight: 500; font-size: 19px;">${product.name}</div>
                 </td>

@@ -185,6 +185,23 @@ const createOrderFromCart = async (req, res) => {
 
     await newOrder.save();
 
+    await Promise.all(cart.items.map(async (item) => {
+      const product = await Product.findById(item.productId);
+      if (product) {
+        // หา variant ที่ตรงกับสีที่ลูกค้าเลือก
+        const variant = product.variants.find(v => v.color === item.selectedColor);
+        if (variant) {
+          // หา size
+          const sizeObj = variant.sizes.find(s => s.size === item.selectedSize);
+          if (sizeObj) {
+            sizeObj.stock = sizeObj.stock - item.quantity;
+            if (sizeObj.stock < 0) sizeObj.stock = 0;
+          }
+        }
+        await product.save();
+      }
+    }));
+
     await Cart.findOneAndDelete({ userId });
 
     res.status(201).json({ message: "Order created successfully", order: newOrder });

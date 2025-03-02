@@ -6,7 +6,7 @@ import * as filter from "/js/filter.js";
 
 // Show product
 const showAllProduct = async function () {
-  const info = Array.from(await data.fetchProduct()).filter(i => i.category === "men");
+  const info = Array.from(await data.fetchProduct()).filter(i => i.category === "ชาย");
 
   mainPage.removeLoadingElements()
   info.forEach((d) => {

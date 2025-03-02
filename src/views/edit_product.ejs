@@ -24,7 +24,7 @@
 
         <div class="add-container">
             <div class="left">
-                <img id="previewImage" src="images/black-tshirt.jpg">
+                <img id="previewImage" src="<%=product.image?.split('public').at(-1)%>">
             </div>
 
             <div class="right">
@@ -35,8 +35,8 @@
                     </div>
                     <div class="category-gender">
                         <div class="gender">เพศ</div>
-                        <input type="radio" name="category" id="male" value="men" <%=product.category === "men" ? "checked" : "" %> ><label for="male" >ชาย</label>
-                        <input type="radio" name="category" id="female" value="women" <%=product.category === "women" ? "checked" : "" %> ><label for="female">หญิง</label>
+                        <input type="radio" name="category" id="male" value="ชาย" <%=product.category === "ชาย" ? "checked" : "" %> ><label for="male" >ชาย</label>
+                        <input type="radio" name="category" id="female" value="หญิง" <%=product.category === "หญิง" ? "checked" : "" %> ><label for="female">หญิง</label>
                     </div>
                     <div class="category-type">
                         <label for="pType">ประเภท</label><br>
