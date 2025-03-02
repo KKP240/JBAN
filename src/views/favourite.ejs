@@ -50,8 +50,8 @@
                     <span class="product-name"><%= fav.name %></span>
                   </div>
                 </td>
-                <td>฿<%= fav.totalprice.toFixed(2) %></td> 
-                <td><%= fav.totalStock %> ชิ้น</td> 
+                <td class="price">฿<%= fav.totalprice.toFixed(2) %></td> 
+                <td class="amount"><%= fav.totalStock %> ชิ้น</td> 
                 <td class="<%= fav.status === 'มีสินค้า' ? 'available' : 'out_of_stock' %>">
                   <%= fav.status %>
                 </td>

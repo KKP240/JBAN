@@ -15,7 +15,7 @@ function updatePrice() {
     // คำนวณราคาแต่ละรายการและรวมเป็นราคาสุทธิ
     cartItems.forEach(item => {
         const quantity = parseInt(item.querySelector('.amount').textContent, 10);
-        const unitPriceText = item.querySelector('.price').textContent; // แก้ไขการดึงราคาหน่วยให้ถูกต้อง
+        const unitPriceText = item.querySelector('.pricenremove').textContent; // แก้ไขการดึงราคาหน่วยให้ถูกต้อง
         const unitPrice = parseFloat(unitPriceText.replace('฿', '').trim()); // ตรวจสอบให้แน่ใจว่าอ่านราคาถูกต้อง
         const itemTotalPrice = unitPrice * quantity;
         totalPrice += itemTotalPrice;
