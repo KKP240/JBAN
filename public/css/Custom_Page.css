@@ -77,7 +77,6 @@ body {
 }
 
 .button-group button {
-    padding: 8px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -95,6 +94,12 @@ body {
 
 .recommend:hover{
     color: #00AAFF;
+}
+
+.recommend a {
+    padding: 8px 20px;
+    display: inline-block;
+    width: 100%;
 }
 
 .custom {

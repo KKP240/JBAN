@@ -14,7 +14,7 @@ export const insertUiProduct = function (d) {
       <img src="https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/68ef016b7946bcd32035a30c40e23f9209c53261_xxl-1.jpg" alt="img-product" class="product__img" product-id="${d._id}"/>
       <div class="percent ${d.isPromotion ? "active-percent" : ""}">${
     d.isPromotion
-      ? `-${100 - (d.price / d.originalPrice * 100).toFixed(0)}%`
+      ? `-${100 - (d.price / d.originalPrice * 100).toFixed(2)}%`
       : "&nbsp;"
   }</div>
     </div>
@@ -23,8 +23,9 @@ export const insertUiProduct = function (d) {
         <h3 class="heading-product">${d.name}</h3>
         <img src="${heartSrc}" alt="heart" class="product__fav" data-state="${heartState}">
       </div>
-      <div class="product__content-price ${d.isPromotion ? "has-promotion" : ""}">
-        ${d.isPromotion ? d.originalPrice : d.price} บาท <span class="discount">${d.originalPrice ? `${d.price} บาท` : "&nbsp;"}</span>
+      <div class="product__content-price">
+        <span class="${d.isPromotion ? "has-promotion" : ""}">${d.isPromotion ? d.originalPrice.toFixed(2) : d.price.toFixed(2)} บาท</span>
+        <span class="discount">${d.originalPrice ? `${d.price.toFixed(2)} บาท` : "&nbsp;"}</span>
       </div>
       <div class="product__content-rating">
         <div class="rating">

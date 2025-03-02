@@ -325,15 +325,18 @@ body {
 }
 
 .product__content-price {
+  display: flex;
+  gap: 1rem;
+  align-content: center;
   font-weight: 300;
   color: #5a5a5a;
   position: relative;
 }
 
 .discount {
-  position: absolute;
+  /* position: absolute;
   top: 0;
-  left: 7rem;
+  left: 7rem; */
   color: #00aaff;
 }
 
