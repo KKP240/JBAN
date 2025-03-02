@@ -58,7 +58,7 @@ async function fetchProductDetails(productId) {
         
         // Replace image if available
         if (product.image) {
-            document.querySelector('.img img').src = product.image;
+            document.querySelector('.img img').src = product.image?.split('public').at(-1);
         }
         
     } catch (error) {
