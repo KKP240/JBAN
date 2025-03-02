@@ -47,7 +47,7 @@
               <div class="product-card">
                 <div class="left">
                   <div class="product-images">
-                    <img src="<%= item.productImage %>" alt="<%= item.productName %>">
+                    <img src="<%= item.productImage?.split('public').at(-1) %>" alt="<%= item.productName %>">
                   </div>
                   <div class="product-info">
                     <div class="product-name"><%= item.productName %></div>

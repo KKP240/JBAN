@@ -286,7 +286,7 @@
                                                             <tr class="cart-item"
                                                                 data-product-id="<%= item.productId._id %>">
                                                                 <td class="goods">
-                                                                    <img src="<%= item.productId.image %>"
+                                                                    <img src="<%= item.productId.image?.split('public').at(-1) %>"
                                                                         class="product-img" />
                                                                     <div class="product-info">
                                                                         <span class="product-name">
