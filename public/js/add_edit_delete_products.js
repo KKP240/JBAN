@@ -122,9 +122,12 @@ function showeditproduct() {
                 `;
             }).join('');
             
+            // ตรวจสอบว่ามีคำอธิบายหรือไม่
+            const description = product.description && product.description.trim() ? product.description : "ไม่มี";
+            
             // สร้างคำอธิบายแบบย่อ (แสดงแค่ 50 ตัวอักษรแรก)
-            const shortDescription = product.description.length > 50 ? 
-                product.description.substring(0, 50) + '...' : product.description;
+            const shortDescription = description.length > 50 ? 
+                description.substring(0, 50) + '...' : description;
             
             // สร้าง HTML สำหรับแสดงราคา (ปกติหรือโปรโมชั่น)
             let priceHTML = '';
@@ -188,7 +191,7 @@ function showeditproduct() {
                 <td>
                     ${priceHTML}
                 </td>
-                <td title="${product.description}" style="text-align: left; max-width: 150px;">
+                <td title="${description}" style="text-align: left; max-width: 150px;">
                     <div style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
                         ${shortDescription}
                     </div>
