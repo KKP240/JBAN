@@ -151,7 +151,8 @@
                     data[key] = value;
                 }
             });
-
+            
+            data.productId = formData.get('baseProductId');
             try {
                 const res = await fetch("/api/customproduct", {
                     method: "POST",

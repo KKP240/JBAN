@@ -1,8 +1,8 @@
-const CustomCart = require("../models/CustomProduct"); // เปลี่ยนชื่อให้สอดคล้องกับ schema
+const CustomCart = require("../models/CustomProduct");
 
 const addtocustomcart = async (req, res) => {
   try {
-    const { baseProductId, measurements, fabric, additionalInfo, selectedColor, quantity, totalPrice } = req.body;
+    const { productId, baseProductId, measurements, fabric, additionalInfo, selectedColor, quantity, totalPrice } = req.body;
 
     // ค้นหา custom cart ของผู้ใช้
     let customCart = await CustomCart.findOne({ userId: req.user.id });
@@ -17,6 +17,7 @@ const addtocustomcart = async (req, res) => {
 
     // เพิ่มสินค้าใหม่ลงในตะกร้า
     const newCustomProduct = {
+      productId,
       baseProductId,
       measurements,
       fabric,

@@ -1,5 +1,6 @@
 const customOrder = require('../models/customorder');
 const customCart = require('../models/CustomProduct');
+const Product = require('../models/Product');
 
 const createcustomOrderFromCart = async (req, res) => {
   try {
@@ -12,13 +13,18 @@ const createcustomOrderFromCart = async (req, res) => {
 
     let totalPrice = 0;
 
-    const orderItems = await Promise.all(cart.items.map(async (item) => {
-      if (item._id) {
-        const customProduct = item._id;
-        const itemPrice = customProduct.totalPrice;
-
+    const orderItems = await Promise.all(cart.items.map(async item => {
+    
+        const product = await Product.findById(item.baseProductId);
+        const description = product.description ? product.description : " ";
         return {
-          customProductId: customProduct._id,
+          productId: item.productId,
+          baseProductId: item.baseProductId,
+          baseproductName: product.name,
+          baseproductDescription: description,
+          baseproductCategory: product.category,
+          baseproductType: product.type,
+          baseproductPrice: product.price,
           itemType: "custom",
           measurements: {
             chest: item.measurements.chest,
@@ -30,7 +36,6 @@ const createcustomOrderFromCart = async (req, res) => {
           quantity: item.quantity,
         //   totalPrice: itemPrice * item.quantity, 
         };
-      }
     }));
 
     const newCustomOrder = new customOrder({

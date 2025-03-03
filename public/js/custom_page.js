@@ -181,6 +181,7 @@ async function handleAddToCart(event) {
   
     // 📦 สร้าง JSON object สำหรับส่งไปเซิร์ฟเวอร์
     const payload = {
+      productId: baseProductId,
       customProductId: baseProductId,
       baseProductId: baseProductId,
         chest: chest,

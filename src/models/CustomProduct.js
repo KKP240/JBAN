@@ -62,8 +62,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const customProductSchema = new Schema({
-  // ถ้าต้องการอ้างอิงสินค้าเดิมไว้สามารถเก็บ field นี้ได้
-  baseProductId: { type: Schema.Types.ObjectId, ref: "Product", required: false },
+  productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+  baseProductId: { type: Schema.Types.ObjectId, ref: "Product", required: true },
   // ข้อมูลที่ลูกค้ากรอกในหน้า custom_page
   measurements: {
     chest: { type: Number, required: true },

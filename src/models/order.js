@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const orderItemSchema = new mongoose.Schema({
   productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+  productIdvalue: { type: String, required: true },
   productName: { type: String, required: true },
   productImage: { type: String, required: true },
   productPrice: { type: Number, required: true },

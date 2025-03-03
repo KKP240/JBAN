@@ -60,7 +60,7 @@
                     <div class="product-price">฿<%= (item.quantity * item.productPrice).toFixed(2) %></div>
                     <div class="opacity-color"><%= item.quantity %> ชิ้น</div>
                   </div>
-                  <div class="review" onclick="window.location.href='/review?orderId=<%= order._id %>&productId=<%= item.productId._id %>'">รีวิวสินค้า</div>
+                  <div class="review" onclick="window.location.href='/review?orderId=<%= order._id %>&productId=<%= item.productIdvalue %>'">รีวิวสินค้า</div>
                 </div>
               </div>
             <% }); %>
@@ -94,11 +94,11 @@
               <div class="product-card">
                 <div class="left">
                   <div class="product-images">
-                    <img src="<%= item.customProductId.image %>" alt="<%= item.customProductId.name || 'สินค้าสั่งทำพิเศษ' %>">
+                    <img src="/images/question-mark-icon.jpg" alt="สินค้าสั่งทำพิเศษ">
                   </div>
                   <div class="product-info">
-                    <div class="product-name"><%= item.customProductId.name || "สินค้าสั่งทำพิเศษ" %></div>
-                    <div class="opacity-color">ต้นแบบ : </div>
+                    <div class="product-name"><%= "สินค้าสั่งทำพิเศษ" %></div>
+                    <div class="opacity-color">ต้นแบบ : <%= item.baseproductName %> </div>
                     <div class="opacity-color">สี : <%= item.selectedColor %></div>
                     <div class="opacity-color">ผ้า : <%= item.fabric %></div>
                     <div class="opacity-color">รอบอก : <%= item.measurements.chest %> นิ้ว</div>

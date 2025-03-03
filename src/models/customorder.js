@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
 
 const customorderItemSchema = new mongoose.Schema({
-  customProductId: { type: mongoose.Schema.Types.ObjectId, ref: "CustomProduct", required: true},
+  productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+  baseProductId: { type: String, required: true },
+  baseproductName: { type: String, required: true },
+  baseproductDescription: { type: String, default: ' ', required: true },
+  baseproductCategory: { type: String, required: true },
+  baseproductType: { type: String, required: true },
+  baseproductPrice: { type: Number, required: true },
   itemType: { type: String, default: 'custom' },
   measurements: {
     chest: { type: Number, required: true },
