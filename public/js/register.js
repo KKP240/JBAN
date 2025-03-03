@@ -8,8 +8,6 @@ async function validateForm() {
 
   if (!account.value) {
     showError("account-error", "กรุณากรอกชื่อผู้ใช้");
-  } else if (account.value.length > 20) {
-    showError("account-error", "ชื่อผู้ใช้ต้องไม่เกิน 20 ตัวอักษร");
   }
 
   if (!email.value) {
@@ -20,8 +18,6 @@ async function validateForm() {
 
   if (!password.value) {
     showError("password-error", "กรุณากรอกรหัสผ่าน");
-  } else if (password.value.length < 8) {
-    showError("password-error", "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
   }
 
   if (!rePassword.value) {
