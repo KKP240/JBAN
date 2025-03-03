@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async function() {
   document.querySelector(".menu-detail__list").addEventListener("click", mainPage.openHideMenu);
   const info = await data.fetchProduct()
   document.querySelector('.aside-menu').addEventListener('click', (event) => filter.activeFilter(event, info));
+  mainPage.addMenuColorItems(info);
   filter.loadUrlFilter(info);
 });
 
