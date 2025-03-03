@@ -96,15 +96,12 @@ div.favouritetable th:nth-child(4) {
 .goods {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
 }
 
 .product-info {
-    text-align: left;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 5px;
 }
 
@@ -123,6 +120,7 @@ div span {
     width: 200px;
     height: auto;
     border-radius: 5px;
+    object-fit: cover;
 }
 
 .price {
@@ -173,6 +171,10 @@ div span {
 }
 
 @media screen and (max-width: 1200px) {
+    .goods {
+        gap: 8px;
+    }
+
     div.favouriteinfo h1 {
         font-size: 32px;
     }
@@ -218,6 +220,10 @@ div span {
 }
 
 @media screen and (max-width: 900px) {
+    .goods {
+        gap: 6px;
+    }
+
     div.favouriteinfo h1 {
         font-size: 28px;
     }
@@ -263,6 +269,10 @@ div span {
 }
 
 @media screen and (max-width: 768px) {
+    .goods {
+        gap: 4px;
+    }
+
     div.favouriteinfo h1 {
         font-size: 24px;
     }
@@ -308,6 +318,10 @@ div span {
 }
 
 @media screen and (max-width: 600px) {
+    .goods {
+        gap: 2px;
+    }
+    
     div.favouriteinfo h1 {
         font-size: 20px;
     }
