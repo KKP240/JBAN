@@ -134,7 +134,28 @@ body{
 }
 
 .category-type{
+    display: flex;
+    flex-direction: column;
     margin-bottom: 16px;
+}
+
+.category-type select{
+    text-align: left;
+    padding: 4px;
+    width: 150px;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    font-family: "Kanit", serif;
+    border-radius: 4px;
+}
+
+.category-type option{
+    font-size: 14px;
+    font-family: "Kanit", serif;
+}
+
+.category-type select:focus{
+    border: 1px solid lightgray;
 }
 
 .describe{

@@ -189,6 +189,10 @@ document.querySelector(".add-product").addEventListener("click", async function(
     if (!genderMale && !genderFemale) {
         return alert("กรุณาเลือกเพศของสินค้า (ชาย, หญิง)");
     }
+
+    if (productType == ""){
+        return alert("กรุณาเลือกประเภทของสินค้า");
+    }
     
     const productCategory = genderMale && genderFemale ? "ทั้งชายและหญิง" : genderMale ? "ชาย" : "หญิง";
     
