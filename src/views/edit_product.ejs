@@ -48,7 +48,7 @@
                     </div>
                     <div class="price">
                         <label for="pPrice">ราคา</label>
-                        <input type="number" name="price" id="pPrice" min="0" placeholder="เปลี่ยนราคาของสินค้า" value="<%= product.price %>" required>
+                        <input type="number" name="<%= product.isPromotion ? "originalPrice" : "price" %>" id="pPrice" min="0" placeholder="เปลี่ยนราคาของสินค้า" data-originalprice="<%=product.originalPrice ? product.originalPrice : "none"%>" data-price="<%=product.price%>" data-promo="<%=product.isPromotion%>" value="<%= product.isPromotion ? product.originalPrice : product.price %>" required>
                     </div>
                     
                     <div class="details-container">

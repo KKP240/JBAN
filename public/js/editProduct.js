@@ -11,13 +11,22 @@ const sendFormEditProduct = async function(e) {
             }
             return e;
         }
-    }).map(e => sendData[e.name] = e.name === 'price' ? Number(e.value) : e.value);
+    }).map(e => {
+        if(e.id === "pPrice") {
+            sendData[e.name] = Number(e.value)
+            if(e.dataset.promo === "true") sendData['price'] = Number((e.dataset.price / e.dataset.originalprice) * e.value);
+        }else{
+            sendData[e.name] = e.value;
+        }
+        
+        // sendData[e.name] = e.id === "pPrice" ? Number(e.value) : e.value
+    });
     const variants = []
     const sizesEl = Array.from(document.querySelectorAll('[name="sizes"]'))
     let sizes = []
     
     Array.from(document.querySelectorAll('[name="variants"]')).map(v => {
-        sizesEl.filter(s => s.dataset.color === v.dataset.value).forEach(s => sizes.push({"size" : s.dataset.value, "stock" : Number(s.value), "price": Number(document.querySelector('[name=price]').value)}))
+        sizesEl.filter(s => s.dataset.color === v.dataset.value).forEach(s => sizes.push({"size" : s.dataset.value, "stock" : Number(s.value), "price": Number(document.querySelector('#pPrice').value)}))
         variants.push({"color" : v.value.at(0).toUpperCase() + v.value.slice(1).toLowerCase(), "sizes": sizes})
         sizes = []
     })
