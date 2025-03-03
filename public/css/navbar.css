@@ -78,7 +78,7 @@
 
 .search-data {
   width: 100%;
-  height: 8rem;
+  height: auto;
   padding: 1rem;
   display: flex;
   gap: 2rem;
