@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const quantityDisplay = document.getElementById("num");
   const increaseBtn = document.querySelector(".btn-right");
   const decreaseBtn = document.querySelector(".btn-left");
+  const heartButton = document.querySelector('.heart');
 
   function updateSizeButtons() {
     sizeButtons.forEach(btn => {
@@ -110,6 +111,9 @@ document.addEventListener("DOMContentLoaded", function () {
   
   // Initialize quantity controls
   updateQuantityControls();
+
+  // เรียกใช้ฟังก์ชัน checkUserLogin เพื่อตรวจสอบสถานะการเข้าสู่ระบบและกำหนดสถานะปุ่มหัวใจ
+  checkUserLogin();
 });
 
 async function handleAddToCart() {
@@ -226,22 +230,94 @@ function closePopup(redirect = false) {
   }
 }
 
-const isFav = async function(){
-  const res = await fetch("http://localhost:5000/api/auth/me", {
-    credentials: "include",
-  });
+// ฟังก์ชันใหม่เพื่อตรวจสอบสถานะการเข้าสู่ระบบและตั้งค่าปุ่มหัวใจ
+async function checkUserLogin() {
+  const heartButton = document.querySelector('.heart');
+  if (!heartButton) return;
+  
+  try {
+    const res = await fetch("http://localhost:5000/api/auth/me", {
+      credentials: "include",
+    });
 
-  if(res.ok) {
-    const data = await res.json();
-    const favs = data.favorites;
-    if(favs.length !== 0){
-      const curId = document.querySelector('.product-container').dataset.id
-      const checkFav = favs.find(f => f === curId);
-      if(checkFav) {
-        document.querySelector('.heart').classList.add('active');
+    if(res.ok) {
+      // ผู้ใช้เข้าสู่ระบบแล้ว
+      const data = await res.json();
+      const favs = data.favorites || [];
+      
+      // ตั้งค่าปุ่มหัวใจเป็นใช้งานได้
+      heartButton.classList.remove('disabled');
+      
+      // ตรวจสอบว่าสินค้านี้อยู่ในรายการโปรดหรือไม่
+      if(favs.length !== 0) {
+        const curId = document.querySelector('.product-container').dataset.id;
+        const checkFav = favs.find(f => f === curId);
+        if(checkFav) {
+          heartButton.classList.add('active');
+        }
       }
+      
+      // เพิ่ม event listener สำหรับปุ่มหัวใจ
+      heartButton.addEventListener('click', handleFavoriteClick);
+      
+    } else {
+      // ผู้ใช้ไม่ได้เข้าสู่ระบบ
+      // ลบ event listener ที่มีอยู่ (ถ้ามี) และเพิ่ม class disabled
+      heartButton.removeEventListener('click', handleFavoriteClick);
+      heartButton.classList.add('disabled');
+      
+      // สร้างองค์ประกอบที่ซ่อนอยู่เพื่อแทนที่ปุ่มหัวใจ (optional)
+      const heartContainer = heartButton.parentElement;
+      
+      // เพิ่ม tooltip หรือข้อความที่แสดงเมื่อ hover (optional)
+      heartContainer.setAttribute('title', 'กรุณาเข้าสู่ระบบเพื่อเพิ่มสินค้าในรายการโปรด');
+      
+      // เพิ่มลงใน inline style เพื่อให้มั่นใจว่าปุ่มไม่สามารถคลิกได้
+      heartButton.style.pointerEvents = 'none';
+    }
+  } catch (error) {
+    console.error("Error checking login status:", error);
+    
+    // ในกรณีมีข้อผิดพลาด ให้ปิดใช้งานปุ่มไว้ก่อนเพื่อความปลอดภัย
+    if (heartButton) {
+      heartButton.removeEventListener('click', handleFavoriteClick);
+      heartButton.classList.add('disabled');
+      heartButton.style.pointerEvents = 'none';
     }
   }
 }
 
-isFav();
+// ฟังก์ชันสำหรับจัดการการคลิกปุ่มหัวใจ
+async function handleFavoriteClick() {
+  const heartButton = this;
+  const productId = document.querySelector('.product-container').dataset.id;
+  const isActive = heartButton.classList.contains('active');
+  
+  try {
+    // สลับคลาส active สำหรับการแสดงผล
+    heartButton.classList.toggle('active');
+    
+    // เรียก API เพื่อเพิ่ม/ลบจากรายการโปรด
+    const endpoint = isActive ? 
+      `http://localhost:5000/api/favorites/remove/${productId}` : 
+      `http://localhost:5000/api/favorites/add/${productId}`;
+      
+    const updateRes = await fetch(endpoint, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    
+    if (!updateRes.ok) {
+      // ถ้า API call ล้มเหลว กลับไปแสดงผลเดิม
+      heartButton.classList.toggle('active');
+    }
+  } catch (error) {
+    console.error("Error handling favorite:", error);
+    // กลับไปแสดงผลเดิมในกรณีมีข้อผิดพลาด
+    heartButton.classList.toggle('active');
+    showErrorPopup("เกิดข้อผิดพลาด: ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้");
+  }
+}
