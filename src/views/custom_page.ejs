@@ -49,10 +49,18 @@
                             </div>
                         </div>
                         <div class="size-inputs">
-                            <div class="size-group">
-                                <label>รอบอก</label>
-                                <input type="number" name="measurements[chest]" min="0" required>
-                            </div>
+                            <% if (productType == "เสื้อ") { %>
+                                <div class="size-group">
+                                    <label>รอบอก</label>
+                                    <input type="number" name="measurements[chest]" min="0" required>
+                                </div>
+                            <% } else { %>
+                                <div class="size-group">
+                                    <label>รอบเอว</label>
+                                    <input type="number" name="measurements[chest]" min="0" required>
+                                </div>
+                            <% } %>
+                            
                             <div class="size-group">
                                 <label>ความยาว</label>
                                 <input type="number" name="measurements[length]" min="0" required>
