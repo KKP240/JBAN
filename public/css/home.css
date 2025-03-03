@@ -243,6 +243,7 @@ body {
 .section-product {
   width: 85%;
   padding: 12rem 3rem 20rem 3rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .product {
@@ -387,6 +388,8 @@ body {
 .hero-promotion {
   width: 100%;
   position: relative;
+  box-shadow: 0 1rem 3.5rem rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
 }
 
 .slide-show {
