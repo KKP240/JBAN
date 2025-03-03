@@ -86,15 +86,6 @@ async function addPromotion(productId) {
     }
     
     try {
-        // Get authentication token from localStorage (assuming it's stored there)
-        const token = localStorage.getItem('token');
-        
-        if (!token) {
-            alert('กรุณาเข้าสู่ระบบก่อนดำเนินการ');
-            window.location.href = '/login';
-            return;
-        }
-        
         // Send request to set promotion
         const response = await fetch(`/api/products/${productId}/set-promotion`, {
             method: 'PUT',
