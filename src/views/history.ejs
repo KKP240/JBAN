@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
   <script defer src="js/utilities.js"></script>
   <script src="js/history.js"></script>
 </head>
@@ -60,7 +62,8 @@
                     <div class="product-price">฿<%= (item.quantity * item.productPrice).toFixed(2) %></div>
                     <div class="opacity-color"><%= item.quantity %> ชิ้น</div>
                   </div>
-                  <div class="review" onclick="window.location.href='/review?orderId=<%= order._id %>&productId=<%= item.productIdvalue %>'">รีวิวสินค้า</div>
+                  <% let productID = item.productId ? item.productId._id : 'null'; %>
+                  <div class="review" onclick="handleReviewClick('<%= order._id %>', '<%= item.productIdvalue %>', '<%= productID %>')">รีวิวสินค้า</div>
                 </div>
               </div>
             <% }); %>
@@ -133,5 +136,19 @@
   </div>
 
   <%- include("footer"); %>
+  <script>
+    async function handleReviewClick(orderId, productIdvalue, productId) {
+      if (productId === "null") {
+        Swal.fire({
+          icon: 'error',
+          title: 'สินค้าอาจถูกลบออกไป',
+          text: 'ไม่พบข้อมูลสินค้าในการรีวิว'
+        });
+        return;
+        }
+        window.location.href = `/review?orderId=${orderId}&productId=${productIdvalue}&`;
+      }
+  </script>
+  
 </body>
 </html>
