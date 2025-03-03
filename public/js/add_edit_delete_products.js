@@ -131,25 +131,32 @@ function showeditproduct() {
             
             // สร้าง HTML สำหรับแสดงราคา (ปกติหรือโปรโมชั่น)
             let priceHTML = '';
-            if (product.isPromotion && product.originalPrice) {
-                // แสดงทั้งราคาโปรโมชั่นและราคาเดิม
-                priceHTML = `
-                    <div style="font-weight: 600; color: #E91E63; font-size: 20px;">
-                        ${product.price} บาท
-                        <span style="text-decoration: line-through; color: #757575; font-size: 16px; margin-left: 5px;">
-                            ${product.originalPrice} บาท
-                        </span>
-                    </div>
-                    <div style="background-color: #FCE4EC; color: #E91E63; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-top: 4px; font-size: 14px;">
-                        โปรโมชั่น
-                    </div>
-                `;
-            } else {
-                // แสดงเฉพาะราคาปกติ
-                priceHTML = `
-                    <div style="font-weight: 600; color: #333; font-size: 20px;">${product.price} บาท</div>
-                `;
-            }
+if (product.isPromotion && product.originalPrice) {
+    // ปรับทศนิยมให้แสดงเพียง 2 ตำแหน่ง
+    const formattedPrice = Number(product.price).toFixed(2);
+    const formattedOriginalPrice = Number(product.originalPrice).toFixed(2);
+    
+    // แสดงทั้งราคาโปรโมชั่นและราคาเดิม
+    priceHTML = `
+        <div style="font-weight: 600; color: #E91E63; font-size: 20px;">
+            ${formattedPrice} บาท
+            <span style="text-decoration: line-through; color: #757575; font-size: 16px; margin-left: 5px;">
+                ${formattedOriginalPrice} บาท
+            </span>
+        </div>
+        <div style="background-color: #FCE4EC; color: #E91E63; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-top: 4px; font-size: 14px;">
+            โปรโมชั่น
+        </div>
+    `;
+} else {
+    // ปรับทศนิยมให้แสดงเพียง 2 ตำแหน่ง
+    const formattedPrice = Number(product.price).toFixed(2);
+    
+    // แสดงเฉพาะราคาปกติ
+    priceHTML = `
+        <div style="font-weight: 600; color: #333; font-size: 20px;">${formattedPrice} บาท</div>
+    `;
+}
             
             // สร้างปุ่มโปรโมชั่นตามสถานะ
             let promotionButtonHTML = '';
