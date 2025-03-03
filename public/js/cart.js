@@ -174,6 +174,10 @@ async function handleOrder() {
   
       if (normalSuccess && customSuccess) {
         window.location.href = "/orderHistory";
+      } else if (normalSuccess && !customSuccess) {
+        window.location.href = "/orderHistory";
+      } else if (!normalSuccess && customSuccess) {
+        window.location.href = "/orderHistory";
       } else {
         const errMsg1 = data && data.message ? data.message : "";
         const errMsg2 = data2 && data2.message ? data2.message : "";
