@@ -90,12 +90,13 @@ async function addPromotion(productId) {
         const response = await fetch(`/api/products/${productId}/set-promotion`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json'
+                // 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
                 promotionPrice: promotionPrice
-            })
+            }),
+            credentials: "include",
         });
         
         if (!response.ok) {
