@@ -16,7 +16,7 @@ export const insertUiProduct = function (d) {
       <img src="${imgUrl}" alt="img-product" class="product__img" product-id="${d._id}"/>
       <div class="percent ${d.isPromotion ? "active-percent" : ""}">${
     d.isPromotion
-      ? `-${100 - (d.price / d.originalPrice * 100).toFixed(2)}%`
+      ? `-${100 - (d.price / d.originalPrice * 100).toFixed(0)}%`
       : "&nbsp;"
   }</div>
     </div>
@@ -27,7 +27,7 @@ export const insertUiProduct = function (d) {
       </div>
       <div class="product__content-price">
         <span class="${d.isPromotion ? "has-promotion" : ""}">${d.isPromotion ? d.originalPrice.toFixed(2) : d.price.toFixed(2)} บาท</span>
-        <span class="discount">${d.originalPrice ? `${d.price.toFixed(2)} บาท` : "&nbsp;"}</span>
+        <span class="discount">${d.isPromotion ? `${d.price.toFixed(2)} บาท` : "&nbsp;"}</span>
       </div>
       <div class="product__content-rating">
         <div class="rating">
@@ -208,6 +208,20 @@ export const openHideMenu = function (e) {
   curEl.classList.toggle("state-active-menu");
   childSvg.classList.toggle("rotate");
 };
+
+///////////////////////////////////////////////////////
+
+// Add menu color items
+export const addMenuColorItems = function(products){
+  let colors = new Set()
+  Array.from(products).map(p => p.variants.forEach(v => colors.add(v.color)))
+  colors.forEach(c => {
+    const html = `<li><div class="btn-color" style="background-color: ${c.toLowerCase()};" data-filter="color" data-value="${c}"></div></li>`
+    document.querySelector('.menu-colors').insertAdjacentHTML('beforeend', html)
+  })
+  
+}
+
 
 ///////////////////////////////////////////////////////
 
