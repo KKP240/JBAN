@@ -40,7 +40,11 @@
                     </div>
                     <div class="category-type">
                         <label for="pType">ประเภท</label><br>
-                        <input type="text" name="type" id="pType" placeholder="เปลี่ยนประเภทของสินค้า" value="<%= product.type %>" required>
+                        <select name="type" id="pType">
+                            <option value="เสื้อ" <%= product.type === "เสื้อ" ? 'selected' : '' %>>เสื้อ</option>
+                            <option value="กางเกง" <%= product.type === "กางเกง" ? 'selected' : '' %>>กางเกง</option>
+                            <option value="กางเกงใน" <%= product.type === "กางเกงใน" ? 'selected' : '' %>>กางเกงใน</option>
+                        </select>
                     </div>
                     <div class="describe">
                         <label for="pDescribe">คำอธิบาย</label>

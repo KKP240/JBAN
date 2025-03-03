@@ -133,6 +133,15 @@ label{
     margin-bottom: 16px;
 }
 
+[name="type"] {
+    font-family: "Kanit", serif;
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: .5rem 1rem;
+}
+
 .describe{
     display: flex;
     flex-direction: column;
@@ -140,6 +149,7 @@ label{
 }
 
 .describe textarea{
+    margin-top: 1rem;
     padding: 4px;
     border: 1px solid lightgray;
     resize: none;

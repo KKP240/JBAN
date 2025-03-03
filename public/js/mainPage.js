@@ -16,7 +16,7 @@ export const insertUiProduct = function (d) {
       <img src="${imgUrl}" alt="img-product" class="product__img" product-id="${d._id}"/>
       <div class="percent ${d.isPromotion ? "active-percent" : ""}">${
     d.isPromotion
-      ? `-${100 - (d.price / d.originalPrice * 100).toFixed(2)}%`
+      ? `-${Number(100 - (d.price / d.originalPrice * 100)).toFixed(2)}%`
       : "&nbsp;"
   }</div>
     </div>
