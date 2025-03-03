@@ -17,9 +17,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const reviewButton = document.querySelector('.btn button');
     reviewButton.addEventListener('click', async function() {
-        const comment = document.querySelector('.reviews textarea').value;
+        const comment = document.querySelector('.reviews textarea').value.trim();
         
         const productId = document.querySelector('.order-card').getAttribute('data-product-id');
+
+        if (currentRating == 0){
+            return alert("กรุณาใส่ดาวรีวิวสินค้า");
+        }
+
+        if(comment == ""){
+            return alert("กรุณาเขียนคำรีวิวสินค้า");
+        }
         
         try {
             const response = await fetch('http://localhost:5000/api/review', {
@@ -40,3 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// const reviewComment = document.getElementById('comment').value;
+
+// if (reviewComment == ""){
+//     return alert("กรุณากรอกคำรีวิวสินค้า");
+// }
