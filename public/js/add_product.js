@@ -18,31 +18,48 @@ function isColorAlreadySelected(color, exceptSelect) {
     }
     return false;
 }
+
+document.getElementById("pColor").addEventListener('change', function(e) {
+    const customColorInput = document.getElementById("customColor");
+    if (e.target.value === "custom") {
+        customColorInput.style.display = "block";
+    } else {
+        customColorInput.style.display = "none";
+        customColorInput.value = "";
+    }
+    updateAvailableColors();
+});
   
 function updateAvailableColors() {
     const allColorSelects = document.querySelectorAll('.details-container select');
+    const customColorInput = document.getElementById("customColor");
     
     const selectedColors = new Set();
     allColorSelects.forEach(select => {
-      if (select.value !== "") {
-        selectedColors.add(select.value);
-      }
+        let colorValue = select.value;
+        if (colorValue === "custom") {
+            const customColor = customColorInput.value.trim();
+            colorValue = customColor ? customColor : "";
+        }
+        if (colorValue !== "") {
+            selectedColors.add(colorValue);
+        }
     });
     
     allColorSelects.forEach(select => {
-      const currentValue = select.value;
-      
-      Array.from(select.options).forEach(option => {
-        const optionValue = option.value;
+        const currentValue = select.value === "custom" ? 
+            (customColorInput.value.trim() || "") : select.value;
         
-        if (optionValue === "") return;
-        
-        if (selectedColors.has(optionValue) && optionValue !== currentValue) {
-          option.disabled = true;
-        } else {
-          option.disabled = false;
-        }
-      });
+        Array.from(select.options).forEach(option => {
+            const optionValue = option.value;
+            if (optionValue === "" || optionValue === "custom") return;
+            
+            if (selectedColors.has(optionValue) && optionValue !== currentValue) {
+                option.disabled = true;
+            } else {
+                option.disabled = false;
+            }
+        });
     });
     
     updateAddMoreDetailsButton();
@@ -73,19 +90,12 @@ function updateAddMoreDetailsButton() {
 }
 
 // Add event listener to the initial color dropdown
-document.getElementById("pColor").addEventListener('change', function(e) {
-    updateAvailableColors();
-});
-
-// Modify the add more details function to add event listeners to new dropdowns
 document.querySelector(".add-more-details").addEventListener("click", function() {
     const detailsContainer = document.querySelector(".details-container");
 
-    // Create a new div element
     const newDetailsDiv = document.createElement("div");
     newDetailsDiv.className = "repeated-details";
     
-    // Set the HTML content for the new div
     newDetailsDiv.innerHTML = `
         <div class="color">
             <label>เลือกสี</label>
@@ -94,8 +104,10 @@ document.querySelector(".add-more-details").addEventListener("click", function()
                 <option value="Black">สีดำ</option>
                 <option value="White">สีขาว</option>
                 <option value="Gray">สีเทา</option>
-                <option value="Blue">สีน้ำเงิน</option>
+                <option value="Navy">สีน้ำเงิน</option>
+                <option value="custom">กำหนดสีเอง</option>
             </select>
+            <input type="text" class="customColor" placeholder="กรอกชื่อสี" style="display: none; margin-top: 5px;">
         </div>
         <div class="size">
             <div class="size-details">
@@ -117,16 +129,23 @@ document.querySelector(".add-more-details").addEventListener("click", function()
         </div>
     `;
 
-    // Append the new div to the container
     detailsContainer.appendChild(newDetailsDiv);
     
-    // Add event listener to the new dropdown
     const newSelect = newDetailsDiv.querySelector('select');
+    const newCustomColorInput = newDetailsDiv.querySelector('.customColor');
+    
     newSelect.addEventListener('change', function(e) {
+        if (e.target.value === "custom") {
+            newCustomColorInput.style.display = "block";
+        } else {
+            newCustomColorInput.style.display = "none";
+            newCustomColorInput.value = "";
+        }
         updateAvailableColors();
     });
     
-    // Update available colors to reflect current selections
+    newCustomColorInput.addEventListener('input', updateAvailableColors);
+    
     updateAvailableColors();
 });
 
@@ -204,14 +223,23 @@ document.querySelector(".add-product").addEventListener("click", async function(
     }
 
     // ดึงข้อมูลสีและไซส์ตามที่มีอยู่ (ตัวอย่างที่มีอยู่แล้ว)
-    const variantSections = document.querySelectorAll(".repeated-details");
+    const variantSections = document.querySelectorAll(".repeated-details, .color");
     const variants = [];
     let hasErrors = false;
     
     variantSections.forEach((section, index) => {
         const colorSelect = section.querySelector("select");
-        const color = colorSelect.value;
-        if (!color) {
+        const customColorInput = section.querySelector(".customColor") || document.getElementById("customColor");
+        let color = colorSelect.value;
+        
+        if (color === "custom") {
+            color = customColorInput.value.trim();
+            if (!color) {
+                alert(`กรุณากรอกชื่อสีในรายการที่ ${index + 1}`);
+                hasErrors = true;
+                return;
+            }
+        } else if (!color) {
             alert(`กรุณาเลือกสีในรายการที่ ${index + 1}`);
             hasErrors = true;
             return;
@@ -232,23 +260,24 @@ document.querySelector(".add-product").addEventListener("click", async function(
             }
         });
         
-        if (sizes.length === 0) {
+        if (sizes.length === 0 && section.className.includes("repeated-details")) {
             alert(`กรุณาระบุจำนวนสินค้าอย่างน้อย 1 ไซส์ สำหรับสี ${color} (รายการที่ ${index + 1})`);
             hasErrors = true;
             return;
         }
         
-        variants.push({
-            color: color,
-            sizes: sizes
-        });
+        if (sizes.length > 0) {
+            variants.push({
+                color: color,
+                sizes: sizes
+            });
+        }
     });
     
     if (hasErrors || variants.length === 0) {
         return alert("กรุณาเลือกสีและระบุจำนวนสินค้าอย่างน้อย 1 รายการ");
     }
 
-    // สร้าง FormData และแนบข้อมูลสินค้า
     const formData = new FormData();
     formData.append('name', productName);
     formData.append('type', productType);
@@ -257,7 +286,6 @@ document.querySelector(".add-product").addEventListener("click", async function(
     formData.append('category', productCategory);
     formData.append('variants', JSON.stringify(variants));
 
-    // แนบไฟล์รูปภาพถ้ามีเลือก
     if (fileInput.files[0]) {
         formData.append('productImage', fileInput.files[0]);
     }
