@@ -3,58 +3,69 @@ async function validateForm() {
   const email = document.getElementById("email");
   const password = document.getElementById("password");
   const rePassword = document.getElementById("re-password");
-
+  
   clearErrors();
-
+  
+  let hasErrors = false;
+  
   if (!account.value) {
     showError("account-error", "กรุณากรอกชื่อผู้ใช้");
+    hasErrors = true;
   }
-
+  
   if (!email.value) {
     showError("email-error", "กรุณากรอกอีเมล");
+    hasErrors = true;
   } else if (!isValidEmail(email.value)) {
     showError("email-error", "กรุณากรอกอีเมลให้ถูกต้อง");
+    hasErrors = true;
   }
-
+  
   if (!password.value) {
     showError("password-error", "กรุณากรอกรหัสผ่าน");
+    hasErrors = true;
   }
-
+  
   if (!rePassword.value) {
     showError("repassword-error", "กรุณายืนยันรหัสผ่าน");
+    hasErrors = true;
   } else if (password.value !== rePassword.value) {
     showError("repassword-error", "รหัสผ่านไม่ตรงกัน");
+    hasErrors = true;
   }
-
-  try {
-    const response = await fetch("http://localhost:5000/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: account.value,
-        email: email.value,
-        password: password.value,
-      }),
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-      document.getElementById("successModal").style.display = "flex";
-    } else {
-      const el = document.querySelector("#email");
-      const curEl = el.parentNode.nextElementSibling;
-
-      if (data.message !== "Server error") {
-        if (curEl.textContent === "") {
-          showError("email-error", "อีเมลนี้มีอยู่แล้ว");
-        }
+  
+  // Only proceed with form submission if there are no validation errors
+  if (!hasErrors) {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: account.value,
+          email: email.value,
+          password: password.value,
+        }),
+      });
+      
+      const data = await response.json();
+      if (response.ok) {
+        document.getElementById("successModal").style.display = "flex";
       } else {
-        console.error(data.message);
+        const el = document.querySelector("#email");
+        const curEl = el.parentNode.nextElementSibling;
+        
+        if (data.message !== "Server error") {
+          if (curEl.textContent === "") {
+            showError("email-error", "อีเมลนี้มีอยู่แล้ว");
+          }
+        } else {
+          console.error(data.message);
+        }
       }
+    } catch (error) {
+      console.error("Error:", error.message);
+      alert("เกิดข้อผิดพลาดในการเชื่อมต่อ API");
     }
-  } catch (error) {
-    console.error("Error:", error.message);
-    alert("เกิดข้อผิดพลาดในการเชื่อมต่อ API");
   }
 }
 
