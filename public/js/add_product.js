@@ -205,15 +205,17 @@ document.querySelector(".add-product").addEventListener("click", async function(
     const genderMale = document.getElementById("male").checked;
     const genderFemale = document.getElementById("female").checked;
     
+    if (!productName) {
+        return alert("กรุณาใส่ชื่อสินค้า");
+    }
+
     if (!genderMale && !genderFemale) {
         return alert("กรุณาเลือกเพศของสินค้า (ชาย, หญิง)");
     }
 
-    if (productType == ""){
+    if (!productType){
         return alert("กรุณาเลือกประเภทของสินค้า");
     }
-    
-    const productCategory = genderMale && genderFemale ? "ทั้งชายและหญิง" : genderMale ? "ชาย" : "หญิง";
     
     if (!productName) {
         return alert("กรุณากรอกชื่อสินค้า");
@@ -222,12 +224,14 @@ document.querySelector(".add-product").addEventListener("click", async function(
         return alert("กรุณากรอกราคาสินค้าให้ถูกต้อง");
     }
 
+    const productCategory = genderMale ? "ชาย" : "หญิง";
+
     // ดึงข้อมูลสีและไซส์ตามที่มีอยู่ (ตัวอย่างที่มีอยู่แล้ว)
     const variantSections = document.querySelectorAll(".repeated-details, .color");
     const variants = [];
     let hasErrors = false;
     
-    variantSections.forEach((section, index) => {
+    variantSections.forEach((section) => {
         const colorSelect = section.querySelector("select");
         const customColorInput = section.querySelector(".customColor") || document.getElementById("customColor");
         let color = colorSelect.value;
@@ -235,12 +239,12 @@ document.querySelector(".add-product").addEventListener("click", async function(
         if (color === "custom") {
             color = customColorInput.value.trim();
             if (!color) {
-                alert(`กรุณากรอกชื่อสีในรายการที่ ${index + 1}`);
+                alert("กรุณากรอกสีของสินค้าในช่องสีกำหนดเอง");
                 hasErrors = true;
                 return;
             }
         } else if (!color) {
-            alert(`กรุณาเลือกสีในรายการที่ ${index + 1}`);
+            alert(`กรุณาเลือกสีของสินค้า`);
             hasErrors = true;
             return;
         }
@@ -261,7 +265,7 @@ document.querySelector(".add-product").addEventListener("click", async function(
         });
         
         if (sizes.length === 0 && section.className.includes("repeated-details")) {
-            alert(`กรุณาระบุจำนวนสินค้าอย่างน้อย 1 ไซส์ สำหรับสี ${color} (รายการที่ ${index + 1})`);
+            alert(`กรุณาระบุจำนวนสินค้าอย่างน้อย 1 ไซส์ สำหรับสี ${color}`);
             hasErrors = true;
             return;
         }
