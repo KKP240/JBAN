@@ -17,7 +17,7 @@ body{
 
 .container{
     width: 90rem;
-    margin: 14rem auto 10rem auto;
+    margin: 14rem auto 16rem auto;
 }
 
 .topic{
@@ -33,6 +33,7 @@ body{
     justify-content: center;
     align-items: start;
     gap: 8rem;
+    position: relative;
 }
 
 .add-container .left{
@@ -66,6 +67,10 @@ body{
     padding-right: 5rem;
     height: 600px;
     overflow-y: auto;
+}
+
+.right {
+    padding-bottom: 2rem;
 }
 
 .add-container .right input{
@@ -276,6 +281,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .submit-edit {
+    position: absolute;
+    bottom: -10rem;
+    right: 10rem;
     margin-top: 4rem;
     margin-left: auto;
     padding: 1.5rem 2rem;

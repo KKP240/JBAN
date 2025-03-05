@@ -47,6 +47,12 @@ const sendFormEditProduct = async function(e) {
         return;
     }
 
+    const sizeValues = sizesEl.map(s => Number(s.value)).filter(s => s < 0 || (!parseInt(s) && s !== 0) || (s !== 0 && s % 1 !== 0))
+    if(sizeValues.length > 0){
+        alert('stock ต้องไม่มีค่าติดลบและต้องมีค่าเป็นตัวเลขที่ไม่เป็นทศนิยิม')
+        return;
+    }
+
     const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
         method: 'PUT',
         headers: {

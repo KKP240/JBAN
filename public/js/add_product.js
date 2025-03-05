@@ -227,12 +227,12 @@ document.querySelector(".add-product").addEventListener("click", async function(
     const productCategory = genderMale ? "ชาย" : "หญิง";
 
     // ดึงข้อมูลสีและไซส์ตามที่มีอยู่ (ตัวอย่างที่มีอยู่แล้ว)
-    const variantSections = document.querySelectorAll(".repeated-details, .color");
+    const variantSections = document.querySelectorAll(".repeated-details");
     const variants = [];
     let hasErrors = false;
-    
+
     variantSections.forEach((section) => {
-        const colorSelect = section.querySelector("select");
+        const colorSelect = section.querySelector('.color select');
         const customColorInput = section.querySelector(".customColor") || document.getElementById("customColor");
         let color = colorSelect.value;
         
@@ -272,7 +272,7 @@ document.querySelector(".add-product").addEventListener("click", async function(
         
         if (sizes.length > 0) {
             variants.push({
-                color: color,
+                color: color.at(0).toUpperCase() + color.slice(1).toLowerCase(),
                 sizes: sizes
             });
         }
