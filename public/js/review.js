@@ -22,11 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const productId = document.querySelector('.order-card').getAttribute('data-product-id');
 
         if (currentRating == 0){
-            return alert("กรุณาใส่ดาวรีวิวสินค้า");
+            showStarPopup();
+            return false;
         }
 
         if(comment == ""){
-            return alert("กรุณาเขียนคำรีวิวสินค้า");
+            showCommentPopup();
+            return false;
         }
         
         try {
@@ -37,20 +39,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 credentials: "include"
             });
             if (response.ok) {
-                alert('ส่งรีวิวเรียบร้อย');
-                window.location.href = '/orderHistory';
+                showSuccessPopup();
+                document.getElementById('close-btn').addEventListener('click', () => {
+                    window.location.href = '/orderHistory';
+                });
             } else {
-                alert('เกิดข้อผิดพลาดในการส่งรีวิว');
+                showErrorPopup()
             }
         } catch (error) {
             console.error(error);
-            alert(error);
+            showErrorPopup();
         }
     });
 });
 
-// const reviewComment = document.getElementById('comment').value;
+function closePopup() {
+    document.getElementById('successPopup').style.display = 'none';
+    document.getElementById('errorPopup').style.display = 'none';
+    document.getElementById('starPopup').style.display = 'none';
+    document.getElementById('commentPopup').style.display = 'none';
+    document.getElementById('popupOverlay').style.display = 'none';
+}
 
-// if (reviewComment == ""){
-//     return alert("กรุณากรอกคำรีวิวสินค้า");
-// }
+function showSuccessPopup() {
+    document.getElementById('successPopup').style.display = 'block';
+    document.getElementById('popupOverlay').style.display = 'block';
+}
+
+function showErrorPopup() {
+    document.getElementById('errorPopup').style.display = 'block';
+    document.getElementById('popupOverlay').style.display = 'block';
+}
+
+function showStarPopup() {
+    document.getElementById('starPopup').style.display = 'block';
+    document.getElementById('popupOverlay').style.display = 'block';
+}
+
+function showCommentPopup() {
+    document.getElementById('commentPopup').style.display = 'block';
+    document.getElementById('popupOverlay').style.display = 'block';
+}

@@ -14,6 +14,7 @@
     <script defer src="js/review.js"></script>
 </head>
 <body>
+    
     <%- include("nav_res"); %>
     <%- include("navbar"); %>
     <img src="C:\Users\USER\Desktop\project-webpro\JBAN\public\uploads\1740998802417-425564114-goods_69_469992_3x4.avif" alt="">
@@ -84,6 +85,32 @@
             </div>
 
         </div>
+    </div>
+
+    <div class="popup-overlay" id="popupOverlay"></div>
+
+    <div class="popup success" id="successPopup">
+        <div class="icon">★</div>
+        <div class="popup-message">รีวิวสินค้าเรียบร้อยแล้ว</div>
+        <button onclick="closePopup()" id="close-btn">ตกลง</button>
+    </div>
+
+    <div class="popup error" id="errorPopup">
+        <div class="icon">✖</div>
+        <div class="popup-message">เกิดข้อผิดพลาดในการส่งรีวิว</div>
+        <button onclick="closePopup()" id="close-btn">ตกลง</button>
+    </div>
+
+    <div class="popup error" id="starPopup">
+        <div class="icon">!</div>
+        <div class="popup-message">กรุณาเลือกดาวเพื่อรีวิวสินค้า</div>
+        <button onclick="closePopup()" id="close-btn">ตกลง</button>
+    </div>
+
+    <div class="popup error" id="commentPopup">
+        <div class="icon">!</div>
+        <div class="popup-message">กรุณาใส่คำรีวิวสินค้า</div>
+        <button onclick="closePopup()" id="close-btn">ตกลง</button>
     </div>
 
     <%- include("footer"); %>
