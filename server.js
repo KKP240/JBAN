@@ -139,7 +139,7 @@ app.get("/manageProduct", authMiddleware, adminMiddleware, (req, res) => {
     res.render("add_edit_delete_products");
 });
 
-app.get("/add_product", (req, res) => {
+app.get("/add_product", authMiddleware, adminMiddleware, (req, res) => {
     res.render("add_product");
 });
 
@@ -160,7 +160,7 @@ app.get("/edit_product", authMiddleware, adminMiddleware, async (req, res) => {
     }
 });
 
-app.get("/add_promotion", (req, res) => {
+app.get("/add_promotion", authMiddleware, adminMiddleware, (req, res) => {
     res.render("add_promotion");
 });
 
