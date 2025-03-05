@@ -38,6 +38,7 @@ div.cart {
     border-bottom: 12px solid transparent;
     border-right: 20px solid #00AAFF;
     margin-right: 10px;
+    transition: all .3s;
 }
 
 
@@ -48,6 +49,7 @@ div.cart {
     text-decoration: none;
     font-size: 18px;
     font-weight: 500;
+    transition: all .3s;
 }
 
 .carth1:hover {
@@ -282,11 +284,23 @@ div.discount {
     width: 180px;
     height: 60px;
     background-color: #00AAFF;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
     color: white;
     font-size: 24px;
     border: none;
     border-radius: 7px;
     cursor: pointer;
+    transition: all .3s;
+}
+
+.order-button:hover {
+    transform: translateY(-1px) scale(1.025);
+    box-shadow: 0 1rem 3.5rem rgba(0, 0, 0, 0.1);
+}
+
+.order-button:active {
+    transform: translateY(1px) scale(0.9725);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
 }
 
 .original-price {
@@ -304,10 +318,6 @@ div.discount {
 .plus:hover {
     outline: 1px solid black;
     border: hidden;
-}
-
-.order-button:hover {
-    background-color: #0088cc;
 }
 
 #discountMessage {
