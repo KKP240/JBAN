@@ -8,6 +8,10 @@ export const insertUiProduct = function (d) {
   const heartState = isFav ? "fill" : "not-fill";
 
   const imgUrl = d.image?.split('public').at(-1)
+  
+  let sumStock = 0;
+  const vari = Array.from(d.variants).map(v => v.sizes);
+  vari.map(v => v.forEach(x => sumStock += x.stock ));
 
   const html = `
   <div class="product__item" data-name="${d.name}" data-category="${d.category}" data-id="${d._id}" data-create="${d.createdAt}" data-price="${d.price}" data-promotion="${d.isPromotion}" data-type="${d.type}"
@@ -40,6 +44,7 @@ export const insertUiProduct = function (d) {
         <div class="rating-count">(${d.numReviews ?? 0} rating)</div>
       </div>
     </div>
+    ${sumStock === 0 ? '<div class="product__out-stock"><div>สินค้าหมด</div></div>' : ""}
   </div>`;
 
   document.querySelector(".product").insertAdjacentHTML("beforeend", html);
