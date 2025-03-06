@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/custom_page.css">
+    <script src="/js/custom_page.js"></script>
+    <script defer src="/js/utilities.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <%- include("nav_res"); %>
+    <% if(!req.user || req.user.role === 'customer') { %>
+        <%- include("navbar"); %>
+    <% } else { %>
+        <%- include("navbar-seller"); %>
+    <% } %>
+    <div class="container">
+        <div class="product-container">
+            <div class="product-image">
+                <!-- <button class="arrow arrow-left">←</button> -->
+                <% if (productType == "เสื้อ") { %>
+                    <img src="/images/custom-tshirt.jpg" alt="custom-tshirt">
+                <% } else if (productType == "กางเกง"){ %>
+                    <img src="/images/custom-pants.jpg" alt="custom-pants">
+                <% } else { %>
+                    <img src="/images/custom.jpg" alt="custom-products">
+                <% } %>
+                <!-- <button class="arrow arrow-right">→</button> -->
+            </div>
+            <div class="product-details">
+                <div class="button-group">
+                    <button class="recommend">
+                        <a href="/productdetails?id=<%= productId %>">แนะนำ</a>
+                    </button>
+                    <button class="custom">กำหนดเอง</button>
+                </div>
+                <!-- เริ่ม form custom product -->
+                <form id="customProductForm">
+                    <div class="size-section">
+                        <div class="texticon">
+                            <div class="text-size">ขนาดเสื้อ (นิ้ว)</div>
+                            <div class="left">
+                                <img src="/icon/warning-circle.svg" alt="">
+                                <div class="text2" onclick="openSizeChart()">ตารางขนาดพื้นฐาน</div>
+                            </div>
+                        </div>
+                        <div class="size-inputs">
+                            <% if (productType == "เสื้อ") { %>
+                                <div class="size-group">
+                                    <label>รอบอก</label>
+                                    <input type="number" name="measurements[chest]" min="0" required>
+                                </div>
+                            <% } else { %>
+                                <div class="size-group">
+                                    <label>รอบเอว</label>
+                                    <input type="number" name="measurements[chest]" min="0" required>
+                                </div>
+                            <% } %>
+                            
+                            <div class="size-group">
+                                <label>ความยาว</label>
+                                <input type="number" name="measurements[length]" min="0" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fabric-section">
+                        <div>เนื้อผ้า</div>
+                        <input type="text" name="fabric"  placeholder="ex. ผ้าฝ้าย cotton, ผ้า polyester" required>
+                    </div>
+
+                    <div class="additional-info-section">
+                        <div>เพิ่มเติม</div>
+                        <textarea name="additionalInfo" rows="4" cols="50" placeholder="ex. ชื่อทีมบนเสื้อ ชื่อผลิตภัณฑ์"></textarea>
+                    </div>
+
+                    <div class="color-group">
+                        <span class="color-label">สีเสื้อ</span>
+                        <div class="color-buttons">
+                            <input type="color" name="selectedColor" id="color" required>
+                        </div>
+
+                        <div class="quantity-group">
+                            <span class="quantity-label">จำนวน</span>
+                            <div class="quantity-control">
+                                <button class="quantity-button left" type="button" onclick="deletenum()">-</button>
+                                <span class="quantity" id="num">1</span>
+                                <button class="quantity-button right" type="button" onclick="addnum()">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <% if(!req.user || req.user.role === 'customer') { %>
+                        <div class="total-price">
+                            <span>ราคารวม</span>
+                            <span id="displayTotal">? บาท</span>
+                        </div>
+                        <div class="info-icon2">
+                            <img src="/icon/warning-circle.svg" alt="">
+                            <h5 class="text2">ราคาสินค้าจะแจ้งให้ทราบหลังจากการสั่งซื้อ</h5>
+                        </div>
+                        <!-- Hidden inputs สำหรับส่งข้อมูล -->
+                        <input type="hidden" name="quantity" id="quantityInput" value="1">
+                        <input type="hidden" name="totalPrice" id="totalPriceInput" value="0">
+                        <input type="hidden" name="baseProductId" value="<%= productId %>">
+                        <button class="add-to-cart" type="submit">เพิ่มไปยังตะกร้า</button>
+                    <% } else { %>
+                        <div></div>
+                    <% } %>
+                </form>
+                <!-- จบ form -->
+            </div>
+        </div>
+    </div>
+    <%- include("footer"); %>
+
+    <% if (productType == "เสื้อ") { %>
+        <div class="size-chart">
+            <div class="size-chart-content">
+                <div class="close-btn" onclick="closeSizeChart()">ปิด</div>
+                    <img src="images/tshirt-size-chart.png" alt="">
+            </div>
+        </div>
+    <% } else if (productType == "กางเกง"){ %>
+        <div class="size-chart">
+            <div class="size-chart-content">
+                <div class="close-btn" onclick="closeSizeChart()">ปิด</div>
+                    <img src="images/pant-size-chart.png" alt="">
+            </div>
+        </div>
+    <% } else { %>
+        <div class="size-chart" style="display: none;"></div>
+    <% } %>
+    <script>
+        // ฟังก์ชันอัปเดตจำนวนสินค้าใน input ซ่อน
+        function updateQuantityHidden() {
+            const quantitySpan = document.getElementById("num");
+            const quantityInput = document.getElementById("quantityInput");
+            quantityInput.value = quantitySpan.textContent;
+        }
+
+        // สมมุติว่าฟังก์ชัน deletenum() กับ addnum() มีอยู่แล้วใน custom_page.js
+        // ให้เรียก updateQuantityHidden() หลังจากที่มีการเปลี่ยนแปลงจำนวน
+
+        // ตัวอย่างการเพิ่ม event listener เมื่อฟอร์มถูก submit
+        document.getElementById("customProductForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            updateQuantityHidden();
+            const form = e.target;
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => {
+                // จัดการข้อมูลของ measurements ให้อยู่ในรูปแบบ object
+                if (key.includes("measurements")) {
+                    data.measurements = data.measurements || {};
+                    const field = key.match(/\[(.*?)\]/)[1];
+                    data.measurements[field] = Number(value);
+                } else if (key === "quantity" || key === "totalPrice") {
+                    data[key] = Number(value);
+                } else {
+                    data[key] = value;
+                }
+            });
+            
+            data.productId = formData.get('baseProductId');
+            try {
+                const res = await fetch("/api/customproduct", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (res.ok) {
+                    window.location.href = "/cart";
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        });
+
+        function openSizeChart(){
+            document.querySelector('.size-chart').style.visibility = 'visible';
+        }
+
+        function closeSizeChart() {
+            document.querySelector('.size-chart').style.visibility = 'hidden';
+        }
+
+        document.querySelector('.size-chart').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSizeChart();
+            }
+        });
+
+    </script>
+</body>
+
+</html>

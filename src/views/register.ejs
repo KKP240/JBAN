@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/register.css" />
+    <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon" />
+    <script defer src="/js/register.js"></script>
+    <title>Register | JPBAN</title>
+  </head>
+  <body>
+    <div class="box">
+      <h1>ลงทะเบียนผู้ใช้</h1>
+      <div class="input-group">
+        <div class="input-container">
+          <img src="/icon/user-circle.svg" alt="icon-user" />
+          <input
+            type="text"
+            id="account"
+            class="ac"
+            placeholder="ชื่อ-นามสกุล ex. ธนภัทร มลิแก้ว"
+            required
+          />
+        </div>
+        <div id="account-error" class="error-message"></div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-container">
+          <img src="/icon/envelope.svg" alt="icon-email" />
+          <input
+            type="text"
+            id="email"
+            class="ac"
+            placeholder="อีเมล"
+            required
+          />
+        </div>
+        <div id="email-error" class="error-message"></div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-container">
+          <img src="/icon/lock.svg" alt="icon-password" />
+          <input
+            type="password"
+            id="password"
+            class="ac"
+            placeholder="รหัสผ่าน"
+            required
+          />
+        </div>
+        <div id="password-error" class="error-message"></div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-container">
+          <img src="/icon/lock.svg" alt="icon-password" />
+          <input
+            type="password"
+            id="re-password"
+            class="ac"
+            placeholder="ยืนยันรหัสผ่าน"
+            required
+          />
+        </div>
+        <div id="repassword-error" class="error-message"></div>
+      </div>
+
+      <button onclick="validateForm()">ลงทะเบียน</button>
+      <p class="extra-text">
+        มีบัญชีอยู่แล้วหรือไม่? <a href="/login">เข้าสู่ระบบเลย</a>
+      </p>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+        <div class="success-message">ลงทะเบียนสำเร็จ!</div>
+        <button class="modal-button" onclick="closeModal()">ตกลง</button>
+      </div>
+    </div>
+  </body>
+</html>
