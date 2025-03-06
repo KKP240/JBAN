@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <script defer src="/js/utilities.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/add_product.css">
+    <script defer src="/js/add_product.js"></script>
+</head>
+<body>
+    <%- include("nav_res"); %>
+    <%- include("navbar-seller"); %>
+
+    <div class="container">
+        <div class="topic">เพิ่มสินค้า</div>
+
+        <div class="add-container">
+            <div class="left">
+                <img id="previewImage">
+                <label for="addImage" class="btn-addimage">เพิ่มรูปภาพ</label>
+                <input type="file" name="productImage" id="addImage" accept="image/*" hidden>
+            </div>
+
+            <div class="right">
+                <div class="product-name">
+                    <label for="pName">ชื่อสินค้า</label>
+                    <input type="text" name="" id="pName">
+                </div>
+                <div class="category-gender">
+                    <div>เพศ</div>
+                    <input type="radio" name="sex" id="male" value="male"><label for="male">ชาย</label>
+                    <input type="radio" name="sex" id="female" value="female"><label for="female">หญิง</label>
+                </div>
+                <div class="category-type">
+                    <label for="pType">ประเภท</label>
+                    <!-- <input type="text" name="" id="pType"> -->
+                    <select name="" id="pType">
+                        <option value="" selected style="color: gray;">-- เลือกประเภท --</option>
+                        <option value="เสื้อ">เสื้อ</option>
+                        <option value="กางเกง">กางเกง</option>
+                        <option value="กางเกงใน">กางเกงใน</option>
+                    </select>
+                </div>
+                <div class="describe">
+                    <label for="pDescribe">คำอธิบาย</label>
+                    <textarea name="" id="pDescribe"></textarea>
+                </div>
+                <div class="price">
+                    <label for="pPrice">ราคา</label>
+                    <input type="number" name="Price" id="pPrice" min="0">
+                </div>
+                
+                <div class="details-container">
+                    <div class="repeated-details">
+                        <div class="color">
+                            <label for="pColor">เลือกสี</label>
+                            <select name="name" id="pColor">
+                                <option value="" selected style="color: gray;">-- เลือกสี --</option>
+                                <option value="Black">สีดำ</option>
+                                <option value="White">สีขาว</option>
+                                <option value="Gray">สีเทา</option>
+                                <option value="Navy">สีน้ำเงิน</option>
+                                <option value="custom" style="color: #0088DD;">กำหนดสีเอง</option>
+                            </select>
+                            <input type="text" id="customColor" placeholder="กรอกชื่อสีหรือโค้ดสี" style="display: none; margin-top: 5px;">
+                        </div>
+                        <div class="size">
+                            <div class="size-details">
+                                <label for="size-s">S</label>
+                                <input type="text" id="size-s" placeholder="ใส่จำนวนสินค้า">
+                            </div>
+                            <div class="size-details">
+                                <label for="size-m">M</label>
+                                <input type="text" id="size-m" placeholder="ใส่จำนวนสินค้า">
+                            </div>
+                            <div class="size-details">
+                                <label for="size-l">L</label>
+                                <input type="text" id="size-l" placeholder="ใส่จำนวนสินค้า">
+                            </div>
+                            <div class="size-details">
+                                <label for="size-xl">XL</label>
+                                <input type="text" id="size-xl" placeholder="ใส่จำนวนสินค้า">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add-more-details">
+                    เพิ่มรายละเอียดสินค้าเพิ่มเติม
+                </div>
+
+            </div>
+        </div>
+        <button class="add-product" type="submit">เพิ่มสินค้า</button>
+    </div>
+
+</body>
+</html>

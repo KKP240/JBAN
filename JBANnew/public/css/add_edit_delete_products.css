@@ -1,0 +1,416 @@
+html {
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Kanit", sans-serif;
+    font-size: 18px;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.box-add {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 110px;
+    margin-bottom: 60px;
+}
+
+.imgprodu {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.imgprodu:hover {
+    transform: scale(1.05);
+}
+
+table {
+    width: 90%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-bottom: 40px;
+}
+
+thead {
+    background-color: #f5f8fa;
+}
+
+thead td {
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #e0e6ed;
+    padding: 16px 12px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+tbody tr {
+    transition: all 0.2s ease;
+}
+
+tbody tr:hover {
+    background-color: #f7fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #edf2f7;
+    vertical-align: middle;
+}
+
+/* ปรับภาพสินค้า */
+.imgprodu {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imgprodu:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* ปรับปรุงปุ่มต่างๆ */
+.add, .edit, .promochun {
+    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin: 4px;
+    letter-spacing: 0.3px;
+}
+
+.add {
+    background-color: #FF9800;
+    border: none;
+}
+
+.add:hover {
+    background-color: #F57C00;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(245, 124, 0, 0.3);
+}
+
+.edit {
+    background-color: #F44336;
+    border: none;
+}
+
+.edit:hover {
+    background-color: #D32F2F;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+}
+
+.promochun {
+    background-color: #2196F3;
+    width: 130px;
+    height: 42px;
+    border: none;
+}
+
+.promochun:hover {
+    background-color: #1976D2;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.3);
+}
+
+/* ปรับแต่งโมดัล */
+.modal-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    width: 340px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.p-delete {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333 !important;
+}
+
+.btn1, .btn {
+    padding: 10px 20px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    min-width: 100px;
+    margin: 10px;
+}
+
+.btn1 {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn1:hover {
+    background-color: #388E3C;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(56, 142, 60, 0.3);
+}
+
+.btn {
+    background-color: #F44336;
+    color: white;
+}
+
+.btn:hover {
+    background-color: #D32F2F;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+}
+
+/* สไตล์สำหรับหัวข้อหน้า */
+.produ {
+    font-size: 3.4rem;
+    font-weight: 700;
+    color: #333;
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.produ:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 80px;
+    height: 5px;
+    background-color: #4CAF50;
+    border-radius: 3px;
+}
+
+/* ปรับปรุงปุ่มเพิ่มสินค้า */
+.addpro {
+    padding: 0 25px;
+    height: 45px;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+    transition: all 0.3s ease;
+    margin-left: auto;
+    margin-right: 100px;
+    cursor: pointer;
+}
+
+.addpro:hover {
+    background-color: #388E3C;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+}
+
+/* สไตล์สำหรับช่องเลื่อนในคอลัมน์จำนวนสินค้า */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+.add {
+    width: 70px;
+    height: 38px;
+    border-radius: 6px;
+    border: none;
+    background-color: #EE8F03;
+    color: #ffffff;
+    margin: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(238, 143, 3, 0.2);
+}
+
+.add:hover {
+    background-color: #D97F00;
+    transform: translateY(-2px);
+}
+
+.edit {
+    width: 85px;
+    height: 38px;
+    border-radius: 6px;
+    border: none;
+    background-color: #FF3B30;
+    color: #ffffff;
+    margin: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(255, 59, 48, 0.2);
+}
+
+.edit:hover {
+    background-color: #E0352B;
+    transform: translateY(-2px);
+}
+
+.promochun {
+    width: 115px;
+    height: 45px;
+    border-radius: 6px;
+    border: none;
+    background-color: #007AFF;
+    color: #ffffff;
+    margin: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 122, 255, 0.2);
+}
+
+.promochun:hover {
+    background-color: #0066D6;
+    transform: translateY(-2px);
+}
+
+.text01 {
+    text-align: left;
+    padding-left: 40px;
+    font-weight: normal;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    table {
+        width: 95%;
+    }
+    
+    .produ {
+        font-size: 2.8rem;
+        margin-left: 2.5%;
+    }
+    
+    .addpro {
+        margin-right: 2.5%;
+    }
+    
+    td {
+        padding: 10px 5px;
+        font-size: 16px;
+    }
+    
+    .imgprodu {
+        width: 100px;
+        height: 100px;
+    }
+
+    .add{
+        width: 30px;
+        font-size: 10px;
+    }
+    .edit{
+        width: 30px;
+        font-size: 10px;
+    }
+    .promochun{
+        width: 30px;
+        font-size: 10px;
+    }
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Add z-index to ensure it sits above other content */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+    z-index: 10000; /* Ensure modal content stays above the overlay */
+}
+
+.btn1 {
+    margin: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn {
+    margin: 10px;
+    padding: 10px;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn1:hover {
+    background-color: #007AFF;
+}
+
+.btn:hover {
+    background-color: #007AFF;
+}
+
+.p-delete{
+    color: #000 !important;
+}
+
