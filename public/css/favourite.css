@@ -57,21 +57,6 @@ div.favouritetable th:nth-child(3) {
     
 }
 
-
-/* div.favouritetable th:nth-child(1) {
-    width: 30%;
-}
-
-div.favouritetable th:nth-child(2) {
-    width: 20%;
-}
-
-div.favouritetable th:nth-child(3) {
-    text-align: left;
-    padding-left: 7%;
-    width: 20%;
-} */
-
 div.favouritetable th:nth-child(4) {
     visibility: hidden;
     /* width: 25%; */
@@ -83,12 +68,6 @@ div.favouritetable th:nth-child(4) {
     font-weight: 400;
     text-align: left;
 }
-
-/* div.favouritetable td:nth-child(3) {
-    text-align: center;
-    padding-left: 4%;
-    width: 20%;
-} */
 
 .goods {
     display: flex;
@@ -106,10 +85,6 @@ div.favouritetable th:nth-child(4) {
 .product-name {
     font-size: 2rem;
     font-weight: 400;
-}
-
-div span {
-    /* color: rgb(87, 87, 87); */
 }
 
 .product-img {
@@ -209,48 +184,6 @@ div span {
         gap: 8px;
     }
 
-     /* div.favouriteinfo h1 {
-        font-size: 32px;
-    } */
-
-    /* div.favouritetable th {
-        font-size: 20px;
-    } */
-
-    /* .product-img {
-        width: 150px;
-    } */
-
-    /* .product-name {
-        font-size: 20px;
-    } */
-
-    /* .price {
-        font-size: 20px !important;
-    }
-    
-    .amount {
-        font-size: 20px !important;
-    }
-
-    .out_of_stock {
-        font-size: 20px !important;
-    }
-    
-    .available {
-        font-size: 20px !important;
-    } */
-
-    .basket button {
-        /* width: 160px;
-        height: 40px;
-        font-size: 16px; */
-    }
-
-    /* .basket > a >svg {
-        width: 28;
-        height: 28;
-    } */
 }
 
 @media screen and (max-width: 900px) {
@@ -337,44 +270,4 @@ div span {
         width: 1.8rem;
         height: 1.8rem;
     }
-
-
-    /* div.favouriteinfo h1 {
-        font-size: 20px;
-    }
-
-    div.favouritetable th {
-        font-size: 14px;
-    }
-
-    .product-img {
-        width: 100px;
-    }
-
-    .product-name {
-        font-size: 14px;
-    }
-
-    .price {
-        font-size: 12px !important;
-    }
-    
-    .out_of_stock {
-        font-size: 12px !important;
-    }
-    
-    .available {
-        font-size: 12px !important;
-    }
-
-    .basket button {
-        width: 96px;
-        height: 24px;
-        font-size: 10px;
-    }
-
-    .basket > a > svg {
-        width: 20px;
-        height: 20px;
-    } */
 }

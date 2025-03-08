@@ -70,25 +70,6 @@ html {
     margin-top: 58px;
 }
 
-
-/* .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-}
-
-.arrow-left {
-    left: 10px;
-}
-
-.arrow-right {
-    right: 10px;
-} */
-
 .product-details {
     width: 250px;
 }
@@ -121,11 +102,6 @@ html {
     font-size: 20px;
     transition: color 0.2s;
 }
-
-
-/* .star.active {
-    color: #00AAFF;
-} */
 
 .size-section,
 .color-section,
@@ -179,11 +155,6 @@ html {
     border: 1px solid lightgray;
     cursor: pointer;
 }
-
-
-/* .color-button:active{
-    border: 1px solid red;
-} */
 
 .color-active {
     border: 0.2rem solid #0088DD;

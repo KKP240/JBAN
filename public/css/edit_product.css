@@ -103,15 +103,6 @@ body{
     height: auto;
 }
 
-/* .product-name input:focus{
-    padding: 4px;
-    padding-left: 0;
-    font-size: 14px;
-    border: 1px solid lightgray;
-    border-radius: 4px;
-    height: auto;
-} */
-
 .category-gender{
     margin-bottom: 16px;
 }
@@ -268,11 +259,6 @@ input::placeholder, textarea::placeholder {
     color: #00AAFF;
     cursor: pointer;
 }
-
-/* ลบแท็บที่เลื่อนเพิ่มหรือลดเลขออก */
-/* input[type=number] {
-    -moz-appearance: textfield;  สำหรับ Firefox 
-} */
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button {

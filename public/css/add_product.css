@@ -270,11 +270,6 @@ body{
     margin-top: 15px;
 }
 
-/* ลบแท็บที่เลื่อนเพิ่มหรือลดเลขออก */
-/* input[type=number] {
-    -moz-appearance: textfield;  สำหรับ Firefox 
-} */
-
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
