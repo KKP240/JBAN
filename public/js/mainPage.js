@@ -56,12 +56,6 @@ export const insertUiProduct = function (d, roleUser) {
 // Product favourite
 const addToFavorites = async function(productId) {
   try {
-    // const token = localStorage.getItem("token");
-
-    // if (!token) {
-    //   alert("กรุณาล็อกอินก่อน");
-    //   return;
-    // }
     const res = await fetch(`http://localhost:5000/api/user/favorites/${productId}`, {
       method: "POST",
       headers: {
@@ -109,12 +103,6 @@ const addToFavorites = async function(productId) {
 
 const removeFromFavorites = async function(productId) {
   try {
-    // const token = localStorage.getItem("token");
-
-    // if (!token) {
-    //   alert("กรุณาล็อกอินก่อน");
-    //   return false;
-    // }
     const res = await fetch(`http://localhost:5000/api/user/favorites/${productId}`, {
       method: "DELETE",
       headers: {

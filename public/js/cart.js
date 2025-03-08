@@ -47,15 +47,6 @@ function updatePrice() {
         }
     }
 
-    // if (originalPrice < 200 && discountAmount > 0) {
-    //     discountAmount = 0;
-    //     originalPriceElement.classList.remove('original-price');
-        
-    //     updatePrice(); 
-    //     discountMessage.textContent = 'ราคาสินค้าต่ำกว่า 200 บาท จึงไม่สามารถใช้โค้ดส่วนลดได้';
-    //     discountMessage.classList.remove('success');
-    //     discountMessage.classList.add('error');
-    // }
 }
 
 // ฟังก์ชันในการอัปเดตจำนวนสินค้า
@@ -109,39 +100,6 @@ document.querySelectorAll('.remove').forEach(removeBtn => {
         updatePrice();
     });
 });
-
-// // ฟังก์ชันสำหรับการใช้ส่วนลด
-// document.getElementById('applyDiscount').addEventListener('click', function () {
-//     var discountCode = document.getElementById('discountCode').value; // รับค่าจาก input
-//     discountMessage.textContent = '';
-
-//     // ตรวจสอบว่าโค้ดส่วนลดถูกต้องหรือไม่
-//     if (discountCode === 'discount100') {
-//         // เช็คว่าราคาสุทธิมากกว่า 200 บาทหรือไม่
-//         if (originalPrice >= 200) {
-//             discountAmount = 100; // กำหนดส่วนลด
-
-//             // เพิ่มคลาส 'original-price' ให้กับราคาเดิม
-//             originalPriceElement.classList.add('original-price');
-
-//             discountMessage.textContent = 'ใช้โค้ดส่วนลดแล้ว';
-//             discountMessage.classList.remove('error');
-//             discountMessage.classList.add('success');
-//         } else {
-//             // ถ้าราคาน้อยกว่า 200 บาท
-//             discountMessage.textContent = 'ราคาสินค้าต่ำกว่า 200 บาท จึงไม่สามารถใช้โค้ดส่วนลดได้';
-//             discountMessage.classList.remove('success');
-//             discountMessage.classList.add('error');
-//         }
-//     } else {
-//         // ถ้าโค้ดไม่ถูกต้อง
-//         discountMessage.textContent = 'โค้ดส่วนลดไม่ถูกต้อง';
-//         discountMessage.classList.remove('success');
-//         discountMessage.classList.add('error');
-//     }
-
-//     updatePrice(); // คำนวณราคาใหม่หลังจากใช้ส่วนลด
-// });
 
 async function handleOrder() {
     if (customCartItemCount === 0 && normalCartItemCount === 0) {
@@ -248,15 +206,4 @@ async function removeCustomProduct(customProductId, element) {
         console.error("Error removing item:", error);
         alert('ไม่สามารถลบสินค้าจากตะกร้าได้');
     }
-
-    // fetch(`/remove-custom-product/${customProductId}`, { method: 'DELETE' })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.success) {
-    //             element.closest('.cart-item').remove();
-    //         } else {
-    //             alert('เกิดข้อผิดพลาดในการลบสินค้า');
-    //         }
-    //     })
-    //     .catch(error => console.error('Error:', error));
 }
